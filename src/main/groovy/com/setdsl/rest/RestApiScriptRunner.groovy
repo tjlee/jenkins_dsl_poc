@@ -1,4 +1,4 @@
-package com.dslexample.rest
+package com.setdsl.rest
 
 import javaposse.jobdsl.dsl.DslScriptLoader
 

@@ -31,13 +31,13 @@ dependencies {
 }
 
 task rest(dependsOn: 'classes', type: JavaExec) {
-    main = 'com.dslexample.rest.RestApiScriptRunner'
+    main = 'com.setdsl.rest.RestApiScriptRunner'
     classpath = sourceSets.main.runtimeClasspath
     systemProperties System.getProperties()
 }
 
 task debugXml(dependsOn: 'classes', type: JavaExec) {
-    main = 'com.dslexample.debug.XmlOutputRunner'
+    main = 'com.setdsl.debug.XmlOutputRunner'
     classpath = sourceSets.main.runtimeClasspath
     systemProperties System.getProperties()
 }

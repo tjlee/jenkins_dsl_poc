@@ -1,4 +1,4 @@
-import com.dslexample.ServerJobTemplateBuilder
+import com.setdsl.ServerJobTemplateBuilder
 
 /**
  * Lenta server build jobs:

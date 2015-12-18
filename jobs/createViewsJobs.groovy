@@ -1,4 +1,4 @@
-package com.dslexample
+package com.setdsl
 
 import javaposse.jobdsl.dsl.views.jobfilter.Status
 

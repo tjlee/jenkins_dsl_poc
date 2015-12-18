@@ -1,4 +1,4 @@
-package com.dslexample.rest
+package com.setdsl.rest
 
 import groovyx.net.http.ContentType
 import groovyx.net.http.HttpResponseDecorator

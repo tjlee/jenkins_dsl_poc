@@ -1,4 +1,4 @@
-package com.dslexample.debug
+package com.setdsl.debug
 
 import groovy.io.FileType
 import javaposse.jobdsl.dsl.*

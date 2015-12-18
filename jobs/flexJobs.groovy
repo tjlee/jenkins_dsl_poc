@@ -1,4 +1,4 @@
-import com.dslexample.ServerJobTemplateBuilder
+import com.setdsl.ServerJobTemplateBuilder
 
 /**
  * Flex build jobs:
