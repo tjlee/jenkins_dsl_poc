@@ -39,7 +39,8 @@ class ServerJobTemplateBuilder {
     String antBuildTestFile
 
     Boolean isToPublishUnitTests = true
-//    Boolean isToPublishJaCoCo = true
+    Boolean isToPublishJaCoCo = true
+    Boolean isToRunProtocolValidation = false
 
     String artifacts = 'FLEX.war,*.branch,*.ear,*.sh,*.tgz,*.iso, *.exe'
 
@@ -64,14 +65,14 @@ class ServerJobTemplateBuilder {
                 stringParam('BRANCH', 'master', '')
 
                 if (this.buildType) {
-                    booleanParam('JACOCO', true, '')
+//                    booleanParam('JACOCO', true, '')
 //                    booleanParam('JUNIT', true, '')
                     booleanParam('WILD_FLY', false, '')
                 }
 
                 if (this.isToBuildFlex) {
                     booleanParam('FLEX_DEBUG', false, '')
-                    booleanParam('PROTOCOL_VALIDATION_SKIP', true, '')
+//                    booleanParam('PROTOCOL_VALIDATION_SKIP', true, '')
                     booleanParam('FLEX_TEST_MODE', false, '')
                 }
             }
@@ -140,7 +141,7 @@ class ServerJobTemplateBuilder {
                                 'compile.help.enabled': true,
                                 'compile.debug': "\$FLEX_DEBUG",
                                 'air.sdk.dir': this.antAirSdkDir,
-                                'protocol.validator.skip': "\$PROTOCOL_VALIDATION_SKIP",
+                                'protocol.validator.skip': !this.isToRunProtocolValidation,
                                 'protocol.validator.report.dir': "\$WORKSPACE/protocolValidationReport")
                     }
 
@@ -247,18 +248,18 @@ class ServerJobTemplateBuilder {
             // todo: copy to aftifacts server
 
             publishers {
-                // move to JOB parameters
+
                 if (this.isToPublishUnitTests) {
                     archiveJunit('**/test-results/*.xml')
                 }
 
-                if ('\$JACOCO'.toBoolean()) {
+                if (this.isToPublishJaCoCo) {
                     jacocoCodeCoverage {
                         exclusionPattern('**/*ContextFactory$1*, **/*ContextFactory*,*/Aladdin/**,**/hasp/**,*/org/**, **/vo/**,**/xmlview/**,**/xmlstubs/**,**/jestery/**,**/supermag/**,**/xml/**,**/enums/**,**/visualization/**,**/exceptions/**,**/exception/**,**/stubs/**,**/newstub/**,**/test/**')
                     }
                 }
-
-                if (!'\$PROTOCOL_VALIDATION_SKIP'.toBoolean()) {
+                // todo remove from job parametes
+                if (this.isToRunProtocolValidation) {
                     publishHtml {
                         report('\$WORKSPACE/protocolValidationReport') {
                             allowMissing(true)
