@@ -63,7 +63,6 @@ class ServerJobTemplateBuilder {
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
                 stringParam('BRANCH', 'master', '')
-                stringParam('PULL_NUMBER', '', '')
 
                 if (this.buildType) {
 //                    booleanParam('JACOCO', true, '')
@@ -86,10 +85,20 @@ class ServerJobTemplateBuilder {
                             credentials(this.gitHubCredentials)
 
                             branch('\$BRANCH')
-                            refspec('+refs/heads/*:refs/remotes/origin/* +refs/pull/*:refs/remotes/origin/pr/*')
+                            refspec('+refs/*:refs/remotes/origin/*')
+//                            +refs/pull/*:refs/remotes/origin/pr/*')
 //                            refspec('+refs/pull/*:refs/remotes/origin/pr/*')
 
+
+                            // refspec +/refs/
+
+
+
                             /**
+
+                             branch('\$BRANCH')
+                             refspec('+refs/heads/*:refs/remotes/origin/*')
+
 
                              BRANCH_NAME=remotes/origin/pr/$BRANCH/merge
                              BUILD_NAME=pull_$BRANCH
