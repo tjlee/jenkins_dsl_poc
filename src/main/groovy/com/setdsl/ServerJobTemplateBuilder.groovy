@@ -62,7 +62,8 @@ class ServerJobTemplateBuilder {
 
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
-                stringParam('BRANCH', 'master', '')
+                stringParam('BRANCH', '', '')
+                stringParam('PULL_NUMBER', '', '')
 
                 if (this.buildType) {
 //                    booleanParam('JACOCO', true, '')
@@ -78,30 +79,51 @@ class ServerJobTemplateBuilder {
             }
 
             multiscm {
+                if (!'\$PULL_NUMBER') {
+                    git {
+                        remote {
+                            github(this.gitHubOwnerAndProject)
+                            credentials(this.gitHubCredentials)
 
+                            branch('\$BRANCH')
+                            refspec('+refs/heads/*:refs/remotes/origin/*')
 
-                git {
-                    remote {
-                        github(this.gitHubOwnerAndProject)
-                        credentials(this.gitHubCredentials)
+                            /**
 
-                        branch('\$BRANCH')
-                        refspec('+refs/heads/*:refs/remotes/origin/*')
+                             BRANCH_NAME=remotes/origin/pr/$BRANCH/merge
+                             BUILD_NAME=pull_$BRANCH
+                             refspec('+refs/pull/*:refs/remotes/origin/pr/*')
 
-                        /**
-                         * GIT_OPTS=
-                         * */
+                             */
 
-                        /**
-                         * BRANCH_NAME=remotes/origin/pr/$BRANCH/merge
-                         BUILD_NAME=pull_$BRANCH
-                         GIT_OPTS=+refs/pull/*:refs/remotes/origin/pr/*
-                         */
-
+                        }
+                        cloneTimeout 20
+                        relativeTargetDir(this.gitHubCheckoutDir)
+                        wipeOutWorkspace true
                     }
-                    cloneTimeout 20
-                    relativeTargetDir(this.gitHubCheckoutDir)
-                    wipeOutWorkspace true
+                } else {
+
+                    git {
+                        remote {
+                            github(this.gitHubOwnerAndProject)
+                            credentials(this.gitHubCredentials)
+
+                            branch('remotes/origin/pr/\$PULL_NUMBER/merge')
+                            refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+
+                            /**
+
+                             BRANCH_NAME=remotes/origin/pr/$BRANCH/merge
+                             BUILD_NAME=pull_$BRANCH
+                             refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+
+                             */
+
+                        }
+                        cloneTimeout 20
+                        relativeTargetDir(this.gitHubCheckoutDir)
+                        wipeOutWorkspace true
+                    }
                 }
 
                 // if iso need to checkout linux repo
@@ -121,6 +143,8 @@ class ServerJobTemplateBuilder {
 
                     }
                 }
+
+
             }
 
 
