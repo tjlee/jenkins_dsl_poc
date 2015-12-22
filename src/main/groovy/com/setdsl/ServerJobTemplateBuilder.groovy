@@ -6,7 +6,6 @@ import javaposse.jobdsl.dsl.Job
 /**
  * Need copy artifacts job
  * Need pull requests handling (without hook)
- * Need web hook for pull requests
  */
 
 /**
@@ -31,6 +30,7 @@ class ServerJobTemplateBuilder {
     String clientType /*default lenta belarus*//*for default leave empty*/
 
     Boolean isToBuildFlex = false
+    Boolean isPullRequest = false
 
     String antBuildFile
     String antSourceDir
@@ -65,96 +65,64 @@ class ServerJobTemplateBuilder {
                 stringParam('BRANCH', 'master', '')
 
                 if (this.buildType) {
-//                    booleanParam('JACOCO', true, '')
-//                    booleanParam('JUNIT', true, '')
                     booleanParam('WILD_FLY', false, '')
                 }
 
                 if (this.isToBuildFlex) {
                     booleanParam('FLEX_DEBUG', false, '')
-//                    booleanParam('PROTOCOL_VALIDATION_SKIP', true, '')
                     booleanParam('FLEX_TEST_MODE', false, '')
                 }
             }
 
             multiscm {
 
+                // build branch/tag (default isPullRequest= false)
+                if (!this.isPullRequest) {
+
                     git {
                         remote {
                             github(this.gitHubOwnerAndProject)
                             credentials(this.gitHubCredentials)
-
                             branch('\$BRANCH')
                             refspec('+refs/heads/*:refs/remotes/origin/*')
-//                            +refs/pull/*:refs/remotes/origin/pr/*')
-//                            refspec('+refs/pull/*:refs/remotes/origin/pr/*')
-
-
-                            // refspec +/refs/
-
-
-
-                            /**
-
-                             branch('\$BRANCH')
-                             refspec('+refs/heads/*:refs/remotes/origin/*')
-
-
-                             BRANCH_NAME=remotes/origin/pr/$BRANCH/merge
-                             BUILD_NAME=pull_$BRANCH
-                             refspec('+refs/pull/*:refs/remotes/origin/pr/*')
-
-                             */
-
                         }
+
                         cloneTimeout 20
                         relativeTargetDir(this.gitHubCheckoutDir)
                         wipeOutWorkspace true
                     }
+                }
+                // build pull request
+                else {
+                    git {
+                        remote {
+                            github(this.gitHubOwnerAndProject)
+                            credentials(this.gitHubCredentials)
+                            branch('remotes/origin/pr/\$PULL_NUMBER/merge')
+                            refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                        }
 
-
-//                    git {
-//                        remote {
-//                            github(this.gitHubOwnerAndProject)
-//                            credentials(this.gitHubCredentials)
-//
-//                            branch('remotes/origin/pr/\$PULL_NUMBER/merge')
-//                            refspec('+refs/pull/*:refs/remotes/origin/pr/*')
-//
-//                            /**
-//
-//                             BRANCH_NAME=remotes/origin/pr/$BRANCH/merge
-//                             BUILD_NAME=pull_$BRANCH
-//                             refspec('+refs/pull/*:refs/remotes/origin/pr/*')
-//
-//                             */
-//
-//                        }
-//                        cloneTimeout 20
-//                        relativeTargetDir(this.gitHubCheckoutDir)
-//                        wipeOutWorkspace true
-//                    }
-
-
+                        cloneTimeout 20
+                        relativeTargetDir(this.gitHubCheckoutDir)
+                        wipeOutWorkspace true
+                    }
+                }
                 // if iso need to checkout linux repo
                 if (this.buildType == "iso") {
                     git {
-
                         remote {
                             github(this.gitHubOwnerAndProjectLinuxSources)
                             credentials(this.gitHubCredentials)
                             branch('master')
                             refspec('+refs/heads/*:refs/remotes/origin/*')
-
                         }
+
                         cloneTimeout 20
                         relativeTargetDir(this.gitHubCheckoutDirLinuxSources)
                         wipeOutWorkspace true
 
                     }
                 }
-
-
             }
 
 

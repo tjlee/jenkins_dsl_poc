@@ -9,6 +9,11 @@ import com.setdsl.ServerJobTemplateBuilder
  * -- build_iso_flex
  * - without flex
  * -- build_ear_without_flex
+ *
+ * - pull requests
+ * -- build_pull_request_exe_flex
+ * -- build_pull_request_iso_flex
+ * -- build_pull_request_ear_without_flex
  */
 
 // build_ear_flex
@@ -80,3 +85,45 @@ new ServerJobTemplateBuilder(
         isToBuildFlex: false,
 ).build(this)
 
+// build_pull_request_exe_flex
+new ServerJobTemplateBuilder(
+        name: "build_pull_request_exe_flex",
+        description: "Building pull request exe server with flex",
+        gitHubCheckoutDir: "setretail10",
+        gitHubOwnerAndProject: "crystalservice/setretail10",
+        buildType: "exe",
+        isToBuildFlex: true,
+        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
+        antSourceDir: "setretail10/SetRetail10_Server_GUI",
+        antFlexSdkDir: "/opt/flexsdk",
+        antAirSdkDir: "/opt/airsdk",
+        isPullRequest: true
+).build(this)
+
+// build_pull_request_iso_flex
+new ServerJobTemplateBuilder(
+        name: "build_pull_request_iso_flex",
+        description: "Building pull request iso server with flex",
+        gitHubCheckoutDir: "setretail10",
+        gitHubOwnerAndProject: "crystalservice/setretail10",
+        gitHubOwnerAndProjectLinuxSources: "crystalservice/setretail10linux",
+        gitHubCheckoutDirLinuxSources: "setretail10linux",
+        buildType: "iso",
+        isToBuildFlex: true,
+        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
+        antSourceDir: "setretail10/SetRetail10_Server_GUI",
+        antFlexSdkDir: "/opt/flexsdk",
+        antAirSdkDir: "/opt/airsdk",
+        isPullRequest: true
+).build(this)
+
+// build_pull_request_ear_without_flex
+new ServerJobTemplateBuilder(
+        name: "build_pull_request_ear_without_flex",
+        description: "Building ear pull request server without flex(empty FLEX.war file)",
+        gitHubCheckoutDir: "setretail10",
+        gitHubOwnerAndProject: "crystalservice/setretail10",
+        buildType: "ear",
+        isToBuildFlex: false,
+        isPullRequest: true
+).build(this)

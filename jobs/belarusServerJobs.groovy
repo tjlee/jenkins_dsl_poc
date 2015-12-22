@@ -9,12 +9,15 @@ import com.setdsl.ServerJobTemplateBuilder
  * -- build_belarus_iso_flex
  * - without flex
  * -- build_belarus_ear_without_flex
+ *
+ * - pull requests
+ * -- build_belarus_pull_request_ear_without_flex
  */
 
 // build_belarus_ear_flex
 new ServerJobTemplateBuilder(
         name: "build_belarus_ear_flex",
-        description: "Building lenta ear server with flex",
+        description: "Building belarus ear server with flex",
         gitHubCheckoutDir: "setretail10",
         gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "ear",
@@ -29,7 +32,7 @@ new ServerJobTemplateBuilder(
 // build_belarus_exe_flex
 new ServerJobTemplateBuilder(
         name: "build_belarus_exe_flex",
-        description: "Building lenta exe server with flex",
+        description: "Building belarus exe server with flex",
         gitHubCheckoutDir: "setretail10",
         gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "exe",
@@ -44,7 +47,7 @@ new ServerJobTemplateBuilder(
 // build_belarus_tgz_flex
 new ServerJobTemplateBuilder(
         name: "build_belarus_tgz_flex",
-        description: "Building lenta tgz server with flex",
+        description: "Building belarus tgz server with flex",
         gitHubCheckoutDir: "setretail10",
         gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "tgz",
@@ -59,7 +62,7 @@ new ServerJobTemplateBuilder(
 // build_belarus_iso_flex
 new ServerJobTemplateBuilder(
         name: "build_belarus_iso_flex",
-        description: "Building lenta iso server with flex",
+        description: "Building belarus iso server with flex",
         gitHubCheckoutDir: "setretail10",
         gitHubOwnerAndProject: "crystalservice/setretail10",
         gitHubOwnerAndProjectLinuxSources: "crystalservice/setretail10linux",
@@ -77,7 +80,7 @@ new ServerJobTemplateBuilder(
 // build_belarus_ear_without_flex
 new ServerJobTemplateBuilder(
         name: "build_belarus_ear_without_flex",
-        description: "Building lenta ear server without flex(empty FLEX.war file)",
+        description: "Building belarus ear server without flex(empty FLEX.war file)",
         gitHubCheckoutDir: "setretail10",
         gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "ear",
@@ -86,4 +89,15 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 
+// build_belarus_pull_request_ear_without_flex
+new ServerJobTemplateBuilder(
+        name: "build_belarus_pull_request_ear_without_flex",
+        description: "Building belarus pull request ear server without flex(empty FLEX.war file)",
+        gitHubCheckoutDir: "setretail10",
+        gitHubOwnerAndProject: "crystalservice/setretail10",
+        buildType: "ear",
+        isToBuildFlex: false,
+        clientType: "belarus",
+        isPullRequest: true
+).build(this)
 

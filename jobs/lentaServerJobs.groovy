@@ -9,6 +9,9 @@ import com.setdsl.ServerJobTemplateBuilder
  * -- build_lenta_iso_flex
  * - without flex
  * -- build_lenta_ear_without_flex
+ *
+ * - pull requests
+ * -- build_lenta_pull_request_ear_without_flex
  */
 
 // build_lenta_ear_flex
@@ -83,6 +86,18 @@ new ServerJobTemplateBuilder(
         buildType: "ear",
         isToBuildFlex: false,
         clientType: "lenta"
+).build(this)
+
+// build_lenta_pull_request_ear_without_flex
+new ServerJobTemplateBuilder(
+        name: "build_lenta_pull_request_ear_without_flex",
+        description: "Building lenta pull request ear server without flex(empty FLEX.war file)",
+        gitHubCheckoutDir: "setretail10",
+        gitHubOwnerAndProject: "crystalservice/setretail10",
+        buildType: "ear",
+        isToBuildFlex: false,
+        clientType: "lenta",
+        isPullRequest: true
 ).build(this)
 
 
