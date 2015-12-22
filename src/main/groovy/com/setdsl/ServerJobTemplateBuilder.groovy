@@ -85,7 +85,7 @@ class ServerJobTemplateBuilder {
                             credentials(this.gitHubCredentials)
 
                             branch('\$BRANCH')
-                            refspec('+refs/*:refs/remotes/origin/*')
+                            refspec('+refs/heads/*:refs/remotes/origin/*')
 //                            +refs/pull/*:refs/remotes/origin/pr/*')
 //                            refspec('+refs/pull/*:refs/remotes/origin/pr/*')
 
