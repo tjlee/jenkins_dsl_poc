@@ -51,7 +51,6 @@ class ServerJobTemplateBuilder {
                 numToKeep 50
             }
 
-
             if (this.buildType == "exe") {
                 label('build_agent1_j7w64||build_agent3_j7w64')
             } else {
