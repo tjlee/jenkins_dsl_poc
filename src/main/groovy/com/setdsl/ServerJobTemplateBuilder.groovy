@@ -96,7 +96,7 @@ class ServerJobTemplateBuilder {
                         remote {
                             github(this.gitHubOwnerAndProject)
                             credentials(this.gitHubCredentials)
-                            branch('remotes/origin/pr/\$PULL_NUMBER/merge')
+                            branch('remotes/origin/pr/\$BRANCH/merge')
                             refspec('+refs/pull/*:refs/remotes/origin/pr/*')
                         }
 
