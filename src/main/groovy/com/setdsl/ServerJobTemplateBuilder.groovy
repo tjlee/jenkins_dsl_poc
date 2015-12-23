@@ -18,13 +18,11 @@ class ServerJobTemplateBuilder {
 
     String gitHubCredentials = "31df12ac-5d1f-495d-99fe-ad351505d316"
 
-    String gitHubOwnerAndProject
-    String gitHubCheckoutDir
+    String gitHubOwnerAndProject = "crystalservice/setretail10"
+    String gitHubCheckoutDir = "setretail10"
 
-
-    String gitHubOwnerAndProjectLinuxSources
-    String gitHubCheckoutDirLinuxSources
-
+    String gitHubOwnerAndProjectLinuxSources = "crystalservice/setretail10linux"
+    String gitHubCheckoutDirLinuxSources = "setretail10linux"
 
     String buildType
     String clientType /*default lenta belarus*//*for default leave empty*/

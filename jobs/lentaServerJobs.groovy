@@ -18,8 +18,6 @@ import com.setdsl.ServerJobTemplateBuilder
 new ServerJobTemplateBuilder(
         name: "build_lenta_ear_flex",
         description: "Building lenta ear server with flex",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "ear",
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
@@ -33,8 +31,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_lenta_exe_flex",
         description: "Building lenta exe server with flex",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "exe",
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
@@ -48,8 +44,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_lenta_tgz_flex",
         description: "Building lenta tgz server with flex",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "tgz",
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
@@ -63,10 +57,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_lenta_iso_flex",
         description: "Building lenta iso server with flex",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
-        gitHubOwnerAndProjectLinuxSources: "crystalservice/setretail10linux",
-        gitHubCheckoutDirLinuxSources: "setretail10linux",
         buildType: "iso",
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
@@ -81,8 +71,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_lenta_ear_without_flex",
         description: "Building lenta ear server without flex(empty FLEX.war file)",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "ear",
         isToBuildFlex: false,
         clientType: "lenta"
@@ -92,8 +80,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_lenta_pull_request_ear_without_flex",
         description: "Building lenta pull request ear server without flex(empty FLEX.war file)",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "ear",
         isToBuildFlex: false,
         clientType: "lenta",

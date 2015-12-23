@@ -20,8 +20,6 @@ import com.setdsl.ServerJobTemplateBuilder
 new ServerJobTemplateBuilder(
         name: "build_ear_flex",
         description: "Building ear server with flex",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "ear",
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
@@ -34,8 +32,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_exe_flex",
         description: "Building exe server with flex",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "exe",
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
@@ -48,8 +44,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_tgz_flex",
         description: "Building tgz server with flex",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "tgz",
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
@@ -62,10 +56,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_iso_flex",
         description: "Building iso server with flex",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
-        gitHubOwnerAndProjectLinuxSources: "crystalservice/setretail10linux",
-        gitHubCheckoutDirLinuxSources: "setretail10linux",
         buildType: "iso",
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
@@ -79,8 +69,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_ear_without_flex",
         description: "Building ear server without flex(empty FLEX.war file)",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "ear",
         isToBuildFlex: false,
 ).build(this)
@@ -89,8 +77,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_pull_request_exe_flex",
         description: "Building pull request exe server with flex",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "exe",
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
@@ -104,10 +90,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_pull_request_iso_flex",
         description: "Building pull request iso server with flex",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
-        gitHubOwnerAndProjectLinuxSources: "crystalservice/setretail10linux",
-        gitHubCheckoutDirLinuxSources: "setretail10linux",
         buildType: "iso",
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
@@ -121,8 +103,6 @@ new ServerJobTemplateBuilder(
 new ServerJobTemplateBuilder(
         name: "build_pull_request_ear_without_flex",
         description: "Building ear pull request server without flex(empty FLEX.war file)",
-        gitHubCheckoutDir: "setretail10",
-        gitHubOwnerAndProject: "crystalservice/setretail10",
         buildType: "ear",
         isToBuildFlex: false,
         isPullRequest: true
