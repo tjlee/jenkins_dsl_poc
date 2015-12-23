@@ -343,6 +343,7 @@ done
                 if (this.isToDeployCash || this.isToDeployRobot) {
                     // reboot
                     inject {
+                        // i hope it works )))
                         environmentVariables {
                             env('IPS', '\$IPS')
                             if (this.clientType == 'pos') {

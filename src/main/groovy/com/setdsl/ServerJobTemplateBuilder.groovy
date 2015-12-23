@@ -207,8 +207,6 @@ class ServerJobTemplateBuilder {
                         }
 
                     } else if (this.buildType == "exe") {
-                        // todo: !!!
-
 
                         gradle('makeWinInstaller',
                                 '-PtempDir=/c/Temp -PmoduleVersion=\$VERSION -PdistrDir=\$WORKSPACE -Pbranch=\$BRANCH -Pshaid=\$GIT_COMMIT -PuseEmu -Ptest -PwildFly=\$WILD_FLY' +
