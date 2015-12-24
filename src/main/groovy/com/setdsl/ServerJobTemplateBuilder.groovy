@@ -40,6 +40,11 @@ class ServerJobTemplateBuilder {
     Boolean isToPublishJaCoCo = true
     Boolean isToRunProtocolValidation = false
 
+
+    Boolean isToDeploy = false // is it here ? or maybe implement in another and make build flow &*&(**?
+
+
+
     String artifacts = 'FLEX.war,*.branch,*.ear,*.sh,*.tgz,*.iso, *.exe'
 
     List<String> emails = []

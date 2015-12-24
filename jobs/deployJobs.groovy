@@ -1,4 +1,6 @@
 import com.setdsl.CashJobTemplateBuilder
+import com.setdsl.DeployLinux
+import com.setdsl.DeployLinuxServerTemplateBuilder
 
 /**
  * BUILD -> DEPLOY
@@ -14,3 +16,12 @@ new CashJobTemplateBuilder(
         isToDeployRobot: true
 ).build(this)
 
+new DeployLinux(
+        name:'deploy_linux',
+        description: '',
+).build(this)
+
+new DeployLinuxServerTemplateBuilder(
+        name:'deploy_linux_with_building',
+        description: '',
+).build(this)
