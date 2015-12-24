@@ -43,7 +43,7 @@ class DeployLinuxServerTemplateBuilder {
                             currentBuild()
                         }
 
-                        copyArtifacts('upstream') {
+                        copyArtifacts('build_tgz_flex') {
                             includePatterns('**/*.sh',)
                             buildSelector {
                                 latestSuccessful(true)
