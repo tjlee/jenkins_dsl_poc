@@ -5,12 +5,13 @@ String dslText = ''
 
 views.each { k, v ->
 
-    dslText += '''listView({$k}) {
+    dslText += String.format(
+            '''listView(%s) {
                             description('')
                             filterBuildQueue()
                             filterExecutors()
                             jobs {
-                                regex({$v})
+                                regex({%s})
                             }
 
                             columns {
@@ -22,7 +23,7 @@ views.each { k, v ->
                                 lastDuration()
                                 buildButton()
                             }
-                        }'''
+                        }''', k, v)
 }
 
 job('views_seed') {
@@ -31,7 +32,6 @@ job('views_seed') {
         git {
             remote {
                 github 'tjlee/jenkins_dsl_poc'
-//                credentials '31df12ac-5d1f-495d-99fe-ad351505d316'
             }
 
             wipeOutWorkspace true
