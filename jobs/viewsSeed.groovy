@@ -40,15 +40,13 @@ job('views_seed') {
 
     steps {
         gradle 'clean test'
-        dsl {
-            if (views) {
 
-                dsl {
-                    text(dslText)
-                }
+        if (views) {
 
-
+            dsl {
+                text(dslText)
             }
+
         }
     }
 }
