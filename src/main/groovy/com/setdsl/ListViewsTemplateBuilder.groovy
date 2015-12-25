@@ -10,7 +10,7 @@ class ListViewsTemplateBuilder {
 
 
     Job build(DslFactory dslFactory) {
-        dslFactory.multiJob(name) {
+        dslFactory.job(name) {
             it.description this.description
             logRotator {
                 numToKeep 50
