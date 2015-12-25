@@ -6,24 +6,31 @@ String dslText = ''
 views.each { k, v ->
 
     dslText += String.format(
-            '''listView('%s') {
-                            description('')
-                            filterBuildQueue()
-                            filterExecutors()
-                            jobs {
-                                regex('%s')
-                            }
+'''
+listView('%s') {
+    description('')
+    filterBuildQueue()
+    filterExecutors()
+    jobs {
+        regex('%s')
+    }
+    jobFilters {
+        status {
+            status(Status.UNSTABLE)
+        }
+    }
 
-                            columns {
-                                status()
-                                weather()
-                                name()
-                                lastSuccess()
-                                lastFailure()
-                                lastDuration()
-                                buildButton()
-                            }
-                        }''', k, v)
+    columns {
+        status()
+        weather()
+        name()
+        lastSuccess()
+        lastFailure()
+        lastDuration()
+        buildButton()
+    }
+}
+''', k, v)
 }
 
 job('views_seed') {
