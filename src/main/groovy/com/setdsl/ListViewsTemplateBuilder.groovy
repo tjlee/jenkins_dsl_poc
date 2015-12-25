@@ -6,7 +6,7 @@ import javaposse.jobdsl.dsl.Job
 class ListViewsTemplateBuilder {
     String name
     String description
-    Map<String, String> views = [] as Map<String, String>
+    Map<String, String> views = [:]
 
 
     Job build(DslFactory dslFactory) {
