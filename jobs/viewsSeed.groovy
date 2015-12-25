@@ -6,7 +6,7 @@ String dslText = ''
 views.each { k, v ->
 
     dslText += String.format(
-            '''listView(%s) {
+            '''listView('%s') {
                             description('')
                             filterBuildQueue()
                             filterExecutors()
