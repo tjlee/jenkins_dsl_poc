@@ -8,7 +8,7 @@ new ListViewsTemplateBuilder(
                 'LENTA': '(build_lenta_.*)',
                 'BELARUS': '(build_belarus_.*)',
                 'PULL_REQUESTS': '(build_pull.*)',
-                'seed': '(.*seed)']
+                'seed': '(.*seed)'] as Map<String, String>
 
 ).build(this)
 

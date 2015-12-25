@@ -14,7 +14,7 @@ job('views_seed') {
     steps {
         gradle 'clean test'
         dsl {
-            external 'autoqa/jenkins_dsl/jobs/**/*Views.groovy'
+            external 'jobs/**/*Views.groovy' // generalViews
             additionalClasspath 'src/main/groovy'
         }
     }
