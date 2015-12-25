@@ -20,24 +20,27 @@ class ListViewsTemplateBuilder {
 
                 if (this.views) {
 
-                    this.views.each { k, v ->
+                    dsl {
 
-                        listView(k) {
-                            description('')
-                            filterBuildQueue()
-                            filterExecutors()
-                            jobs {
-                                regex(v)
-                            }
+                        this.views.each { k, v ->
 
-                            columns {
-                                status()
-                                weather()
-                                name()
-                                lastSuccess()
-                                lastFailure()
-                                lastDuration()
-                                buildButton()
+                            listView(k) {
+                                description('')
+                                filterBuildQueue()
+                                filterExecutors()
+                                jobs {
+                                    regex(v)
+                                }
+
+                                columns {
+                                    status()
+                                    weather()
+                                    name()
+                                    lastSuccess()
+                                    lastFailure()
+                                    lastDuration()
+                                    buildButton()
+                                }
                             }
                         }
                     }
