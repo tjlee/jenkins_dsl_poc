@@ -11,7 +11,7 @@ views.each { k, v ->
                             filterBuildQueue()
                             filterExecutors()
                             jobs {
-                                regex({%s})
+                                regex('%s')
                             }
 
                             columns {
