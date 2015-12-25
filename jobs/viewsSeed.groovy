@@ -1,3 +1,30 @@
+Map<String, String> views = ['flex': 'build_flex.*', 'DEV': '(build_e.*)|(build_i.*)|(build_t.*)', 'LENTA': '(build_lenta_.*)', 'BELARUS': '(build_belarus_.*)', 'PULL_REQUESTS': '(build_pull.*)', 'seed': '(.*seed)']
+
+
+String dslText = ''
+
+views.each { k, v ->
+
+    dslText += '''listView({$k}) {
+                            description('')
+                            filterBuildQueue()
+                            filterExecutors()
+                            jobs {
+                                regex({$v})
+                            }
+
+                            columns {
+                                status()
+                                weather()
+                                name()
+                                lastSuccess()
+                                lastFailure()
+                                lastDuration()
+                                buildButton()
+                            }
+                        }'''
+}
+
 job('views_seed') {
 
     scm {
@@ -14,9 +41,16 @@ job('views_seed') {
     steps {
         gradle 'clean test'
         dsl {
-            external 'jobs/**/*Views.groovy' // generalViews
-            additionalClasspath 'src/main/groovy'
+            if (views) {
+
+                dsl {
+                    text(dslText)
+                }
+
+
+            }
         }
     }
 }
+
 
