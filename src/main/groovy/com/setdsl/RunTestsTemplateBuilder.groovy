@@ -20,6 +20,8 @@ class RunTestsTemplateBuilder {
     List<String> emails = []
 
     Job build(DslFactory dslFactory) {
+
+
         dslFactory.job(name) {
             it.description this.description
             logRotator {
@@ -27,7 +29,7 @@ class RunTestsTemplateBuilder {
             }
 
 
-            String stand_a_config = readFileFromWorkspace('seed', './resources/stand_a.config')
+            String stand_a_config = readFileFromWorkspace('./resources/stand_a.config')
 
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
