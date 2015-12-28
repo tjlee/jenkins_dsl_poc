@@ -1,4 +1,9 @@
-Map<String, String> views = ['flex': 'build_flex.*', 'DEV': '(build_e.*)|(build_i.*)|(build_t.*)', 'LENTA': '(build_lenta_.*)', 'BELARUS': '(build_belarus_.*)', 'PULL_REQUESTS': '(build_pull.*)', 'seed': '(.*seed)']
+Map<String, String> views = ['flex': 'build_flex.*',
+                             'DEV': '(build_e.*)|(build_i.*)|(build_t.*)',
+                             'LENTA': '(build_lenta_.*)',
+                             'BELARUS': '(build_belarus_.*)',
+                             'PULL_REQUESTS': '(build_pull.*)',
+                             'seed': '(.*seed)']
 
 
 String dslText = ''
@@ -14,6 +19,7 @@ listView('%s') {
     jobs {
         regex('%s')
     }
+
     jobFilters {
         status {
             status(Status.UNSTABLE)
@@ -34,7 +40,6 @@ listView('%s') {
 }
 
 job('views_seed') {
-
     scm {
         git {
             remote {
@@ -49,11 +54,9 @@ job('views_seed') {
         gradle 'clean test'
 
         if (views) {
-
             dsl {
                 text(dslText)
             }
-
         }
     }
 }
