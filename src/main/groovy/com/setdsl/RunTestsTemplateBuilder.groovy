@@ -71,12 +71,12 @@ class RunTestsTemplateBuilder {
                 if (this.isToConfig) { // even if to test :-D
 
 
-                    inject {
+//                    inject {
                         environmentVariables {
-                            env('TEST_LIST', 'CHECKLIST')
-                            env('TEST_SUITE', 'suite_robot_config_server.xml,suite_robot_config_cash.xml')
+                            env 'TEST_LIST', 'CHECKLIST'
+                            env 'TEST_SUITE', 'suite_robot_config_server.xml,suite_robot_config_cash.xml'
                         }
-                    }
+//                    }
 
                     gradle('clean test',
                             '''
