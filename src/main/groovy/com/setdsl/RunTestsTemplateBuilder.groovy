@@ -63,7 +63,7 @@ class RunTestsTemplateBuilder {
 
                 shell('echo run sup emulator')
                 shell('echo run robothub')
-                shell('echo ' + stand_a_config.toString())
+//                shell('echo ' + stand_a_config.toString())
                 /**
                  * LOCAL_IP ???
                  */
