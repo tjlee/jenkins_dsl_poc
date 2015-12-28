@@ -35,7 +35,7 @@ class RunTestsTemplateBuilder {
                 stringParam('VERSION', '10.2.0.0', '')
                 stringParam('BRANCH', 'master', '')
 
-                choiceParam('CONFIG_FILE', ['stand_a.config', 'stand_c.config'], '')
+                choiceParam('CONFIG_FILE', ['a', 'c'], '')
 
 //
 //
