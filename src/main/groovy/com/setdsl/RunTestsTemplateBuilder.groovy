@@ -29,7 +29,7 @@ class RunTestsTemplateBuilder {
             }
 
 
-            String stand_a_config = readFileFromWorkspace('./resources/stand_a.config')
+//            String stand_a_config = readFileFromWorkspace('./resources/stand_a.config')
 
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
