@@ -3,7 +3,11 @@ job('seed') {
         github 'tjlee/jenkins_dsl_poc'
     }
     steps {
-        gradle 'clean test'
+        gradle('clean test', '', true)
+                {
+                    it / wrapperScript('gradlew')
+                    it / makeExecutable(true)
+                }
         dsl {
             external 'jobs/**/*Jobs.groovy'
             additionalClasspath 'src/main/groovy'
