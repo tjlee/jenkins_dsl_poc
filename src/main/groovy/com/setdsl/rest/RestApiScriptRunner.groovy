@@ -22,3 +22,24 @@ new FileNameFinder().getFileNames('.', pattern).each { String fileName ->
     File file = new File(fileName)
     DslScriptLoader.runDslEngine(file.text, jm)
 }
+
+/**
+ * curl -d "script" http://jenkins/script
+ */
+
+/**
+ import jenkins.model.*
+ import hudson.security.*
+
+ def instance = Jenkins.getInstance()
+
+ def hudsonRealm = new HudsonPrivateSecurityRealm(false)
+ hudsonRealm.createAccount("tc","324012")
+ instance.setSecurityRealm(hudsonRealm)
+ instance.save()
+
+
+ def strategy = new GlobalMatrixAuthorizationStrategy()
+ strategy.add(Jenkins.ADMINISTER, "tc")
+ instance.setAuthorizationStrategy(strategy)
+ */

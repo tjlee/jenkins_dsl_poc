@@ -1,9 +1,9 @@
-Map<String, String> views = ['flex': 'build_flex.*',
-                             'DEV': '(build_e.*)|(build_i.*)|(build_t.*)',
-                             'LENTA': '(build_lenta_.*)',
-                             'BELARUS': '(build_belarus_.*)',
+Map<String, String> views = ['flex'         : 'build_flex.*',
+                             'DEV'          : '(build_e.*)|(build_i.*)|(build_t.*)',
+                             'LENTA'        : '(build_lenta_.*)',
+                             'BELARUS'      : '(build_belarus_.*)',
                              'PULL_REQUESTS': '(build_pull.*)',
-                             'seed': '(.*seed)']
+                             'seed'         : '(.*seed)']
 
 
 String dslText = ''
@@ -11,7 +11,7 @@ String dslText = ''
 views.each { k, v ->
 
     dslText += String.format(
-'''
+            '''
 listView('%s') {
     description('')
     filterBuildQueue()
@@ -48,6 +48,10 @@ job('views_seed') {
 
             wipeOutWorkspace true
         }
+    }
+
+    triggers {
+        cron('@hourly')
     }
 
     steps {
