@@ -9,11 +9,21 @@ class RunTestsTemplateBuilder {
     String description
     String clientType
 
+    String gitHubTestSourceOwnerAndProject = "crystalservice/autoqa"
+    String gitHubTestSourceCheckoutDir = "autoqa"
+
+    String gitHubOwnerAndProject = "crystalservice/setretail10"
+    String gitHubCheckoutDir = "setretail10"
+
+    String gitHubCredentials = "31df12ac-5d1f-495d-99fe-ad351505d316"
+
+
     Boolean isToConfig = true
     Boolean isToRunRobot = false
     Boolean isToRunOperday = false
     Boolean isToRunFunctional = false
     Boolean isToRunCucumber = false
+
 
     String isRunOnLinux = true // otherwise windows
 
@@ -21,24 +31,24 @@ class RunTestsTemplateBuilder {
 
     Job build(DslFactory dslFactory) {
 
-
+/**
+ * here we need to build cash and sap emu
+ */
         dslFactory.job(name) {
             it.description this.description
             logRotator {
                 numToKeep 50
             }
 
-
 //            String stand_a_config = readFileFromWorkspace('./resources/stand_a.config')
 
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
-                stringParam('BRANCH', 'master', '')
+                stringParam('SERVER_BRANCH', 'master', '')
+                stringParam('TEST_SOURCE_BRANCH', 'master', '')
 
-                choiceParam('CONFIG_FILE', ['a', 'c'], '')
+//                choiceParam('CONFIG_FILE', ['a', 'c'], '')
 
-//
-//
 //                stringParam('CENTRUM_IP', '', '')
 //                stringParam('VSHOP_NUMBER', '', '')
 //                stringParam('RETAIL_IP', '', '')
@@ -54,12 +64,66 @@ class RunTestsTemplateBuilder {
 //                stringParam('TEST_LIST', '', '')
             }
 
+            multiscm {
+
+                git {
+                    remote {
+                        github(this.gitHubOwnerAndProject)
+                        credentials(this.gitHubCredentials)
+                        branch('\$SERVER_BRANCH')
+                        refspec('+refs/heads/*:refs/remotes/origin/*')
+                    }
+
+                    cloneTimeout 20
+                    relativeTargetDir(this.gitHubCheckoutDir)
+                    wipeOutWorkspace true
+                }
+
+                git {
+                    remote {
+                        github(this.gitHubTestSourceOwnerAndProject)
+                        credentials(this.gitHubCredentials)
+                        branch('\$TEST_SOURCE_BRANCH')
+                        refspec('+refs/heads/*:refs/remotes/origin/*')
+                    }
+
+                    cloneTimeout 20
+                    relativeTargetDir(this.gitHubTestSourceCheckoutDir)
+                    wipeOutWorkspace true
+                }
+            }
+
+
 
             steps {
+
+
+//              todo:  assuming that we got built robot in previous job
+
+//                // build robot actually cash
+//                shell("cd '\$WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core'")
+//
+//                gradle('clean build', '', true) {
+//                    it / wrapperScript('gradlew')
+//                }
+
+
+                //
+
+
                 // kill shit on agent
-                shell('echo "TODO: kill processes"')
-                shell('echo "KILL DB CONNS"')
-                shell('echo "HEALTH CHECK"')
+                shell("kill \$(jps -lv | grep 'SapWSEmulator' | cut -d ' ' -f 1); kill \$(jps -lv | grep 'SetRobotHub' | cut -d ' ' -f 1); ")
+
+                shell('''PGPASSWORD=postgres;
+psql -U postgres -c "SELECT pg_terminate_backend(procpid)  FROM pg_stat_activity WHERE procpid <> pg_backend_pid();";
+psql -h 127.0.0.1 -p 5432 -U postgres -c "drop database sap";''')
+
+                shell('''
+ping -n 5 172.20.0.160 | grep \'TTL=\' 2>nul && echo \'Connection exists\' || exist 1;
+ping -n 5 172.20.0.161 | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
+ping -n 5 172.20.0.162 | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
+ping -n 5 172.20.0.163 | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
+''')
 
                 shell('echo run sup emulator')
                 shell('echo run robothub')
@@ -70,12 +134,11 @@ class RunTestsTemplateBuilder {
 
                 if (this.isToConfig) { // even if to test :-D
 
-
-//                    inject {
-                        environmentVariables {
-                            env 'TEST_LIST', 'CHECKLIST'
-                            env 'TEST_SUITE', 'suite_robot_config_server.xml,suite_robot_config_cash.xml'
-                        }
+//                    inject { // todo: see this shit => !!! if not configured
+                    environmentVariables {
+                        env 'TEST_LIST', 'CHECKLIST'
+                        env 'TEST_SUITE', 'suite_robot_config_server.xml,suite_robot_config_cash.xml'
+                    }
 //                    }
 
                     gradle('clean test',
@@ -106,11 +169,11 @@ class RunTestsTemplateBuilder {
                     }
 
                     if (this.isToRunRobot) {
-                        inject {
-                            environmentVariables {
-                                env('TEST_SUITE', 'suite_robot_tests.xml')
-                            }
+//                        inject {
+                        environmentVariables {
+                            env 'TEST_SUITE', 'suite_robot_tests.xml'
                         }
+//                        }
                     }
 
                     // config os and take diff properties files
@@ -154,7 +217,19 @@ class RunTestsTemplateBuilder {
         }
     }
 
+    /**
+     *
+     cd $WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core/build/data/setrobothub/
+     zip -r setrobothub.zip ./*
+     mv -f -v $WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core/build/data/setrobothub/setrobothub.zip $WORKSPACE/
+     */
+
+
+
     /// killing this stuff on test agent
+
+    // kill
+
 
     String killAllScript =
             '''
@@ -193,13 +268,13 @@ psql -h 127.0.0.1 -p 5432 -U postgres -c "drop database sap"
 
     String healthCheck = '''
 chcp 65001
-echo œÓ‚ÂˇÂÏ, ˜ÚÓ Ò‚ˇÁ¸ ÒÓ ÒÚÂÌ‰ÓÏ ‚ ÔÓˇ‰ÍÂ
+echo –ü—Ä–æ–≤–µ—Ä—è–µ–º, —á—Ç–æ —Å–≤—è–∑—å —Å–æ —Å—Ç–µ–Ω–¥–æ–º –≤ –ø–æ—Ä—è–¥–∫–µ
 ping -n 5 172.16.7.10 | findstr /R "TTL=" 2>nul && echo Connection exist || exit 1
 ping -n 5 172.20.0.160 | findstr /R "TTL=" 2>nul && echo Connection exist || exit 1
 ping -n 5 172.20.0.161 | findstr /R "TTL=" 2>nul && echo Connection exist || exit 1
 ping -n 5 172.20.0.162 | findstr /R "TTL=" 2>nul && echo Connection exist || exit 1
 ping -n 5 172.20.0.163 | findstr /R "TTL=" 2>nul && echo Connection exist || exit 1
-echo —Ó Ò‚ˇÁ¸˛ ‚ÒÂ Œ 
+echo –°–æ —Å–≤—è–∑—å—é –≤—Å–µ –û–ö
 '''
 
     String robotPreRun1 = '''

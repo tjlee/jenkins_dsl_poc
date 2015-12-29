@@ -9,6 +9,13 @@ import javaposse.jobdsl.dsl.Job
 
 class CashJobTemplateBuilder {
 
+    String packRobot = '''
+cd \$WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core/build/data/setrobothub/;
+zip -r setrobothub.zip ./*;
+mv -f -v \$WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core/build/data/setrobothub/setrobothub.zip \$WORKSPACE/;
+'''
+
+
     String rebootScript = '''
 check_ping()
 {
@@ -320,6 +327,8 @@ done
                 shell('cp -f -r -a \$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Cash/buildGradle/build/distributions/{POS,Lenta,Belarus} \$WORKSPACE/')
                 shell('cp -f -r -a \$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Cash/buildGradle/build/LentaConfigs/cash-configs.tar.gz \$WORKSPACE/Lenta')
 
+                shell(packRobot)
+
                 if (this.buildType == "iso") {
 
                     shell('cd \$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/;')
@@ -342,22 +351,22 @@ done
                 // todo: remove shit shit and put scripts into files, remove hard code
                 if (this.isToDeployCash || this.isToDeployRobot) {
                     // reboot
-                    inject {
-                        // i hope it works )))
-                        environmentVariables {
-                            env('IPS', '\$IPS')
-                            if (this.clientType == 'pos') {
-                                env('CASH_TYPE', 'POS')
-                                env('ROBOT_TYPE', 'pos')
-                            } else if (this.clientType == 'lenta') {
-                                env('CASH_TYPE', 'Lenta')
-                                env('ROBOT_TYPE', 'Lenta')
-                            } else if (this.clientType == 'belarus') {
-                                env('CASH_TYPE', 'Belarus')
-                                env('ROBOT_TYPE', 'posBelarus')
-                            }
+//                    inject {
+                    // i hope it works )))
+                    environmentVariables {
+                        env 'IPS', '\$IPS'
+                        if (this.clientType == 'pos') {
+                            env 'CASH_TYPE', 'POS'
+                            env 'ROBOT_TYPE', 'pos'
+                        } else if (this.clientType == 'lenta') {
+                            env 'CASH_TYPE', 'Lenta'
+                            env 'ROBOT_TYPE', 'Lenta'
+                        } else if (this.clientType == 'belarus') {
+                            env 'CASH_TYPE', 'Belarus'
+                            env 'ROBOT_TYPE', 'posBelarus'
                         }
                     }
+//                    }
 
                     if (this.isToDeployCash) {
                         shell(rebootScript)
