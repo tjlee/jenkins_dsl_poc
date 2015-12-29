@@ -55,7 +55,11 @@ job('views_seed') {
     }
 
     steps {
-        gradle 'clean test'
+        gradle('clean test', '', true)
+                {
+                    it / wrapperScript('gradlew')
+                    it / makeExecutable(true)
+                }
 
         if (views) {
             dsl {
