@@ -17,7 +17,7 @@ class ServerJobTemplateBuilder {
     String description
 
 //    String gitHubCredentials = "31df12ac-5d1f-495d-99fe-ad351505d316"
-    String gitHubCredentials = "4e269209-1b8f-4f0b-a849-c737ed088e0"
+    String gitHubCredentials = "4e269209-1b8f-4f0b-a849-c7376ed088e0"
     String gitHubOwnerAndProject = "crystalservice/setretail10"
     String gitHubCheckoutDir = "setretail10"
 
