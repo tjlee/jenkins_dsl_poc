@@ -194,6 +194,7 @@ class ServerJobTemplateBuilder {
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
                             it / wrapperScript('gradlew')
+                            it / makeExecutable(true)
                         }
 
                         // copy to workspace
@@ -209,6 +210,7 @@ class ServerJobTemplateBuilder {
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
                             it / wrapperScript('gradlew')
+                            it / makeExecutable(true)
                         }
 
                     } else if (this.buildType == "exe") {
@@ -218,6 +220,7 @@ class ServerJobTemplateBuilder {
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
                             it / wrapperScript('gradlew')
+                            it / makeExecutable(true)
                         }
 
                         // copying with bash.exe on windows

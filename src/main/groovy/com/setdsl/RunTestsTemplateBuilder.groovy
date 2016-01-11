@@ -166,6 +166,7 @@ ping -n 5 172.20.0.163 | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 
                         it / wrapperScript('gradlew')
                         it / rootBuildScriptDir('\$workspace/autoqa/SetTester/')
                         it / fromRootBuildScriptDir(false)
+                        it / makeExecutable(true)
                     }
 
                     if (this.isToRunRobot) {

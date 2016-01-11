@@ -74,6 +74,7 @@ class SapEmulatorJobTemplateBuilder {
                         '-xtest',
                         true) {
                     it / wrapperScript('gradlew')
+                    it / makeExecutable(true)
                 }
             }
 

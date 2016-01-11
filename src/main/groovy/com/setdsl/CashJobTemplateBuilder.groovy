@@ -322,6 +322,7 @@ done
                         ' -PpresetCashParamsPath=\$JENKINS_HOME/userContent/cashes.xml -PproductVersion=\$VERSION -xtest -Pbranch=\$GIT_BRANCH -Pshaid=\$GIT_COMMIT',
                         true) {
                     it / wrapperScript('gradlew')
+                    it / makeExecutable(true)
                 }
 
                 shell('cp -f -r -a \$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Cash/buildGradle/build/distributions/{POS,Lenta,Belarus} \$WORKSPACE/')
