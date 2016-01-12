@@ -91,7 +91,7 @@ class ServerJobTemplateBuilder {
 
                         cloneTimeout 20
                         relativeTargetDir(this.gitHubCheckoutDir)
-                        wipeOutWorkspace true
+//                        wipeOutWorkspace true
                     }
                 }
                 // build pull request
@@ -184,7 +184,7 @@ class ServerJobTemplateBuilder {
 
 
                 if (this.buildType) {
-                    shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
+//                    shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
 
                     // building iso, tgz, ear, exe
                     if (this.buildType == "tgz" || this.buildType == "iso") {
@@ -193,7 +193,8 @@ class ServerJobTemplateBuilder {
                                 '-PtempDir=/tmp -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -Ptest -Plinux' +
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
-                            it / wrapperScript('gradlew')
+                            it / rootBuildScriptDir('"\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
+                            it / wrapperScript('/opt/gradlew')
                             it / makeExecutable(true)
                         }
 
