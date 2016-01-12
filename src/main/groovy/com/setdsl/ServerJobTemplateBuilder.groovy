@@ -44,7 +44,6 @@ class ServerJobTemplateBuilder {
     Boolean isToDeploy = false // is it here ? or maybe implement in another and make build flow &*&(**?
 
 
-
     String artifacts = 'FLEX.war,*.branch,*.ear,*.sh,*.tgz,*.iso, *.exe'
 
     List<String> emails = []
@@ -186,6 +185,12 @@ class ServerJobTemplateBuilder {
                 if (this.buildType) {
 //                    shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
 
+                    shell('''
+mkdir -p "\$WORKSPACE/gradle/wrapper";
+cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper;
+cp /opt/gradlew \\$WORKSPACE/gradlew;
+''')
+
                     // building iso, tgz, ear, exe
                     if (this.buildType == "tgz" || this.buildType == "iso") {
 
@@ -194,7 +199,7 @@ class ServerJobTemplateBuilder {
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
                             it / rootBuildScriptDir('"\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
-                            it / wrapperScript('/opt/gradlew')
+                            it / wrapperScript('gradlew')
                             it / makeExecutable(true)
                         }
 
@@ -211,7 +216,7 @@ class ServerJobTemplateBuilder {
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
                             it / rootBuildScriptDir('"\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle"')
-                            it / wrapperScript('/opt/gradlew')
+                            it / wrapperScript('gradlew')
                             it / makeExecutable(true)
                         }
 
