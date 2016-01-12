@@ -204,13 +204,14 @@ class ServerJobTemplateBuilder {
 
                     } else if (this.buildType == "ear") {
 
-                        shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle"')
+//                        shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle"')
 
                         gradle('clean ear test',
                                 '-PtempDir=/tmp -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -PwildFly="\$WILD_FLY"' +
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
-                            it / wrapperScript('gradlew')
+                            it / rootBuildScriptDir('"\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle"')
+                            it / wrapperScript('/opt/gradlew')
                             it / makeExecutable(true)
                         }
 
