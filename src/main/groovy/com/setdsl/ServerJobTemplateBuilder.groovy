@@ -188,7 +188,7 @@ class ServerJobTemplateBuilder {
                     shell('''
 mkdir -p "\$WORKSPACE/gradle/wrapper";
 cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper;
-cp /opt/gradlew \\$WORKSPACE/gradlew;
+cp /opt/gradlew \$WORKSPACE/gradlew;
 ''')
 
                     // building iso, tgz, ear, exe
