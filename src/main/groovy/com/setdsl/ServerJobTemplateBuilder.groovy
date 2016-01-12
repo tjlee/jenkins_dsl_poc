@@ -186,10 +186,10 @@ class ServerJobTemplateBuilder {
 //                    shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
 
                     shell('''
-mkdir -p "\$WORKSPACE/gradle/wrapper";
-cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper;
-cp /opt/gradlew \$WORKSPACE/gradlew;
-''')
+                        mkdir -p "\$WORKSPACE/gradle/wrapper";
+                        cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true;
+                        cp /opt/gradlew \$WORKSPACE/gradlew || true;
+                    ''')
 
                     // building iso, tgz, ear, exe
                     if (this.buildType == "tgz" || this.buildType == "iso") {
@@ -215,9 +215,10 @@ cp /opt/gradlew \$WORKSPACE/gradlew;
                                 '-PtempDir=/tmp -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -PwildFly="\$WILD_FLY"' +
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
-                            it / rootBuildScriptDir('"\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle"')
+                            it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle')
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
+                            it / fromRootBuildScriptDir(false)
                         }
 
                     } else if (this.buildType == "exe") {
