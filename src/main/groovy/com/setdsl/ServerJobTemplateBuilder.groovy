@@ -184,7 +184,7 @@ class ServerJobTemplateBuilder {
 
                 if (this.buildType) {
 //                    shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
-
+                    // copy gradle wrapper
                     shell('''
                         mkdir -p "\$WORKSPACE/gradle/wrapper";
                         cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true;
@@ -201,6 +201,8 @@ class ServerJobTemplateBuilder {
                             it / rootBuildScriptDir('"\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
+                            it / fromRootBuildScriptDir(false)
+
                         }
 
                         // copy to workspace
@@ -227,8 +229,10 @@ class ServerJobTemplateBuilder {
                                 '-PtempDir=/c/Temp -PmoduleVersion=\$VERSION -PdistrDir=\$WORKSPACE -Pbranch=\$BRANCH -Pshaid=\$GIT_COMMIT -PuseEmu -Ptest -PwildFly=\$WILD_FLY' +
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
+                            it / rootBuildScriptDir('"\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
+                            it / fromRootBuildScriptDir(false)
                         }
 
                         // copying with bash.exe on windows
