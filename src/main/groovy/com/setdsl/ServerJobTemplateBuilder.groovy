@@ -131,7 +131,7 @@ class ServerJobTemplateBuilder {
 
                 if (this.isToBuildFlex) {
 
-                    shell('makedir -p \$WORKSPACE/\$JOB_NAME;cd \$WORKSPACE/' + this.gitHubCheckoutDir + ';')
+                    shell('mkdir -p \$WORKSPACE/\$JOB_NAME;cd \$WORKSPACE/' + this.gitHubCheckoutDir + ';')
                     ant {
                         targets([])
                         buildFile("\$WORKSPACE/" + this.antBuildFile)
