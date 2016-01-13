@@ -198,7 +198,7 @@ class ServerJobTemplateBuilder {
                                 '-PtempDir=/tmp -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -Ptest -Plinux' +
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
-                            it / rootBuildScriptDir('"\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
+                            it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation')
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
                             it / fromRootBuildScriptDir(false)
@@ -229,7 +229,7 @@ class ServerJobTemplateBuilder {
                                 '-PtempDir=/c/Temp -PmoduleVersion=\$VERSION -PdistrDir=\$WORKSPACE -Pbranch=\$BRANCH -Pshaid=\$GIT_COMMIT -PuseEmu -Ptest -PwildFly=\$WILD_FLY' +
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
-                            it / rootBuildScriptDir('"\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
+                            it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation')
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
                             it / fromRootBuildScriptDir(false)

@@ -141,6 +141,8 @@ ping -n 5 172.20.0.163 | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 
                     }
 //                    }
 
+                    shell('''mkdir -p "\$WORKSPACE/gradle/wrapper"; cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true; cp /opt/gradlew \$WORKSPACE/gradlew || true;''')
+
                     gradle('clean test',
                             '''
 --continue

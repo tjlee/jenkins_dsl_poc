@@ -69,11 +69,13 @@ class SapEmulatorJobTemplateBuilder {
 
             steps {
                 shell('cd setretail10/SetRetail10_Utils/testStand/SapWSEmulator; export LANG=ru_RU.UTF-8;')
-
+                shell('''mkdir -p "\$WORKSPACE/gradle/wrapper"; cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true; cp /opt/gradlew \$WORKSPACE/gradlew || true;''')
                 gradle('clean build',
                         '-xtest',
                         true) {
                     it / wrapperScript('gradlew')
+                    it / rootBuildScriptDir('\$workspace/setretail10/SetRetail10_Utils/testStand/SapWSEmulator')
+                    it / fromRootBuildScriptDir(false)
                     it / makeExecutable(true)
                 }
             }

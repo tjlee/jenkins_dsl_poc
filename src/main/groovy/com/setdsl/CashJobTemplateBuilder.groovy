@@ -318,11 +318,15 @@ done
 
                 shell('cd' + this.gitHubCheckoutDir + '/SetRetail10_Cash/buildGradle/; export LANG=ru_RU.UTF-8;')
 
+                shell('''mkdir -p "\$WORKSPACE/gradle/wrapper"; cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true; cp /opt/gradlew \$WORKSPACE/gradlew || true;''')
+
                 gradle('clean build tarAll',
                         ' -PpresetCashParamsPath=\$JENKINS_HOME/userContent/cashes.xml -PproductVersion=\$VERSION -xtest -Pbranch=\$GIT_BRANCH -Pshaid=\$GIT_COMMIT',
                         true) {
                     it / wrapperScript('gradlew')
                     it / makeExecutable(true)
+                    it / fromRootBuildScriptDir(false)
+                    it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Cash/buildGradle/')
                 }
 
                 shell('cp -f -r -a \$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Cash/buildGradle/build/distributions/{POS,Lenta,Belarus} \$WORKSPACE/')
