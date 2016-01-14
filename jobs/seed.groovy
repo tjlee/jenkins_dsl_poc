@@ -2,9 +2,9 @@ job('seed') {
     scm {
         github 'tjlee/jenkins_dsl_poc'
     }
-//    triggers {
-//        cron('@hourly')
-//    }
+    triggers {
+        cron('@hourly')
+    }
     steps {
         gradle('clean test', '', true)
                 {

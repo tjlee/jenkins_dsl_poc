@@ -16,6 +16,17 @@ new CashJobTemplateBuilder(
         isToDeployRobot: true
 ).build(this)
 
+
+// build_pos_cash_tar
+new CashJobTemplateBuilder(
+        name: 'deploy_pos_cash',
+        description: 'Builds and deploys pos cash',
+        buildType: "tar",
+        clientType: "pos",
+        isToDeployCash: true
+).build(this)
+
+
 new DeployLinux(
         name:'deploy_linux',
         description: '',

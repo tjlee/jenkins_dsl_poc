@@ -1,9 +1,9 @@
-Map<String, String> views = ['flex'         : 'build_flex.*',
+Map<String, String> views = ['FLEX'         : 'build_flex.*',
                              'DEV'          : '(build_e.*)|(build_i.*)|(build_t.*)|(build_pos.*)',
                              'LENTA'        : '(build_lenta_.*)',
                              'BELARUS'      : '(build_belarus_.*)',
                              'PULL_REQUESTS': '(build_pull.*)',
-                             'seed'         : '(.*seed)']
+                             'SEED'         : '(.*seed)']
 
 
 String dslText = ''
