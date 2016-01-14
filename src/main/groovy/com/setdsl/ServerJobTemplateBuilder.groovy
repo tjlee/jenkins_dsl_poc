@@ -105,7 +105,7 @@ class ServerJobTemplateBuilder {
 
                         cloneTimeout 20
                         relativeTargetDir(this.gitHubCheckoutDir)
-                        wipeOutWorkspace true
+//                        wipeOutWorkspace true
                     }
                 }
                 // if iso need to checkout linux repo
@@ -120,7 +120,7 @@ class ServerJobTemplateBuilder {
 
                         cloneTimeout 20
                         relativeTargetDir(this.gitHubCheckoutDirLinuxSources)
-                        wipeOutWorkspace true
+//                        wipeOutWorkspace true
 
                     }
                 }

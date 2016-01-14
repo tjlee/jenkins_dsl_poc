@@ -46,7 +46,7 @@ class SapEmulatorJobTemplateBuilder {
 
                         cloneTimeout 20
                         relativeTargetDir(this.gitHubCheckoutDir)
-                        wipeOutWorkspace true
+//                        wipeOutWorkspace true
                     }
                 }
                 // build pull request
@@ -61,7 +61,7 @@ class SapEmulatorJobTemplateBuilder {
 
                         cloneTimeout 20
                         relativeTargetDir(this.gitHubCheckoutDir)
-                        wipeOutWorkspace true
+//                        wipeOutWorkspace true
                     }
                 }
 

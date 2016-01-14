@@ -277,7 +277,7 @@ done
 
                         cloneTimeout 20
                         relativeTargetDir(this.gitHubCheckoutDir)
-                        wipeOutWorkspace true
+//                        wipeOutWorkspace true
                     }
                 }
                 // build pull request
@@ -292,7 +292,7 @@ done
 
                         cloneTimeout 20
                         relativeTargetDir(this.gitHubCheckoutDir)
-                        wipeOutWorkspace true
+//                        wipeOutWorkspace true
                     }
                 }
                 // if iso need to checkout linux repo
@@ -307,7 +307,7 @@ done
 
                         cloneTimeout 20
                         relativeTargetDir(this.gitHubCheckoutDirLinuxSources)
-                        wipeOutWorkspace true
+//                        wipeOutWorkspace true
 
                     }
                 }

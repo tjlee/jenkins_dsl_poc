@@ -76,7 +76,7 @@ class RunTestsTemplateBuilder {
 
                     cloneTimeout 20
                     relativeTargetDir(this.gitHubCheckoutDir)
-                    wipeOutWorkspace true
+//                    wipeOutWorkspace true
                 }
 
                 git {
@@ -89,7 +89,7 @@ class RunTestsTemplateBuilder {
 
                     cloneTimeout 20
                     relativeTargetDir(this.gitHubTestSourceCheckoutDir)
-                    wipeOutWorkspace true
+//                    wipeOutWorkspace true
                 }
             }
 
