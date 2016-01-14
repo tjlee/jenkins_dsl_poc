@@ -258,7 +258,9 @@ done
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
                 stringParam('BRANCH', 'master', '')
-                stringParam('IPS', '', '')
+                if (this.isToDeployCash) {
+                    stringParam('IPS', '', '') // do not show in not deploy jobs
+                }
             }
 
 
