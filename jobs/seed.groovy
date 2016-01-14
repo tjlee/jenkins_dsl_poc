@@ -2,6 +2,9 @@ job('seed') {
     scm {
         github 'tjlee/jenkins_dsl_poc'
     }
+//    triggers {
+//        cron('@hourly')
+//    }
     steps {
         gradle('clean test', '', true)
                 {
@@ -14,29 +17,3 @@ job('seed') {
         }
     }
 }
-// todo: make view seed job!!!
-/*
-*
-* listView('Flex') {
-    description('All Flex jobs')
-    filterBuildQueue()
-    filterExecutors()
-    jobs {
-		names('flex_linux', 'flex_linux_unit')
-              }
-    jobFilters {
-        status {
-            status(Status.UNSTABLE)
-        }
-    }
-    columns {
-        status()
-        weather()
-        name()
-        lastSuccess()
-        lastFailure()
-        lastDuration()
-        buildButton()
-    }
-}
-* */
