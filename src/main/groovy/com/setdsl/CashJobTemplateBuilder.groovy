@@ -338,11 +338,11 @@ done
 
                 if (this.buildType == "iso") {
 
-                    shell('cd \$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/;')
+//                    shell('cd \$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/;')
 
                     if (this.clientType == 'pos') {
 
-                        shell('./build.sh -i=set-retail-\$VERSION-pos.iso -d=\$WORKSPACE -s=\$WORKSPACE/POS/crystal-cash.tar -c=\$WORKSPACE/POS/crystal-conf.tar -z=yes -v=java7')
+                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-\$VERSION-pos.iso -d=\$WORKSPACE -s=\$WORKSPACE/POS/crystal-cash.tar -c=\$WORKSPACE/POS/crystal-conf.tar -z=yes -v=java7')
 
                     } else if (this.clientType == 'lenta') {
 
