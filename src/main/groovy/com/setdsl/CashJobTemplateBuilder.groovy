@@ -148,7 +148,7 @@ debug_on()
          sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "cash start"
 }
 
-#deploy setrobot to cashes
+#deploy setrobot to cashes (here we need to split this scrip)TODO:TODO
 cd $WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core
 export LANG=ru_RU.UTF-8
 gradle clean deployRobot -xtest -PtypeProduct=$ROBOT_TYPE -PcashIPs=`echo $IPS | xargs | sed 's/ /;/'`
@@ -332,7 +332,7 @@ done
                 shell('cp -f -r -a \$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Cash/buildGradle/build/distributions/{POS,Lenta,Belarus} \$WORKSPACE/')
                 shell('cp -f -r -a \$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Cash/buildGradle/build/LentaConfigs/cash-configs.tar.gz \$WORKSPACE/Lenta')
 
-                shell(packRobot)
+
 
                 if (this.buildType == "iso") {
 
@@ -380,12 +380,10 @@ done
 
                     if (this.isToDeployRobot) {
                         shell(deployRobotScript)
+                        shell(packRobot)
                     }
 
                 }
-
-                // as we can deploy robot aside
-
 
             }
 
