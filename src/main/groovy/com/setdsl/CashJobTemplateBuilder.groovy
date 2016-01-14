@@ -151,10 +151,10 @@ debug_on()
 #deploy setrobot to cashes (here we need to split this scrip)TODO:TODO
 cd $WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core
 export LANG=ru_RU.UTF-8
-gradle clean deployRobot -xtest -PtypeProduct=$ROBOT_TYPE -PcashIPs=`echo $IPS | xargs | sed 's/ /;/'`
+gradle clean deployRobot -PtypeProduct=$ROBOT_TYPE -PcashIPs=`echo $IPS | xargs | sed 's/ /;/'`
 
 
-# Check cashes and SetRobot up, listed in $IPS
+# Check cashes and SetRobot up, listed in $IPS -xtest
 for IP in $IPS; do
 
 echo Check cash and robot on $IP working
@@ -321,7 +321,7 @@ done
                 shell('''mkdir -p "\$WORKSPACE/gradle/wrapper"; cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true; cp /opt/gradlew \$WORKSPACE/gradlew || true;''')
 
                 gradle('clean build tarAll',
-                        ' -PpresetCashParamsPath=\$JENKINS_HOME/userContent/cashes.xml -PproductVersion=\$VERSION -xtest -Pbranch=\$GIT_BRANCH -Pshaid=\$GIT_COMMIT',
+                        ' -PpresetCashParamsPath=\$JENKINS_HOME/userContent/cashes.xml -PproductVersion=\$VERSION -Pbranch=\$GIT_BRANCH -Pshaid=\$GIT_COMMIT',
                         true) {
                     it / wrapperScript('gradlew')
                     it / makeExecutable(true)
