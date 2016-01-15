@@ -338,7 +338,7 @@ done
 
                 if (this.buildType == "iso") {
 
-//                    shell('cd \$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/;')
+                    shell('cd \$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/;')
 
                     if (this.clientType == 'pos') {
 
@@ -346,11 +346,11 @@ done
 
                     } else if (this.clientType == 'lenta') {
 
-                        shell('./build.sh -i=set-retail-$VERSION-lenta.iso -d=$WORKSPACE -s=$WORKSPACE/Lenta/crystal-cash.tar -c=$WORKSPACE/Lenta/crystal-conf.tar -z=yes -v=java7 -l=$WORKSPACE/Lenta/cash-configs.tar.gz')
+                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-$VERSION-lenta.iso -d=$WORKSPACE -s=$WORKSPACE/Lenta/crystal-cash.tar -c=$WORKSPACE/Lenta/crystal-conf.tar -z=yes -v=java7 -l=$WORKSPACE/Lenta/cash-configs.tar.gz')
 
                     } else if (this.clientType == 'belarus') {
 
-                        shell(' ./build.sh -i=set-retail-$VERSION-belarus.iso -d=$WORKSPACE -s=$WORKSPACE/Belarus/crystal-cash.tar -c=$WORKSPACE/Belarus/crystal-conf.tar -z=yes -v=java7')
+                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-$VERSION-belarus.iso -d=$WORKSPACE -s=$WORKSPACE/Belarus/crystal-cash.tar -c=$WORKSPACE/Belarus/crystal-conf.tar -z=yes -v=java7')
 
                     }
                 }
