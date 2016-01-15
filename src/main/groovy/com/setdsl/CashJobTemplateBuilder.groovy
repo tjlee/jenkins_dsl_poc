@@ -391,7 +391,7 @@ done
                             //gradle clean deployRobot -PtypeProduct=$ROBOT_TYPE -PcashIPs=`echo $IPS | xargs | sed 's/ /;/'` */
 
                         gradle('clean deployRobot',
-                                " -PtypeProduct=\$ROBOT_TYPE -PcashIPs=`echo \$IPS | xargs | sed 's/ /;/'`",
+                                ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs=`echo \$IPS | xargs | sed \'s/ /;/\'`',
                                 true) {
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
