@@ -396,7 +396,7 @@ done
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
                             it / fromRootBuildScriptDir(false)
-                            it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + 'SetRetail10_Utils/testStand/SetRobot/setrobot-core')
+                            it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Utils/testStand/SetRobot/setrobot-core')
                         }
 
                         shell(deployRobotScriptChunkTwo)
