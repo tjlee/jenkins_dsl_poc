@@ -366,7 +366,7 @@ done
                     // i hope it works )))
                     environmentVariables {
                         env 'IPS', '\$IPS'
-                        env 'GIPS','\$IPS'.replace(' ',';')
+//                        env 'GIPS',
                         if (this.clientType == 'pos') {
                             env 'CASH_TYPE', 'POS'
                             env 'ROBOT_TYPE', 'pos'
@@ -388,7 +388,7 @@ done
                     if (this.isToDeployRobot) {
                         shell(deployRobotScriptChunkOne)
                         gradle('clean deployRobot',
-                                " -PtypeProduct=\$ROBOT_TYPE -PcashIPs=\$GIPS",
+                                ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs="'+ '\$IPS'.replace(' ',';') +'"',
                                 true) {
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
