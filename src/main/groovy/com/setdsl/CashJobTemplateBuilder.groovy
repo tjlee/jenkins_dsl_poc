@@ -388,7 +388,7 @@ done
                         String ips =
                         shell(deployRobotScriptChunkOne)
                         gradle('clean deployRobot',
-                                ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs=$IPS',
+                                ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs=\$IPS',
                                 true) {
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
