@@ -388,7 +388,7 @@ done
                     if (this.isToDeployRobot) {
                         shell(deployRobotScriptChunkOne)
                         environmentVariables {
-                            env 'IPS', '`echo /$IPS | xargs | sed "s/ /;/"`'
+                            env 'IPS', shell('`echo \$IPS | xargs | sed "s/ /;/"`')
                         }
                         gradle('clean deployRobot',
                                 ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs="\$IPS"',
@@ -399,7 +399,7 @@ done
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Utils/testStand/SetRobot/setrobot-core')
                         }
                         environmentVariables {
-                            env 'IPS', '`echo /$IPS | xargs | sed "s/;/ /"`'
+                            env 'IPS', shell('`echo \$IPS | xargs | sed "s/;/ /"`')
                         }
                         shell(deployRobotScriptChunkTwo)
                         shell(packRobot)
