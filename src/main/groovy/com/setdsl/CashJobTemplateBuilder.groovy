@@ -114,6 +114,11 @@ done
 '''
 
     String deployRobotScriptChunkOne = '''
+export LANG=ru_RU.UTF-8
+'''
+
+    String deployRobotScriptChunkTwo =
+'''
 check_process()
 {
          sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "ps -elf | grep -v grep | grep Loader && return 1 || return 0"
@@ -152,11 +157,6 @@ debug_on()
          sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "cash start"
 }
 
-export LANG=ru_RU.UTF-8
-'''
-
-    String deployRobotScriptChunkTwo =
-'''
 IFS=",";
 # Check cashes and SetRobot up, listed in $IPS -xtest
 for IP in $IPS; do
@@ -388,7 +388,7 @@ done
                         String ips =
                         shell(deployRobotScriptChunkOne)
                         gradle('clean deployRobot',
-                                ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs=\$IPS',
+                                " -PtypeProduct=\$ROBOT_TYPE -PcashIPs=`echo $IPS | xargs | sed 's/ /;/'`",
                                 true) {
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
