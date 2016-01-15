@@ -387,15 +387,20 @@ done
 
                     if (this.isToDeployRobot) {
                         shell(deployRobotScriptChunkOne)
+                        environmentVariables {
+                            env 'IPS', '`echo /$IPS | xargs | sed "s/ /;/"`'
+                        }
                         gradle('clean deployRobot',
-                                ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs="'+ '\$IPS'.replace(' ',';') +'"',
+                                ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs="\$IPS"',
                                 true) {
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
                             it / fromRootBuildScriptDir(false)
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Utils/testStand/SetRobot/setrobot-core')
                         }
-
+                        environmentVariables {
+                            env 'IPS', '`echo /$IPS | xargs | sed "s/;/ /"`'
+                        }
                         shell(deployRobotScriptChunkTwo)
                         shell(packRobot)
                     }
