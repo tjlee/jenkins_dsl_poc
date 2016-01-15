@@ -363,6 +363,7 @@ done
                     // i hope it works )))
                     environmentVariables {
                         env 'IPS', '\$IPS'
+                        env 'NEWIPS', '`echo $IPS | xargs | sed "s/ /;/"`'
                         if (this.clientType == 'pos') {
                             env 'CASH_TYPE', 'POS'
                             env 'ROBOT_TYPE', 'pos'
@@ -382,7 +383,7 @@ done
                     }
 
                     if (this.isToDeployRobot) {
-
+                        String ips =
                         shell(deployRobotScriptChunkOne)
                         gradle('clean deployRobot',
                                 ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs=`echo $IPS | xargs | sed "s/ /;/"`',
