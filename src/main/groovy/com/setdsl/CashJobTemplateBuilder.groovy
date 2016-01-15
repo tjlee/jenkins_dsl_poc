@@ -17,6 +17,7 @@ mv -f -v \$WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-c
 
 
     String rebootScript = '''
+IFS=",";
 check_ping()
 {
         ping -c 1 $IP | grep from && return 1 || return 0
@@ -86,6 +87,7 @@ done
 
 // Lenta POS Belarus
     String deployCashScript = '''
+IFS=",";
 #unpack tar files
 rm -rf $WORKSPACE/crystal-cash/;
 rm -rf $WORKSPACE/crystal-conf/;
@@ -126,12 +128,12 @@ check_ping()
 }
 post_err_process()
 {
-\techo Installation failed because a cash on $IP does not started in the allotted time $TIME sec.
+echo Installation failed because a cash on $IP does not started in the allotted time $TIME sec.
         exit 1
 }
 post_err_link()
 {
-\techo Installation failed because a robot on $IP does not listen linkport in the allotted time $TIME sec.
+echo Installation failed because a robot on $IP does not listen linkport in the allotted time $TIME sec.
         exit 1
 }
 post_err_ping()
@@ -154,7 +156,8 @@ export LANG=ru_RU.UTF-8
 '''
 
     String deployRobotScriptChunkTwo =
-            '''
+'''
+IFS=",";
 # Check cashes and SetRobot up, listed in $IPS -xtest
 for IP in $IPS; do
 
@@ -363,7 +366,6 @@ done
                     // i hope it works )))
                     environmentVariables {
                         env 'IPS', '\$IPS'
-                        env 'NEWIPS', '`echo $IPS | xargs | sed "s/ /;/"`'
                         if (this.clientType == 'pos') {
                             env 'CASH_TYPE', 'POS'
                             env 'ROBOT_TYPE', 'pos'
@@ -386,7 +388,7 @@ done
                         String ips =
                         shell(deployRobotScriptChunkOne)
                         gradle('clean deployRobot',
-                                ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs=`echo $IPS | xargs | sed "s/ /;/"`',
+                                ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs=$IPS',
                                 true) {
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
