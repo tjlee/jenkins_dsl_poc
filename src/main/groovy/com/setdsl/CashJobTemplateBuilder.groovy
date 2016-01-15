@@ -382,7 +382,7 @@ done
                     }
 
                     if (this.isToDeployRobot) {
-                        shell(packRobot)
+
                         shell(deployRobotScriptChunkOne)
 
                         /*  //#deploy setrobot to cashes (here we need to split this scrip)TODO:TODO
@@ -400,6 +400,7 @@ done
                         }
 
                         shell(deployRobotScriptChunkTwo)
+                        shell(packRobot)
                     }
 
                 }
