@@ -52,7 +52,7 @@ fi
 if cash_reboot; then
     echo Reboot cash with ip $IP is failed.
 else
-    echo Reboot cash with ip $IP is succes.
+    echo Reboot cash with ip $IP is success.
 fi
 
 CNT=0
@@ -87,8 +87,10 @@ done
 // Lenta POS Belarus
     String deployCashScript = '''
 #unpack tar files
-mkdir $WORKSPACE/crystal-cash/
-mkdir $WORKSPACE/crystal-conf/
+rm -rf $WORKSPACE/crystal-cash/;
+rm -rf $WORKSPACE/crystal-conf/;
+mkdir -p $WORKSPACE/crystal-cash/;
+mkdir -p $WORKSPACE/crystal-conf/;
 cd $WORKSPACE/$CASH_TYPE
 tar xvf crystal-cash.tar -C $WORKSPACE/crystal-cash/
 tar xvf crystal-conf.tar -C $WORKSPACE/crystal-conf/
