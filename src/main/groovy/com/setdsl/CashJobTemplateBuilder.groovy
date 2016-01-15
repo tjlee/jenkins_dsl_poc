@@ -246,6 +246,7 @@ done
     Boolean isToDeployCash = false
     Boolean isToDeployRobot = false
 
+    String ips = ""
 
     String artifacts = 'POS/**/*,Lenta/**/*,Belarus/**/*,cash.branch,*.iso,*.zip'
 
@@ -361,11 +362,12 @@ done
 
                 // todo: remove shit shit and put scripts into files, remove hard code
                 if (this.isToDeployCash || this.isToDeployRobot) {
+                    ips = '\$IPS'.replace(' ',';')
                     // reboot
 //                    inject {
                     // i hope it works )))
                     environmentVariables {
-                        env 'IPS', '\$IPS'
+                        env 'IPS', ips
 //                        env 'GIPS',
                         if (this.clientType == 'pos') {
                             env 'CASH_TYPE', 'POS'
@@ -387,9 +389,9 @@ done
 
                     if (this.isToDeployRobot) {
                         shell(deployRobotScriptChunkOne)
-                        environmentVariables {
-                            env 'IPS', shell('`echo \$IPS | xargs | sed "s/ /;/"`')
-                        }
+//                        environmentVariables {
+//                            env 'IPS', shell('`echo \$IPS | xargs | sed "s/ /;/"`')
+//                        }
                         gradle('clean deployRobot',
                                 ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs="\$IPS"',
                                 true) {
@@ -398,9 +400,9 @@ done
                             it / fromRootBuildScriptDir(false)
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Utils/testStand/SetRobot/setrobot-core')
                         }
-                        environmentVariables {
-                            env 'IPS', shell('`echo \$IPS | xargs | sed "s/;/ /"`')
-                        }
+//                        environmentVariables {
+//                            env 'IPS', shell('`echo \$IPS | xargs | sed "s/;/ /"`')
+//                        }
                         shell(deployRobotScriptChunkTwo)
                         shell(packRobot)
                     }
