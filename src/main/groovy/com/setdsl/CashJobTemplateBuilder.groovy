@@ -384,14 +384,8 @@ done
                     if (this.isToDeployRobot) {
 
                         shell(deployRobotScriptChunkOne)
-
-                        /*  //#deploy setrobot to cashes (here we need to split this scrip)TODO:TODO
-                            //cd $WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core
-                            //export LANG=ru_RU.UTF-8
-                            //gradle clean deployRobot -PtypeProduct=$ROBOT_TYPE -PcashIPs=`echo $IPS | xargs | sed 's/ /;/'` */
-
                         gradle('clean deployRobot',
-                                ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs=`echo \$IPS | xargs | sed \'s/ /;/\'`',
+                                ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs=`echo $IPS | xargs | sed "s/ /;/"`',
                                 true) {
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
