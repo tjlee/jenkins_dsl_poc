@@ -42,7 +42,11 @@ echo Send command reboot cash with ip $IP
         sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "cash reboot"
 }
 
-for IP in $IPS; do
+
+
+ARR=$(echo $IPS | tr ";" " ")
+
+for IP in $ARR; do
 
 if check_ping; then
     echo Connections to cash with ip $IP is failed.
@@ -97,7 +101,9 @@ cd $WORKSPACE/$CASH_TYPE
 tar xvf crystal-cash.tar -C $WORKSPACE/crystal-cash/
 tar xvf crystal-conf.tar -C $WORKSPACE/crystal-conf/
 # deploy cashes, listed in $IPS
-for IP in $IPS; do
+ARR=$(echo $IPS | tr ";" " ")
+
+for IP in $ARR; do
  #stop cash
  sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "cash stop"
  #clear cash
@@ -159,7 +165,9 @@ debug_on()
 
 
 # Check cashes and SetRobot up, listed in $IPS -xtest
-for IP in $IPS; do
+ARR=$(echo $IPS | tr ";" " ")
+
+for IP in $ARR; do
 
 echo Check cash and robot on $IP working
 
@@ -196,12 +204,16 @@ done
 sleep 60
 
 #start cash on debug
-for IP in $IPS; do
+ARR=$(echo $IPS | tr ";" " ")
+
+for IP in $ARR; do
 debug_on
 done
 
 # Check cashes and SetRobot up, listed in $IPS
-for IP in $IPS; do
+ARR=$(echo $IPS | tr ";" " ")
+
+for IP in $ARR; do
 
 CNT=0
 while check_process; do
@@ -362,12 +374,9 @@ done
 
                 // todo: remove shit shit and put scripts into files, remove hard code
                 if (this.isToDeployCash || this.isToDeployRobot) {
-                    ips = '\$IPS'.replace(' ',';')
-                    // reboot
-//                    inject {
-                    // i hope it works )))
+
                     environmentVariables {
-                        env 'IPS', ips
+                        env 'IPS', '\$IPS'
 //                        env 'GIPS',
                         if (this.clientType == 'pos') {
                             env 'CASH_TYPE', 'POS'
