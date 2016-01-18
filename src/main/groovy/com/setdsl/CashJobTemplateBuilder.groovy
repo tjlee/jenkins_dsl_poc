@@ -276,7 +276,7 @@ done
                 stringParam('VERSION', '10.2.0.0', '')
                 stringParam('BRANCH', 'master', '')
                 if (this.isToDeployCash) {
-                    stringParam('IPS', '', 'Разделитель точка с запятой ; ') 
+                    stringParam('IPS', '', 'Divide ips by ; ')
                 }
             }
 

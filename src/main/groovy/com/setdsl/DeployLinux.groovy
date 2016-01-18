@@ -82,11 +82,11 @@ exit
         dslFactory.job(name) {
             it.description this.description
             logRotator {
-                numToKeep 50
+                numToKeep 20
             }
 
             parameters {
-                stringParam('IPS', '', '')
+                stringParam('IP', '', '')
                 stringParam('SHOP_NUMBER', '', '')
             }
 

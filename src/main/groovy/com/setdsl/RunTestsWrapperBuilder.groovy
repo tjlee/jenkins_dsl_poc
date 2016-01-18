@@ -14,7 +14,7 @@ class RunTestsWrapperBuilder {
         dslFactory.multiJob(name) {
             it.description this.description
             logRotator {
-                numToKeep 50
+                numToKeep 20
             }
 
             parameters {
@@ -28,9 +28,8 @@ class RunTestsWrapperBuilder {
 
 
             steps {
-                phase('Build robot and sap') {
-                    // mb to choose which one to build
-                    phaseJob('build_pos_cash_tar') {
+                phase('Build and deploy') {
+                    phaseJob('deploy_linux_with_building'){
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
@@ -44,6 +43,12 @@ class RunTestsWrapperBuilder {
                         }
                     }
 
+                    phaseJob('deploy_pos_cash_n_robot') {
+                        currentJobParameters(false)
+                        parameters {
+                            currentBuild()
+                        }
+                    }
                 }
 
 

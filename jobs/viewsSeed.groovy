@@ -3,7 +3,8 @@ Map<String, String> views = ['FLEX'         : 'build_flex.*',
                              'LENTA'        : '(build_lenta_.*)',
                              'BELARUS'      : '(build_belarus_.*)',
                              'PULL_REQUESTS': '(build_pull.*)',
-                             'SEED'         : '(.*seed)']
+                             'SEED'         : '(.*seed)',
+                             'DEPLOY': '(deploy.*)']
 
 
 String dslText = ''

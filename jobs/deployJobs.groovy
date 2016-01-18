@@ -29,7 +29,7 @@ new CashJobTemplateBuilder(
 
 new DeployLinux(
         name:'deploy_linux',
-        description: '',
+        description: 'private job deploy linux',
 ).build(this)
 
 new DeployLinuxServerTemplateBuilder(

@@ -60,7 +60,7 @@ class RunTestsTemplateBuilder {
 //
 //                // map to properties file
 //
-//                stringParam('TEST_SUITE', '', '') // todo: need properties file! // todo: or hardcoded?
+//                stringParam('TEST_SUITE', '', '') // todo: make choice param
 //                stringParam('TEST_LIST', '', '')
             }
 
@@ -182,7 +182,7 @@ java -jar \$WORKSPACE/autoqa/SAP_Emu/SapWSEmulator.jar;
                     if (this.isToRunRobot) {
 //                        inject {
                         environmentVariables {
-                            env 'TEST_SUITE', 'suite_robot_tests.xml'
+                            env 'TEST_SUITE', 'suite_robot.xml'
                         }
 //                        }
                     }
