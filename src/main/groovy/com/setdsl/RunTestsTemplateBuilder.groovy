@@ -24,7 +24,9 @@ class RunTestsTemplateBuilder {
     Boolean isToRunFunctional = false
     Boolean isToRunCucumber = false
 
-
+/**
+ * TODO: REMOVE HARDCODED SHIT PUT PROPERTIES INTO FILE
+ */
     String isRunOnLinux = true // otherwise windows
 
     List<String> emails = []
@@ -46,8 +48,6 @@ class RunTestsTemplateBuilder {
                 stringParam('VERSION', '10.2.0.0', '')
                 stringParam('SERVER_BRANCH', 'master', '')
                 stringParam('TEST_SOURCE_BRANCH', 'master', '')
-
-//                choiceParam('CONFIG_FILE', ['a', 'c'], '')
 
 //                stringParam('CENTRUM_IP', '', '')
 //                stringParam('VSHOP_NUMBER', '', '')
@@ -96,74 +96,82 @@ class RunTestsTemplateBuilder {
 
 
             steps {
-
-
-//              todo:  assuming that we got built robot in previous job
-
-//                // build robot actually cash
-//                shell("cd '\$WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core'")
-//
-//                gradle('clean build', '', true) {
-//                    it / wrapperScript('gradlew')
-//                }
-
-
-                //
-
+                // enables for linux stand
+                environmentVariables {
+                    env 'CENTRUM_IP', '172.20.0.160'
+                    env 'VSHOP_NUMBER', '20160'
+                    env 'RETAIL_IP', '172.20.0.161'
+                    env 'SHOP_NUMBER', '20161'
+                    env 'VCASH_NUMBER', '172.20.0.162'
+                    env 'VCASH_IP', '60'
+                    env 'CASH_IP', '172.20.0.163'
+                    env 'CASH_NUMBER', '61'
+                }
 
                 // kill shit on agent
                 shell("kill \$(jps -lv | grep 'SapWSEmulator' | cut -d ' ' -f 1); kill \$(jps -lv | grep 'SetRobotHub' | cut -d ' ' -f 1); ")
 
-                shell('''PGPASSWORD=postgres;
+                shell(
+                        '''PGPASSWORD=postgres;
 psql -U postgres -c "SELECT pg_terminate_backend(procpid)  FROM pg_stat_activity WHERE procpid <> pg_backend_pid();";
 psql -h 127.0.0.1 -p 5432 -U postgres -c "drop database sap";''')
 
-                shell('''
-ping -n 5 172.20.0.160 | grep \'TTL=\' 2>nul && echo \'Connection exists\' || exist 1;
-ping -n 5 172.20.0.161 | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
-ping -n 5 172.20.0.162 | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
-ping -n 5 172.20.0.163 | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
+                shell(
+                        '''ping -n 5 $CENTRUM_IP | grep \'TTL=\' 2>nul && echo \'Connection exists\' || exist 1;
+ping -n 5 $RETAIL_IP | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
+ping -n 5 $VCASH_NUMBER | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
+ping -n 5 $CASH_IP | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
 ''')
 
-                shell('echo run sup emulator')
-                shell('echo run robothub')
-//                shell('echo ' + stand_a_config.toString())
-                /**
-                 * LOCAL_IP ???
-                 */
+
+
+                String startRobotHub =
+                        '''mkdir -p \$WORKSPACE/autoqa/setrobothub;
+mv \$WORKSPACE/setrobothub.zip \$WORKSPACE/autoqa/setrobothub;
+mv \$WORKSPACE/setrobothub.zip \$WORKSPACE/autoqa/setrobothub;
+unzip \$WORKSPACE/setrobothub.zip -d \$WORKSPACE/autoqa/setrobothub;
+mv \$WORKSPACE/autoqa/setrobothub/catalog-goods-robot.xml \$WORKSPACE/autoqa/SetTester/src/test/resources/import;
+cd \$WORKSPACE/autoqa/setrobothub;
+java -cp lib/*;* ru.crystals.setrobot.hub.SetRobotHub;
+'''
+
+                String startSapEmulator =
+                        '''mv \$WORKSPACE/setretail10/SetRetail10_Utils/testStand/SapWSEmulator/build/libs \$WORKSPACE/autoqa;
+mv \$WORKSPACE/autoqa/libs \$WORKSPACE/autoqa/SAP_Emu;
+java -jar \$WORKSPACE/autoqa/SAP_Emu/SapWSEmulator.jar;
+'''
+
+                shell(startRobotHub)
+                shell(startSapEmulator)
 
                 if (this.isToConfig) { // even if to test :-D
-
-//                    inject { // todo: see this shit => !!! if not configured
                     environmentVariables {
                         env 'TEST_LIST', 'CHECKLIST'
                         env 'TEST_SUITE', 'suite_robot_config_server.xml,suite_robot_config_cash.xml'
                     }
-//                    }
 
                     shell('''mkdir -p "\$WORKSPACE/gradle/wrapper"; cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true; cp /opt/gradlew \$WORKSPACE/gradlew || true;''')
-
+// UNIX only
                     gradle('clean test',
-                            '''
---continue
--Ptest_suite=\$TEST_SUITE
--Dtest_centrum_host=172.20.0.160
--Dtest_retail_host=172.20.0.161
--Dtest_virtualshop_number=20160
--Dtest_shop_number=20161
--Dtest_os_type=UNIX
--Dtest_virtual_cash_ip=172.20.0.162
--Dtest_virtual_cash_number=60
--Dtest_cash_ip=172.20.0.163
--Dtest_cash_number=61
--Dtest_robot_tests=\$TEST_LIST
--Dtest_smb_username=jboss
--Dtest_smb_password=jboss
--Dtest_smb_server_standalone=/jboss/standalone/
--Dtest_smb_server_fileimport=/jboss/
--Dtest_os_username=root
--Dtest_os_password=324012
-''',
+                            '''--continue
+                            -Ptest_suite=\$TEST_SUITE
+                            -Dtest_centrum_host=$CENTRUM_IP
+                            -Dtest_retail_host=$RETAIL_IP
+                            -Dtest_virtualshop_number=$VSHOP_NUMBER
+                            -Dtest_shop_number=$SHOP_NUMBER
+                            -Dtest_os_type=UNIX
+                            -Dtest_virtual_cash_ip=$VCASH_NUMBER
+                            -Dtest_virtual_cash_number=$VCASH_IP
+                            -Dtest_cash_ip=$CASH_IP
+                            -Dtest_cash_number=$CASH_NUMBER
+                            -Dtest_robot_tests=\$TEST_LIST
+                            -Dtest_smb_username=jboss
+                            -Dtest_smb_password=jboss
+                            -Dtest_smb_server_standalone=/jboss/standalone/
+                            -Dtest_smb_server_fileimport=/jboss/
+                            -Dtest_os_username=root
+                            -Dtest_os_password=324012
+                            ''',
                             true) {
                         it / wrapperScript('gradlew')
                         it / rootBuildScriptDir('\$workspace/autoqa/SetTester/')
@@ -184,34 +192,6 @@ ping -n 5 172.20.0.163 | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 
 
                 }
 
-                /**
-                 * TEST_LIST=CHECKLIST
-                 TEST_SUITE=suite_robot.xml,suite_all_tests.xml
-                 */
-
-                /**
-                 * TEST_LIST=CHECKLIST,-EXCLUDED_BELARUS
-                 TEST_SUITE=suite_belarus.xml
-                 */
-
-                /**
-                 * TEST_LIST=CHECKLIST,-EXCLUDED_LENTA
-                 TEST_SUITE=suite_lenta.xml,suite_all_tests.xml
-                 */
-
-                // external properties files
-                // stand_c.properties
-                // stand_a.properties
-
-// TEST_SUITE=suite_robot.xml,suite_all_tests.xml
-
-                /**
-                 * <suite-file path="suite_robot_config_server.xml" />
-                 <suite-file path="suite_robot_config_cash.xml" />
-                 <suite-file path="suite_robot_tests.xml" />
-                 */
-
-                //TEST_LIST=CHECKLIST
 
 
             }
@@ -219,90 +199,6 @@ ping -n 5 172.20.0.163 | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 
 
         }
     }
-
-    /**
-     *
-     cd $WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core/build/data/setrobothub/
-     zip -r setrobothub.zip ./*
-     mv -f -v $WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core/build/data/setrobothub/setrobothub.zip $WORKSPACE/
-     */
-
-
-
-    /// killing this stuff on test agent
-
-    // kill
-
-
-    String killAllScript =
-            '''
-
-echo "Killing hanging process for launcher.jar, SapWSEmulator and SetRobotHub"
-$sapPid = (jps -lv | findstr /r "SapWSEmulator")
-$robotHubPid = (jps -lv | findstr /r "SetRobotHub")
-$launcherPid = (jps -lv | findstr /r "launcher.jar")
-
-if ($launcherPid -ne $null) {
-write-host "Killing launcher process $launcherPid"
-$pid3 = $launcherPid.Split(" ")[0]
-taskkill /PID $pid3 /F
-}
-
-if ($sapPid -ne $null) {
-write-host "Killing SapWSEmulator process $sapPid"
-$pid2 = $sapPid.Split(" ")[0]
-taskkill /PID $pid2 /F
-}
-
-if ($robotHubPid -ne $null) {
-write-host "Killing SetRobotHubprocess $robotHubPid"
-$pid1 = $robotHubPid.Split(" ")[0]
-taskkill /PID $pid1 /F
-}
-
-'''
-
-    String killDBConnections = '''
-chcp 65001
-set PGPASSWORD=postgres
-psql -U postgres -c "SELECT pg_terminate_backend(procpid)  FROM pg_stat_activity WHERE procpid <> pg_backend_pid();"
-psql -h 127.0.0.1 -p 5432 -U postgres -c "drop database sap"
-'''
-
-    String healthCheck = '''
-chcp 65001
-echo Проверяем, что связь со стендом в порядке
-ping -n 5 172.16.7.10 | findstr /R "TTL=" 2>nul && echo Connection exist || exit 1
-ping -n 5 172.20.0.160 | findstr /R "TTL=" 2>nul && echo Connection exist || exit 1
-ping -n 5 172.20.0.161 | findstr /R "TTL=" 2>nul && echo Connection exist || exit 1
-ping -n 5 172.20.0.162 | findstr /R "TTL=" 2>nul && echo Connection exist || exit 1
-ping -n 5 172.20.0.163 | findstr /R "TTL=" 2>nul && echo Connection exist || exit 1
-echo Со связью все ОК
-'''
-
-    String robotPreRun1 = '''
-chcp 65001
-cd %WORKSPACE%\\autoqa
-mkdir setrobothub
-cd %WORKSPACE%
-move %WORKSPACE%\\setrobothub.zip %WORKSPACE%\\autoqa\\setrobothub
-move %WORKSPACE%\\setrobothub.properties %WORKSPACE%\\autoqa\\setrobothub
-cd %WORKSPACE%\\autoqa\\setrobothub
-7z x setrobothub.zip
-move %WORKSPACE%\\autoqa\\setrobothub\\catalog-goods-robot.xml %WORKSPACE%\\autoqa\\SetTester\\src\\test\\resources\\import
-START /B setrobothub.bat
-'''
-
-    String robotPreRun2 = '''
-chcp 65001
-cd %WORKSPACE%
-move SetRetail10_Utils\\testStand\\SapWSEmulator\\build\\libs %WORKSPACE%\\autoqa
-cd %WORKSPACE%\\autoqa
-rename libs SAP_Emu
-cd %WORKSPACE%\\autoqa\\SAP_Emu
-Echo java -jar SapWSEmulator.jar > sap_emu.bat
-START /B sap_emu.bat
-'''
 
 
 }
@@ -321,3 +217,28 @@ START /B sap_emu.bat
  -Dtest_cash_number=41
  -Dtest_robot_tests=$TEST_LIST
  */
+
+/**
+ * TEST_LIST=CHECKLIST
+ TEST_SUITE=suite_robot.xml,suite_all_tests.xml
+ */
+
+/**
+ * TEST_LIST=CHECKLIST,-EXCLUDED_BELARUS
+ TEST_SUITE=suite_belarus.xml
+ */
+
+/**
+ * TEST_LIST=CHECKLIST,-EXCLUDED_LENTA
+ TEST_SUITE=suite_lenta.xml,suite_all_tests.xml
+ */
+
+// TEST_SUITE=suite_robot.xml,suite_all_tests.xml
+
+/**
+ * <suite-file path="suite_robot_config_server.xml" />
+ <suite-file path="suite_robot_config_cash.xml" />
+ <suite-file path="suite_robot_tests.xml" />
+ */
+
+//TEST_LIST=CHECKLIST

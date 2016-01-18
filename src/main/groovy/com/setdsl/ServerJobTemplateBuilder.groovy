@@ -184,7 +184,6 @@ class ServerJobTemplateBuilder {
 
 
                 if (this.buildType) {
-//                    shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation"')
                     // copy gradle wrapper
                     shell('''
                         mkdir -p "\$WORKSPACE/gradle/wrapper";
@@ -211,9 +210,6 @@ class ServerJobTemplateBuilder {
                                 (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz" "\$WORKSPACE/"')
 
                     } else if (this.buildType == "ear") {
-
-//                        shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle"')
-
                         gradle('clean ear test',
                                 '-PtempDir=/tmp -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -PwildFly="\$WILD_FLY"' +
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),

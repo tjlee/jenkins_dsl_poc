@@ -276,7 +276,7 @@ done
                 stringParam('VERSION', '10.2.0.0', '')
                 stringParam('BRANCH', 'master', '')
                 if (this.isToDeployCash) {
-                    stringParam('IPS', '', '') // do not show in not deploy jobs
+                    stringParam('IPS', '', 'Разделитель точка с запятой ; ') 
                 }
             }
 
@@ -398,9 +398,7 @@ done
 
                     if (this.isToDeployRobot) {
                         shell(deployRobotScriptChunkOne)
-//                        environmentVariables {
-//                            env 'IPS', shell('`echo \$IPS | xargs | sed "s/ /;/"`')
-//                        }
+
                         gradle('clean deployRobot',
                                 ' -PtypeProduct=\$ROBOT_TYPE -PcashIPs="\$IPS"',
                                 true) {
@@ -409,9 +407,7 @@ done
                             it / fromRootBuildScriptDir(false)
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Utils/testStand/SetRobot/setrobot-core')
                         }
-//                        environmentVariables {
-//                            env 'IPS', shell('`echo \$IPS | xargs | sed "s/;/ /"`')
-//                        }
+
                         shell(deployRobotScriptChunkTwo)
                         shell(packRobot)
                     }
