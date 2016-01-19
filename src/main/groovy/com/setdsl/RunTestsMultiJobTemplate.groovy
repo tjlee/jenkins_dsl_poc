@@ -26,6 +26,10 @@ class RunTestsMultiJobTemplate {
 
             //build_tgz_flex
 
+            // prepare parameters
+            // how to pass all required parameters
+
+
 
             steps {
                 phase('Build and deploy') {

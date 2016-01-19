@@ -49,7 +49,8 @@ new ServerJobTemplate(
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
         antSourceDir: "setretail10/SetRetail10_Server_GUI",
         antFlexSdkDir: "/opt/flexsdk",
-        antAirSdkDir: "/opt/airsdk"
+        antAirSdkDir: "/opt/airsdk",
+        isToPublishUnitTests: false // TODO: remove me
 ).build(this)
 
 // build_iso_flex
