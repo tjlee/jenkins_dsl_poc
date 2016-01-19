@@ -35,7 +35,7 @@ standc_server2
 /*
 VM_IP=172.20.0.160
 VM_TYPE=linux
-
+$VM_NAME
 VM_TYPE=win
  */
     /*
@@ -216,10 +216,46 @@ exit
             }
 
             parameters {
+
+                activeChoiceParam('CHOICE-1') {
+                    description('Allows user choose from multiple choices')
+                    filterable()
+                    choiceType('SINGLE_SELECT')
+                    groovyScript {
+                        script('["choice1", "choice2"]')
+                        fallbackScript('"fallback choice"')
+                    }
+                }
+
+                activeChoiceParam('CHOICE-2') {
+                    description('Allows user choose from multiple choices')
+                    filterable()
+                    choiceType('SINGLE_SELECT')
+                    scriptlerScript('scriptler-script1.groovy') {
+                        parameter('param1', 'value1')
+                        parameter('param2', 'value2')
+                    }
+                }
+
                 choiceParam('IP', ['172.20.0.160', '172.20.0.161', '172.20.0.140', '172.20.0.141'])
             }
 
             steps {
+/*
+VM_IP
+VM_TYPE
+VM_NAME
+ */
+
+                environmentVariables {
+//                    env 'IPS', '\$IPS'
+
+
+
+
+
+                }
+
 
 
                 shell(restoreVmState)
