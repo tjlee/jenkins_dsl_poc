@@ -18,4 +18,4 @@ new RunTestsWrapperBuilder(
 new ManageVirtualPcJobTemplateBuilder(
         name: 'restore_virtual_pc_state',
         description: ''
-)
+).build(this)
