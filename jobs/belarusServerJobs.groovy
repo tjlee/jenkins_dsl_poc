@@ -1,4 +1,4 @@
-import com.setdsl.ServerJobTemplateBuilder
+import com.setdsl.ServerJobTemplate
 
 /**
  * Belarus server build jobs:
@@ -15,7 +15,7 @@ import com.setdsl.ServerJobTemplateBuilder
  */
 
 // build_belarus_ear_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_belarus_ear_flex",
         description: "Building belarus ear server with flex",
         buildType: "ear",
@@ -28,7 +28,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_belarus_exe_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_belarus_exe_flex",
         description: "Building belarus exe server with flex",
         buildType: "exe",
@@ -41,7 +41,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_belarus_tgz_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_belarus_tgz_flex",
         description: "Building belarus tgz server with flex",
         buildType: "tgz",
@@ -54,7 +54,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_belarus_iso_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_belarus_iso_flex",
         description: "Building belarus iso server with flex",
         buildType: "iso",
@@ -68,7 +68,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_belarus_ear_without_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_belarus_ear_without_flex",
         description: "Building belarus ear server without flex(empty FLEX.war file)",
         buildType: "ear",
@@ -77,7 +77,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_belarus_pull_request_ear_without_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_belarus_pull_request_ear_without_flex",
         description: "Building belarus pull request ear server without flex(empty FLEX.war file)",
         buildType: "ear",

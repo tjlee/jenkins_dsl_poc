@@ -3,8 +3,7 @@ package com.setdsl
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
-
-class RunTestsWrapperBuilder {
+class DeployLinuxServerJobTemplate {
 
 
     String name
@@ -14,36 +13,23 @@ class RunTestsWrapperBuilder {
         dslFactory.multiJob(name) {
             it.description this.description
             logRotator {
-                numToKeep 20
+                numToKeep 50
             }
 
             parameters {
-//                stringParam('VERSION', '10.2.0.0', '')
-//                stringParam('BRANCH', 'master', '')
-//                stringParam('IPS', '', '')
-//                stringParam('SHOP_NUMBER', '', '')
+                stringParam('VERSION', '10.2.0.0', '')
+                stringParam('BRANCH', 'master', '')
+                stringParam('IPS', '', '')
+                stringParam('SHOP_NUMBER', '', '')
             }
 
             //build_tgz_flex
 
 
             steps {
-                phase('Build and deploy') {
-                    phaseJob('deploy_linux_with_building'){
-                        currentJobParameters(false)
-                        parameters {
-                            currentBuild()
-                        }
-                    }
-
-                    phaseJob('emulators_build_sap') {
-                        currentJobParameters(false)
-                        parameters {
-                            currentBuild()
-                        }
-                    }
-
-                    phaseJob('deploy_pos_cash_n_robot') {
+                phase('Build') {
+                    // mb to choose which one to build
+                    phaseJob('build_tgz_flex') {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
@@ -51,15 +37,30 @@ class RunTestsWrapperBuilder {
                     }
                 }
 
+                phase('Restore vm state'){
+                    phaseJob('restore_virtual_pc_state') {
+                        currentJobParameters(false)
+                        parameters {
+                            currentBuild()
+                        }
+                    }
 
-                phase('Run tests') {
-                    phaseJob('rus_test_run_without_deployment') {
+                    phaseJob('restore_virtual_pc_state') {
+                        currentJobParameters(false)
+                        parameters {
+                            currentBuild()
+                        }
+                    }
+                }
+
+                phase('Deploy') {
+                    phaseJob('deploy_linux') {
                         parameters {
                             currentBuild()
                         }
 
-                        copyArtifacts('build_pos_cash_tar') {
-                            includePatterns('**/*.zip',)
+                        copyArtifacts('build_tgz_flex') {
+                            includePatterns('**/*.sh',)
                             buildSelector {
                                 latestSuccessful(true)
                             }

@@ -7,7 +7,7 @@ import javaposse.jobdsl.dsl.Job
  * Build Cash Job Template
  */
 
-class CashJobTemplateBuilder {
+class CashJobTemplate {
 
     String packRobot = '''
 cd \$WORKSPACE/setretail10/SetRetail10_Utils/testStand/SetRobot/setrobot-core/build/data/setrobothub/;

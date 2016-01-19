@@ -1,4 +1,4 @@
-import com.setdsl.CashJobTemplateBuilder
+import com.setdsl.CashJobTemplate
 
 /**
  * belarus cash build jobs:
@@ -10,7 +10,7 @@ import com.setdsl.CashJobTemplateBuilder
  */
 
 // build_belarus_pos_cash_tar
-new CashJobTemplateBuilder(
+new CashJobTemplate(
         name: 'build_belarus_pos_cash_tar',
         description: 'Builds belarus pos cash tar',
         buildType: "tar",
@@ -18,7 +18,7 @@ new CashJobTemplateBuilder(
 ).build(this)
 
 // build_belarus_pos_cash_iso
-new CashJobTemplateBuilder(
+new CashJobTemplate(
         name: 'build_belarus_pos_cash_iso',
         description: 'Builds belarus pos cash iso',
         buildType: "iso",
@@ -26,7 +26,7 @@ new CashJobTemplateBuilder(
 ).build(this)
 
 // build_pull_request_pos_cash_tar
-new CashJobTemplateBuilder(
+new CashJobTemplate(
         name: 'build_belarus_pull_request_pos_cash_tar',
         description: 'Builds belarus pull request pos cash tar',
         buildType: "tar",
@@ -35,7 +35,7 @@ new CashJobTemplateBuilder(
 ).build(this)
 
 // build_belarus_pull_request_pos_cash_iso
-new CashJobTemplateBuilder(
+new CashJobTemplate(
         name: 'build_belarus_pull_request_pos_cash_iso',
         description: 'Builds belarus pull request pos cash iso',
         buildType: "iso",

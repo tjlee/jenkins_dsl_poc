@@ -1,4 +1,4 @@
-import com.setdsl.ServerJobTemplateBuilder
+import com.setdsl.ServerJobTemplate
 
 /**
  * Flex build jobs:
@@ -10,7 +10,7 @@ import com.setdsl.ServerJobTemplateBuilder
  */
 
 // build_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_flex",
         description: "Builds flex",
         gitHubCheckoutDir: "setretail10",
@@ -24,7 +24,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_flex_with_unit_tests
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_flex_with_unit_tests",
         description: "Builds flex with flex unit tests",
         gitHubCheckoutDir: "setretail10",
@@ -38,7 +38,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_flex_pull_request
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_flex_pull_request",
         description: "Builds pull request flex",
         gitHubCheckoutDir: "setretail10",
@@ -53,7 +53,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_flex_pull_request_with_unit_tests
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_flex_pull_request_with_unit_tests",
         description: "Builds flex pull request with flex unit tests",
         gitHubCheckoutDir: "setretail10",

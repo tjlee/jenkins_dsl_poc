@@ -1,13 +1,13 @@
-import com.setdsl.CashJobTemplateBuilder
-import com.setdsl.DeployLinux
-import com.setdsl.DeployLinuxServerTemplateBuilder
+import com.setdsl.CashJobTemplate
+import com.setdsl._DeployLinux
+import com.setdsl.DeployLinuxServerJobTemplate
 
 /**
  * BUILD -> DEPLOY
  */
 
 // build_pos_cash_tar
-new CashJobTemplateBuilder(
+new CashJobTemplate(
         name: 'deploy_pos_cash_n_robot',
         description: 'Builds and deploys pos cash with robot',
         buildType: "tar",
@@ -18,7 +18,7 @@ new CashJobTemplateBuilder(
 
 
 // build_pos_cash_tar
-new CashJobTemplateBuilder(
+new CashJobTemplate(
         name: 'deploy_pos_cash',
         description: 'Builds and deploys pos cash',
         buildType: "tar",
@@ -27,12 +27,12 @@ new CashJobTemplateBuilder(
 ).build(this)
 
 
-new DeployLinux(
+new _DeployLinux(
         name:'deploy_linux',
         description: 'private job deploy linux',
 ).build(this)
 
-new DeployLinuxServerTemplateBuilder(
+new DeployLinuxServerJobTemplate(
         name:'deploy_linux_with_building',
         description: '',
 ).build(this)

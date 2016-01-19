@@ -4,7 +4,7 @@ import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
 
-class SapEmulatorJobTemplateBuilder {
+class SapEmulatorJobTemplate {
     String name
     String description
 

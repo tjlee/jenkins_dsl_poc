@@ -4,7 +4,7 @@ import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
 
-class DeployLinux {
+class _DeployLinux {
 
     String deployLinuxScript = '''
 check_ping()

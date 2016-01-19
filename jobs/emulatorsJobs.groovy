@@ -1,11 +1,11 @@
-import com.setdsl.SapEmulatorJobTemplateBuilder
+import com.setdsl.SapEmulatorJobTemplate
 
-new SapEmulatorJobTemplateBuilder(
+new SapEmulatorJobTemplate(
         name: 'emulators_build_sap',
         description: "Builds SAP emulator"
 ).build(this)
 
-new SapEmulatorJobTemplateBuilder(
+new SapEmulatorJobTemplate(
         name: 'emulators_pull_request_build_sap',
         description: "Builds SAP emulator",
         isPullRequest: true

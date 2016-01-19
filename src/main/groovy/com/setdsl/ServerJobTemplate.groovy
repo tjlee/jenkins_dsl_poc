@@ -12,7 +12,7 @@ import javaposse.jobdsl.dsl.Job
  * Build Server Job Template
  */
 
-class ServerJobTemplateBuilder {
+class ServerJobTemplate {
     String name
     String description
 

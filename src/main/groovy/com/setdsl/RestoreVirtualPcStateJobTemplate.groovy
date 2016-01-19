@@ -3,7 +3,7 @@ package com.setdsl
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
-class ManageVirtualPcJobTemplateBuilder {
+class RestoreVirtualPcStateJobTemplate {
 
     String name
     String description
@@ -39,7 +39,7 @@ $VM_NAME
 VM_TYPE=win
  */
     /*
-    VM_HOST_IP=172.20.0.34
+VM_HOST_IP=172.20.0.34
 USER=tc
 PASSWORD=324012
      */
@@ -236,6 +236,9 @@ exit
                         parameter('param2', 'value2')
                     }
                 }
+                // IP => VM_NAME: VM_TYPE
+
+
 
                 choiceParam('IP', ['172.20.0.160', '172.20.0.161', '172.20.0.140', '172.20.0.141'])
             }
@@ -248,15 +251,10 @@ VM_NAME
  */
 
                 environmentVariables {
-//                    env 'IPS', '\$IPS'
-
-
-
-
-
+                    env 'VM_HOST_IP', '172.20.0.34'
+                    env 'USER', 'tc'
+                    env 'PASSWORD', '324012'
                 }
-
-
 
                 shell(restoreVmState)
             }

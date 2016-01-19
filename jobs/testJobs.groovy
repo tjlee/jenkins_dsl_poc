@@ -1,8 +1,8 @@
-import com.setdsl.ManageVirtualPcJobTemplateBuilder
-import com.setdsl.RunTestsTemplateBuilder
-import com.setdsl.RunTestsWrapperBuilder
+import com.setdsl.RestoreVirtualPcStateJobTemplate
+import com.setdsl._RunTests
+import com.setdsl.RunTestsMultiJobTemplate
 
-new RunTestsTemplateBuilder(
+new _RunTests(
         name: "rus_test_run_without_deployment",
         description: 'Cashes are always deploying',
         isToConfig: true,
@@ -10,12 +10,12 @@ new RunTestsTemplateBuilder(
 ).build(this)
 
 
-new RunTestsWrapperBuilder(
+new RunTestsMultiJobTemplate(
         name: 'rus_test_run_wrapped_unix',
         description: ''
 ).build(this)
 
-new ManageVirtualPcJobTemplateBuilder(
+new RestoreVirtualPcStateJobTemplate(
         name: 'restore_virtual_pc_state',
         description: ''
 ).build(this)

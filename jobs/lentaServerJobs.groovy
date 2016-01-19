@@ -1,4 +1,4 @@
-import com.setdsl.ServerJobTemplateBuilder
+import com.setdsl.ServerJobTemplate
 
 /**
  * Lenta server build jobs:
@@ -15,7 +15,7 @@ import com.setdsl.ServerJobTemplateBuilder
  */
 
 // build_lenta_ear_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_lenta_ear_flex",
         description: "Building lenta ear server with flex",
         buildType: "ear",
@@ -28,7 +28,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_lenta_exe_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_lenta_exe_flex",
         description: "Building lenta exe server with flex",
         buildType: "exe",
@@ -41,7 +41,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_lenta_tgz_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_lenta_tgz_flex",
         description: "Building lenta tgz server with flex",
         buildType: "tgz",
@@ -54,7 +54,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_lenta_iso_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_lenta_iso_flex",
         description: "Building lenta iso server with flex",
         buildType: "iso",
@@ -68,7 +68,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_lenta_ear_without_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_lenta_ear_without_flex",
         description: "Building lenta ear server without flex(empty FLEX.war file)",
         buildType: "ear",
@@ -77,7 +77,7 @@ new ServerJobTemplateBuilder(
 ).build(this)
 
 // build_lenta_pull_request_ear_without_flex
-new ServerJobTemplateBuilder(
+new ServerJobTemplate(
         name: "build_lenta_pull_request_ear_without_flex",
         description: "Building lenta pull request ear server without flex(empty FLEX.war file)",
         buildType: "ear",
