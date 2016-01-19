@@ -1,3 +1,4 @@
+import com.setdsl.ManageVirtualPcJobTemplateBuilder
 import com.setdsl.RunTestsTemplateBuilder
 import com.setdsl.RunTestsWrapperBuilder
 
@@ -13,3 +14,8 @@ new RunTestsWrapperBuilder(
         name: 'rus_test_run_wrapped_unix',
         description: ''
 ).build(this)
+
+new ManageVirtualPcJobTemplateBuilder(
+        name: 'restore_virtual_pc_state',
+        description: ''
+)
