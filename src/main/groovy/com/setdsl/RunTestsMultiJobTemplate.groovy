@@ -52,9 +52,9 @@ class RunTestsMultiJobTemplate {
                             *
                             * */
 
-                            stringParam('IPS', '', '')
+                            predefinedProp('IPS', '')
 
-                            stringParam('SHOP_NUMBER', '20161', 'Retail shop number')
+                            predefinedProp('SHOP_NUMBER', '20161')
 
                         }
                     }
