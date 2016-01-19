@@ -4,48 +4,15 @@ import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
 class RestoreVirtualPcStateJobTemplate {
-
     String name
     String description
 
-
-    String vmName
-    String vmOs
-    String vmIp
-
-    // now hardcoded
-
-    Map<String, String> ipToName =
-            ['172.20.0.160': 'standc_server1',
-             '172.20.0.161': 'standc_server2',
-             '172.20.0.140': 'standa_server1',
-             '172.20.0.141': 'standa_server2',
-            ]
-
-    List<String> linuxIps = ['172.20.0.160', '172.20.0.161']
-    List<String> windowsIps = ['172.20.0.140', '172.20.0.141']
-
-    /*
-standa_server1
-standa_server2
-standc_server1
-standc_server2
-
-     */
-/*
-VM_IP=172.20.0.160
-VM_TYPE=linux
-$VM_NAME
-VM_TYPE=win
- */
-    /*
-VM_HOST_IP=172.20.0.34
-USER=tc
-PASSWORD=324012
-     */
-
     String restoreVmState = '''
     echo ---------- Restore base state $VM_NAME ----------
+
+VM_IP=$(echo $VMS | cut -f1 -d:)
+VM_TYPE=$(echo $VMS | cut -f2 -d:)
+VM_NAME=$(echo $VMS | cut -f3 -d:)
 
 export FORCE=0
 
@@ -216,50 +183,22 @@ exit
             }
 
             parameters {
-
-                activeChoiceParam('CHOICE-1') {
-                    description('Allows user choose from multiple choices')
-                    filterable()
-                    choiceType('SINGLE_SELECT')
-                    groovyScript {
-                        script('["choice1", "choice2"]')
-                        fallbackScript('"fallback choice"')
-                    }
-                }
-
-                activeChoiceParam('CHOICE-2') {
-                    description('Allows user choose from multiple choices')
-                    filterable()
-                    choiceType('SINGLE_SELECT')
-                    scriptlerScript('scriptler-script1.groovy') {
-                        parameter('param1', 'value1')
-                        parameter('param2', 'value2')
-                    }
-                }
-                // IP => VM_NAME: VM_TYPE
-
-
-
-                choiceParam('IP', ['172.20.0.160', '172.20.0.161', '172.20.0.140', '172.20.0.141'])
+                choiceParam('VMS', ['172.20.0.160:linux:standc_server1',
+                                    '172.20.0.161:linux:standc_server2',
+                                    '172.20.0.140:win:standa_server1',
+                                    '172.20.0.141:win:standa_server1'])
             }
 
             steps {
-/*
-VM_IP
-VM_TYPE
-VM_NAME
- */
-
                 environmentVariables {
                     env 'VM_HOST_IP', '172.20.0.34'
                     env 'USER', 'tc'
                     env 'PASSWORD', '324012'
+                    env 'VMS', '\$VMS'
                 }
 
                 shell(restoreVmState)
             }
-
-
         }
     }
 }
