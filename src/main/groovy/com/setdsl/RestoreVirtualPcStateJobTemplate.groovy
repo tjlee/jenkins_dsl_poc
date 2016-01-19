@@ -197,7 +197,11 @@ exit
                     env 'VMS', '\$VMS'
                 }
 
-                shell(restoreVmState)
+                shell('echo $VM_IP')
+                shell('echo $VM_TYPE')
+                shell('echo $VM_NAME')
+
+//                shell(restoreVmState)
             }
         }
     }
