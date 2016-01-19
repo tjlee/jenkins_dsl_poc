@@ -13,7 +13,6 @@ class ManageVirtualPcJobTemplateBuilder {
     String vmOs
     String vmIp
 
-
     // now hardcoded
 
     Map<String, String> ipToName =
@@ -217,21 +216,10 @@ exit
             }
 
             parameters {
-                activeChoiceParam('CHOICE-1') {
-                    description('Allows user choose from multiple choices')
-                    filterable()
-                    choiceType('SINGLE_SELECT')
-                    groovyScript {
-                        script('["choice1", "choice2"]')
-
-                        fallbackScript('"fallback choice"')
-                    }
-                }
-                stringParam('IP', '', '')
+                choiceParam('IP', ['172.20.0.160', '172.20.0.161', '172.20.0.140', '172.20.0.141'])
             }
 
             steps {
-
 
 
                 shell(restoreVmState)
