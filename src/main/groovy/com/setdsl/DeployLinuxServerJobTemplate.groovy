@@ -19,8 +19,15 @@ class DeployLinuxServerJobTemplate {
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
                 stringParam('BRANCH', 'master', '')
-                stringParam('IPS', '', '')
-                stringParam('SHOP_NUMBER', '', '')
+
+                stringParam('VMS_1', '172.20.0.160:linux:standc_server1')
+                stringParam('VMS_2', '172.20.0.161:linux:standc_server2')
+
+                stringParam('CENTRUM_IP', '172.20.0.160')
+
+                stringParam('RETAIL_IP', '172.20.0.161')
+                stringParam('RETAIL_SHOP_NUMBER', '20161')
+
             }
 
             //build_tgz_flex
@@ -45,7 +52,7 @@ class DeployLinuxServerJobTemplate {
                     phaseJob('restore_virtual_pc_state') {
                         currentJobParameters(false)
                         parameters {
-                            predefinedProp('VMS', '172.20.0.160:linux:standc_server1')
+                            predefinedProp('VMS', '\$VMS_1')
                         }
                     }
 
@@ -53,7 +60,7 @@ class DeployLinuxServerJobTemplate {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
-                            predefinedProp('VMS', '172.20.0.161:linux:standc_server2')
+                            predefinedProp('VMS', '\$VMS_2')
                         }
                     }
                 }
@@ -61,7 +68,7 @@ class DeployLinuxServerJobTemplate {
                 phase('Deploy') {
                     phaseJob('deploy_linux') {
                         parameters {
-                            predefinedProp('IP', '172.20.0.160')
+                            predefinedProp('IP', '\$CENTRUM_IP')
                             predefinedProp('SHOP_NUMBER', '0')
                         }
 
@@ -75,8 +82,8 @@ class DeployLinuxServerJobTemplate {
 
                     phaseJob('deploy_linux') {
                         parameters {
-                            predefinedProp('IP', '172.20.0.161')
-                            predefinedProp('SHOP_NUMBER', '20161')
+                            predefinedProp('IP', '\$RETAIL_IP')
+                            predefinedProp('SHOP_NUMBER', '\$RETAIL_SHOP_NUMBER')
                         }
 
                         copyArtifacts('build_tgz_flex') {
