@@ -4,6 +4,11 @@ import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
 
+/**
+ * WHOLE STAND REDEPLOY AND TEST
+ */
+
+
 class RunTestsMultiJobTemplate {
 
 
@@ -18,10 +23,12 @@ class RunTestsMultiJobTemplate {
             }
 
             parameters {
-//                stringParam('VERSION', '10.2.0.0', '')
-//                stringParam('BRANCH', 'master', '')
+                stringParam('VERSION', '10.2.0.0', '')
+                stringParam('BRANCH', 'master', '')
 //                stringParam('IPS', '', '')
-//                stringParam('SHOP_NUMBER', '', '')
+                stringParam('SHOP_NUMBER', '', '')
+                stringParam('TEST_SOURCE_BRANCH', 'master', '')
+
             }
 
             //build_tgz_flex
@@ -30,13 +37,25 @@ class RunTestsMultiJobTemplate {
             // how to pass all required parameters
 
 
-
             steps {
                 phase('Build and deploy') {
-                    phaseJob('deploy_linux_with_building'){
+                    phaseJob('deploy_linux_with_building') {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
+
+                            /*FLEX_DEBUG
+                            *
+                            *   stringParam('VERSION', '10.2.0.0', '')
+                                stringParam('BRANCH', 'master', '')
+
+                            *
+                            * */
+
+                            stringParam('IPS', '', '')
+
+                            stringParam('SHOP_NUMBER', '20161', 'Retail shop number')
+
                         }
                     }
 
@@ -44,6 +63,10 @@ class RunTestsMultiJobTemplate {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
+                            /*
+                                stringParam('VERSION', '10.2.0.0', '')
+                stringParam('BRANCH', 'master', '')
+                */
                         }
                     }
 
@@ -51,6 +74,15 @@ class RunTestsMultiJobTemplate {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
+
+                            /*
+                             stringParam('VERSION', '10.2.0.0', '')
+                stringParam('BRANCH', 'master', '')
+                if (this.isToDeployCash) {
+                    stringParam('IPS', '', 'Divide ips by ; ')
+                }
+                            * */
+
                         }
                     }
                 }
@@ -60,9 +92,16 @@ class RunTestsMultiJobTemplate {
                     phaseJob('rus_test_run_without_deployment') {
                         parameters {
                             currentBuild()
+
+                            /*
+                              stringParam('VERSION', '10.2.0.0', '')
+                              stringParam('BRANCH', 'master', '')
+                              stringParam('TEST_SOURCE_BRANCH', 'master', '')
+                */
+                        // centrum ip hardcoded mother fucker need at leas active choise
                         }
 
-                        copyArtifacts('build_pos_cash_tar') {
+                        copyArtifacts('deploy_pos_cash_n_robot') {
                             includePatterns('**/*.zip',)
                             buildSelector {
                                 latestSuccessful(true)

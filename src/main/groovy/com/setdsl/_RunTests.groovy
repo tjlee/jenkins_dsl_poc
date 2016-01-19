@@ -46,7 +46,7 @@ class _RunTests {
 
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
-                stringParam('SERVER_BRANCH', 'master', '')
+                stringParam('BRANCH', 'master', '')
                 stringParam('TEST_SOURCE_BRANCH', 'master', '')
 
 //                stringParam('CENTRUM_IP', '', '')
@@ -70,7 +70,7 @@ class _RunTests {
                     remote {
                         github(this.gitHubOwnerAndProject)
                         credentials(this.gitHubCredentials)
-                        branch('\$SERVER_BRANCH')
+                        branch('\$BRANCH')
                         refspec('+refs/heads/*:refs/remotes/origin/*')
                     }
 

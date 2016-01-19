@@ -34,5 +34,5 @@ new _DeployLinux(
 
 new DeployLinuxServerJobTemplate(
         name:'deploy_linux_with_building',
-        description: '',
+        description: 'Deploys centrum and retail on linux servers',
 ).build(this)

@@ -11,8 +11,8 @@ new _RunTests(
 
 
 new RunTestsMultiJobTemplate(
-        name: 'rus_test_run_wrapped_unix',
-        description: ''
+        name: 'run_overall_build_deploy_test',
+        description: 'Builds flex, tgz, cashes, redeploys stand c and starts test run(all tests)'
 ).build(this)
 
 new RestoreVirtualPcStateJobTemplate(

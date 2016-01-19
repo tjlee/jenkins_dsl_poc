@@ -33,15 +33,19 @@ class DeployLinuxServerJobTemplate {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
+                            predefinedProp('FLEX_DEBUG', 'true')
+                            predefinedProp('FLEX_TEST_MODE', 'true')
+
+
                         }
                     }
                 }
 
-                phase('Restore vm state'){
+                phase('Restore vm state') {
                     phaseJob('restore_virtual_pc_state') {
                         currentJobParameters(false)
                         parameters {
-                            currentBuild()
+                            predefinedProp('VMS', '172.20.0.160:linux:standc_server1')
                         }
                     }
 
@@ -49,6 +53,7 @@ class DeployLinuxServerJobTemplate {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
+                            predefinedProp('VMS', '172.20.0.161:linux:standc_server2')
                         }
                     }
                 }
@@ -56,7 +61,22 @@ class DeployLinuxServerJobTemplate {
                 phase('Deploy') {
                     phaseJob('deploy_linux') {
                         parameters {
-                            currentBuild()
+                            predefinedProp('IP', '172.20.0.160')
+                            predefinedProp('SHOP_NUMBER', '0')
+                        }
+
+                        copyArtifacts('build_tgz_flex') {
+                            includePatterns('**/*.sh',)
+                            buildSelector {
+                                latestSuccessful(true)
+                            }
+                        }
+                    }
+
+                    phaseJob('deploy_linux') {
+                        parameters {
+                            predefinedProp('IP', '172.20.0.161')
+                            predefinedProp('SHOP_NUMBER', '20161')
                         }
 
                         copyArtifacts('build_tgz_flex') {
@@ -67,6 +87,7 @@ class DeployLinuxServerJobTemplate {
                         }
                     }
                 }
+
             }
 
         }
