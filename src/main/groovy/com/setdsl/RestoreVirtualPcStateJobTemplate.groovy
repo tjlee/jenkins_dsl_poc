@@ -186,7 +186,7 @@ exit
                 choiceParam('VMS', ['172.20.0.160:linux:standc_server1',
                                     '172.20.0.161:linux:standc_server2',
                                     '172.20.0.140:win:standa_server1',
-                                    '172.20.0.141:win:standa_server1'])
+                                    '172.20.0.141:win:standa_server2'])
             }
 
             steps {
