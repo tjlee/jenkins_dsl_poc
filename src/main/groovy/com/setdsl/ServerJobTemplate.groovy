@@ -253,7 +253,7 @@ class ServerJobTemplate {
                     if (this.buildType == "iso") {
 
                         shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/"')
-                        shell('./build7.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
+                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build7.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
                                 (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz"')
 
                     }
