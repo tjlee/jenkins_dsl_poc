@@ -11,7 +11,7 @@ new _RunTests(
 
 
 new RunTestsMultiJobTemplate(
-        name: 'run_overall_build_deploy_test_on_linux',
+        name: 'run_overall_build_deploy_on_linux',
         description: 'Builds flex, tgz, cashes, redeploys stand c and starts test run(all tests)',
         isToRunTests: false
 
