@@ -36,7 +36,7 @@ class DeployLinuxServerJobTemplate {
             steps {
                 phase('Build') {
                     // mb to choose which one to build
-                    phaseJob('build_tgz_flex') {
+                    phaseJob('build_iso_flex') {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
