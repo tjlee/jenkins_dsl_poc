@@ -81,6 +81,7 @@ class RunTestsMultiJobTemplate {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
+                            predefinedProp('IPS', '172.20.0.162;172.20.0.163')
 
                             /*
                              stringParam('VERSION', '10.2.0.0', '')
@@ -99,7 +100,6 @@ class RunTestsMultiJobTemplate {
                         phaseJob('rus_test_run_without_deployment') {
                             parameters {
                                 currentBuild()
-                                predefinedProp('IPS', '172.20.0.162;172.20.0.163')
 
                                 /*
                                   stringParam('VERSION', '10.2.0.0', '')
