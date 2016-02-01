@@ -3,7 +3,7 @@ job('seed') {
         github 'tjlee/jenkins_dsl_poc'
     }
     triggers {
-        cron('@hourly')
+        cron('@daily')
     }
     steps {
         gradle('clean test', '', true)

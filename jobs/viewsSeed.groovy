@@ -52,7 +52,7 @@ job('views_seed') {
     }
 
     triggers {
-        cron('@hourly')
+        cron('@daily')
     }
 
     steps {
