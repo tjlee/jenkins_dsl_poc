@@ -32,8 +32,8 @@ class ServerJobTemplate {
 
     String antBuildFile
     String antSourceDir
-    String antFlexSdkDir
-    String antAirSdkDir
+    String antFlexSdkDir = "/opt/flexsdk"
+    String antAirSdkDir = "/opt/airsdk"
     String antBuildTestFile
 
     Boolean isToPublishUnitTests = true

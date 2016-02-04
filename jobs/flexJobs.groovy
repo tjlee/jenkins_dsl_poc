@@ -17,8 +17,6 @@ new ServerJobTemplate(
         gitHubOwnerAndProject: "crystalservice/setretail10",
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
         antSourceDir: "setretail10/SetRetail10_Server_GUI",
-        antFlexSdkDir: "/opt/flexsdk",
-        antAirSdkDir: "/opt/airsdk",
         isToBuildFlex: true,
         isToPublishUnitTests: false
 ).build(this)
@@ -31,8 +29,6 @@ new ServerJobTemplate(
         gitHubOwnerAndProject: "crystalservice/setretail10",
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
         antSourceDir: "setretail10/SetRetail10_Server_GUI",
-        antFlexSdkDir: "/opt/flexsdk",
-        antAirSdkDir: "/opt/airsdk",
         antBuildTestFile: "setretail10/SetRetail10_Server_GUI/build_tests.xml",
         isToBuildFlex: true
 ).build(this)
@@ -45,8 +41,6 @@ new ServerJobTemplate(
         gitHubOwnerAndProject: "crystalservice/setretail10",
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
         antSourceDir: "setretail10/SetRetail10_Server_GUI",
-        antFlexSdkDir: "/opt/flexsdk",
-        antAirSdkDir: "/opt/airsdk",
         isToBuildFlex: true,
         isPullRequest: true,
         isToPublishUnitTests: false
@@ -60,8 +54,6 @@ new ServerJobTemplate(
         gitHubOwnerAndProject: "crystalservice/setretail10",
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
         antSourceDir: "setretail10/SetRetail10_Server_GUI",
-        antFlexSdkDir: "/opt/flexsdk",
-        antAirSdkDir: "/opt/airsdk",
         antBuildTestFile: "setretail10/SetRetail10_Server_GUI/build_tests.xml",
         isToBuildFlex: true,
         isPullRequest: true,

@@ -22,8 +22,6 @@
 //        isToBuildFlex: true,
 //        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
 //        antSourceDir: "setretail10/SetRetail10_Server_GUI",
-//        antFlexSdkDir: "/opt/flexsdk",
-//        antAirSdkDir: "/opt/airsdk",
 //        clientType: "belarus"
 //).build(this)
 //
@@ -35,8 +33,6 @@
 //        isToBuildFlex: true,
 //        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
 //        antSourceDir: "setretail10/SetRetail10_Server_GUI",
-//        antFlexSdkDir: "/opt/flexsdk",
-//        antAirSdkDir: "/opt/airsdk",
 //        clientType: "belarus"
 //).build(this)
 //
@@ -48,8 +44,6 @@
 //        isToBuildFlex: true,
 //        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
 //        antSourceDir: "setretail10/SetRetail10_Server_GUI",
-//        antFlexSdkDir: "/opt/flexsdk",
-//        antAirSdkDir: "/opt/airsdk",
 //        clientType: "belarus"
 //).build(this)
 //
@@ -61,8 +55,6 @@
 //        isToBuildFlex: true,
 //        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
 //        antSourceDir: "setretail10/SetRetail10_Server_GUI",
-//        antFlexSdkDir: "/opt/flexsdk",
-//        antAirSdkDir: "/opt/airsdk",
 //        clientType: "belarus"
 //
 //).build(this)

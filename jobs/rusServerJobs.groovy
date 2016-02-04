@@ -24,8 +24,6 @@ new ServerJobTemplate(
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
         antSourceDir: "setretail10/SetRetail10_Server_GUI",
-        antFlexSdkDir: "/opt/flexsdk",
-        antAirSdkDir: "/opt/airsdk"
 ).build(this)
 
 // build_exe_flex
@@ -35,9 +33,7 @@ new ServerJobTemplate(
         buildType: "exe",
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
-        antSourceDir: "setretail10/SetRetail10_Server_GUI",
-        antFlexSdkDir: "/opt/flexsdk",
-        antAirSdkDir: "/opt/airsdk"
+        antSourceDir: "setretail10/SetRetail10_Server_GUI"
 ).build(this)
 
 // build_tgz_flex
@@ -48,8 +44,6 @@ new ServerJobTemplate(
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
         antSourceDir: "setretail10/SetRetail10_Server_GUI",
-        antFlexSdkDir: "/opt/flexsdk",
-        antAirSdkDir: "/opt/airsdk",
         isToPublishUnitTests: false // TODO: remove me
 ).build(this)
 
@@ -61,8 +55,6 @@ new ServerJobTemplate(
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
         antSourceDir: "setretail10/SetRetail10_Server_GUI",
-        antFlexSdkDir: "/opt/flexsdk",
-        antAirSdkDir: "/opt/airsdk"
 
 ).build(this)
 
@@ -82,8 +74,6 @@ new ServerJobTemplate(
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
         antSourceDir: "setretail10/SetRetail10_Server_GUI",
-        antFlexSdkDir: "/opt/flexsdk",
-        antAirSdkDir: "/opt/airsdk",
         isPullRequest: true
 ).build(this)
 
@@ -95,8 +85,6 @@ new ServerJobTemplate(
         isToBuildFlex: true,
         antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
         antSourceDir: "setretail10/SetRetail10_Server_GUI",
-        antFlexSdkDir: "/opt/flexsdk",
-        antAirSdkDir: "/opt/airsdk",
         isPullRequest: true
 ).build(this)
 
