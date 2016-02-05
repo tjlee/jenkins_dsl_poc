@@ -24,14 +24,15 @@ class ServerJobTemplate {
     String gitHubOwnerAndProjectLinuxSources = "crystalservice/setretail10linux"
     String gitHubCheckoutDirLinuxSources = "setretail10linux"
 
-    String buildType
+    String buildType /* iso, tgz, exe, ear, distr*/
     String clientType /*default lenta belarus*//*for default leave empty*/
 
     Boolean isToBuildFlex = false
     Boolean isPullRequest = false
 
-    String antBuildFile
-    String antSourceDir
+    String antBuildFile = "setretail10/SetRetail10_Server_GUI/build.xml"
+    String antSourceDir = "setretail10/SetRetail10_Server_GUI"
+
     String antFlexSdkDir = "/opt/flexsdk"
     String antAirSdkDir = "/opt/airsdk"
     String antBuildTestFile
@@ -191,7 +192,7 @@ class ServerJobTemplate {
                         cp /opt/gradlew \$WORKSPACE/gradlew || true;
                     ''')
 
-                    // building iso, tgz, ear, exe
+                    // building iso, tgz, ear, exe, distr
                     if (this.buildType == "tgz" || this.buildType == "iso") {
 
                         // TODO:
@@ -210,6 +211,23 @@ class ServerJobTemplate {
                         // copy to workspace
                         shell('mv -f "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation/build/Set\$VERSION' +
                                 (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz" "\$WORKSPACE/"')
+
+                    } else if (this.buildType == "distr") {
+                        // for patch build
+
+                        gradle('clean makeDistr',
+                                '-PtempDir=/tmp -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -Plinux' +
+                                        (this.clientType ? ' -PclientId=' + this.clientType : ''),
+                                true) {
+                            it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation')
+                            it / wrapperScript('gradlew')
+                            it / makeExecutable(true)
+                            it / fromRootBuildScriptDir(false)
+
+                        }
+                        // todo: figure out where to move build artifacts!
+                        // /bin/cp -f -r $WORKSPACE_DIR/SetRetail10_Server/Installation/build/Set10 $COPY_TO
+
 
                     } else if (this.buildType == "ear") {
                         gradle('clean ear test',

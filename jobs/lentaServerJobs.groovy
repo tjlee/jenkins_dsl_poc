@@ -20,8 +20,6 @@
 //        description: "Building lenta ear server with flex",
 //        buildType: "ear",
 //        isToBuildFlex: true,
-//        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
-//        antSourceDir: "setretail10/SetRetail10_Server_GUI",
 //        clientType: "lenta"
 //).build(this)
 //
@@ -31,8 +29,6 @@
 //        description: "Building lenta exe server with flex",
 //        buildType: "exe",
 //        isToBuildFlex: true,
-//        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
-//        antSourceDir: "setretail10/SetRetail10_Server_GUI",
 //        clientType: "lenta"
 //).build(this)
 //
@@ -42,8 +38,6 @@
 //        description: "Building lenta tgz server with flex",
 //        buildType: "tgz",
 //        isToBuildFlex: true,
-//        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
-//        antSourceDir: "setretail10/SetRetail10_Server_GUI",
 //        clientType: "lenta"
 //).build(this)
 //
@@ -53,8 +47,6 @@
 //        description: "Building lenta iso server with flex",
 //        buildType: "iso",
 //        isToBuildFlex: true,
-//        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
-//        antSourceDir: "setretail10/SetRetail10_Server_GUI",
 //        clientType: "lenta"
 //
 //).build(this)

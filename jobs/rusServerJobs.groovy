@@ -7,8 +7,10 @@ import com.setdsl.ServerJobTemplate
  * -- build_exe_flex
  * -- build_tgz_flex
  * -- build_iso_flex
+ * -- todo: build_distr_flex
  * - without flex
  * -- build_ear_without_flex
+ * -- todo: build_distr_without_flex
  *
  * - pull requests
  * -- build_pull_request_exe_flex
@@ -21,9 +23,7 @@ new ServerJobTemplate(
         name: "build_ear_flex",
         description: "Building ear server with flex",
         buildType: "ear",
-        isToBuildFlex: true,
-        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
-        antSourceDir: "setretail10/SetRetail10_Server_GUI",
+        isToBuildFlex: true
 ).build(this)
 
 // build_exe_flex
@@ -31,9 +31,7 @@ new ServerJobTemplate(
         name: "build_exe_flex",
         description: "Building exe server with flex",
         buildType: "exe",
-        isToBuildFlex: true,
-        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
-        antSourceDir: "setretail10/SetRetail10_Server_GUI"
+        isToBuildFlex: true
 ).build(this)
 
 // build_tgz_flex
@@ -42,8 +40,6 @@ new ServerJobTemplate(
         description: "Building tgz server with flex",
         buildType: "tgz",
         isToBuildFlex: true,
-        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
-        antSourceDir: "setretail10/SetRetail10_Server_GUI",
         isToPublishUnitTests: false // TODO: remove me
 ).build(this)
 
@@ -52,10 +48,17 @@ new ServerJobTemplate(
         name: "build_iso_flex",
         description: "Building iso server with flex",
         buildType: "iso",
-        isToBuildFlex: true,
-        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
-        antSourceDir: "setretail10/SetRetail10_Server_GUI",
+        isToBuildFlex: true
 
+).build(this)
+
+// build_distr_flex
+new ServerJobTemplate(
+        name: "build_distr_flex",
+        description: "Building makeDistr for further patch building",
+        buildType: "distr",
+        isToBuildFlex: true,
+        isToPublishUnitTests: false
 ).build(this)
 
 // build_ear_without_flex
@@ -63,7 +66,15 @@ new ServerJobTemplate(
         name: "build_ear_without_flex",
         description: "Building ear server without flex(empty FLEX.war file)",
         buildType: "ear",
-        isToBuildFlex: false,
+        isToBuildFlex: false
+).build(this)
+
+// build_distr_without_flex
+new ServerJobTemplate(
+        name: "build_distr_without_flex",
+        description: "Building makeDistr without Flex for further patch building",
+        buildType: "distr",
+        isToBuildFlex: false
 ).build(this)
 
 // build_pull_request_exe_flex
@@ -72,8 +83,6 @@ new ServerJobTemplate(
         description: "Building pull request exe server with flex",
         buildType: "exe",
         isToBuildFlex: true,
-        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
-        antSourceDir: "setretail10/SetRetail10_Server_GUI",
         isPullRequest: true
 ).build(this)
 
@@ -83,8 +92,6 @@ new ServerJobTemplate(
         description: "Building pull request iso server with flex",
         buildType: "iso",
         isToBuildFlex: true,
-        antBuildFile: "setretail10/SetRetail10_Server_GUI/build.xml",
-        antSourceDir: "setretail10/SetRetail10_Server_GUI",
         isPullRequest: true
 ).build(this)
 
