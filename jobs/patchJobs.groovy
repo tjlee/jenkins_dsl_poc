@@ -1,3 +1,5 @@
+import com.setdsl.ServerPatchBuilderMultiJobTemplate
+
 /*
 PARAMETERS
  define git from
@@ -21,3 +23,8 @@ JOB SEQUENCE
 
 // todo: define how to hide wrapper jobs
 
+new ServerPatchBuilderMultiJobTemplate(
+        name: "build_server_patch",
+        description: "Building server patch",
+        isToRunTests: false
+).build(this)

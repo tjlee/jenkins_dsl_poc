@@ -10,8 +10,6 @@ import javaposse.jobdsl.dsl.Job
 
 
 class RunTestsMultiJobTemplate {
-
-
     String name
     String description
     Boolean isToRunTests = true

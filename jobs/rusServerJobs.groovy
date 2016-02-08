@@ -39,8 +39,10 @@ new ServerJobTemplate(
         name: "build_tgz_flex",
         description: "Building tgz server with flex",
         buildType: "tgz",
-        isToBuildFlex: true,
-        isToPublishUnitTests: false // TODO: remove me
+        isToBuildFlex: true
+//        ,
+//
+//        isToPublishUnitTests: false // TODO: remove me
 ).build(this)
 
 // build_iso_flex
