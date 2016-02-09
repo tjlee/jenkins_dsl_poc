@@ -39,6 +39,8 @@ class ServerPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION')
                             predefinedProp('BRANCH', '\$BRANCH')
+                            sameNode()
+                            customWorkspace("\$WORKSPACE/version_from/")
                         }
                     }
 
@@ -48,13 +50,30 @@ class ServerPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION_TO')
                             predefinedProp('BRANCH', '\$BRANCH_TO')
+                            sameNode()
+                            customWorkspace("\$WORKSPACE/version_to/")
                         }
                     }
                 }
 
                 shell('''mkdir -p \$WORKSPACE/current; cp \$JENKINS_HOME/userContent/PatchBuilder.jar \$WORKSPACE/current;''')
 
+                shell('''mkdir -p \$WORKSPACE/current/builds/\$VERSION;mkdir -p \$WORKSPACE/current/builds/\$VERSION_TO;''')
+//                shell('''mkdir -p \$WORKSPACE/current/git/to_git; cp -rf \$WORKSPACE/\$VERSION_TO/patches \$WORKSPACE/current/git/to_git;''')
+                shell('''cd \$WORKSPACE/current;java -Dfile.encoding=UTF-8 -jar \$WORKSPACE/current/PatchBuilder.jar gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=S needTests=true workPath=\$WORKSPACE/current/ disableRebuild=true;''')
 
+
+                shell('''zip -r \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
+                shell('''mv \\$WORKSPACE/current/patches/\\$VERSION_FROM/_\\$VERSION_TO.zip \$WORKSPACE;''')
+
+                // todo: build to version_from
+                // todo: build to version_to
+
+                // todo:
+                // todo:
+                // todo:
+                // todo:
+                // todo:
 
             }
         }
@@ -63,20 +82,7 @@ class ServerPatchBuilderMultiJobTemplate {
 /*
 Build name #${BUILD_NUMBER}.(${ENV,var="VERSION_FROM"}-${ENV,var="VERSION_TO"})
 
-
-rm -R current
-rm *.zip
-
-cd $WORKSPACE
-mkdir current
-cp $JENKINS_HOME/userContent/PatchBuilder.jar $WORKSPACE/current
-cd current
-mkdir builds
-cd builds
-mkdir $VERSION_FROM
-mkdir $VERSION_TO
-
-
+// todo: wtf?
 cd $WORKSPACE/current/
 mkdir git
 cd git
