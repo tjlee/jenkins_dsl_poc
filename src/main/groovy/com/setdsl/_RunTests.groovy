@@ -150,11 +150,12 @@ java -jar \$WORKSPACE/autoqa/SAP_Emu/SapWSEmulator.jar;
                         env 'TEST_SUITE', 'suite_robot_config_server.xml,suite_robot_config_cash.xml'
                     }
 
+                    // todo: move to utility script
                     shell('''
                         mkdir -p "\$WORKSPACE/gradle/wrapper";
                         cp \$JENKINS_HOME/userContent/wrapper/* \$WORKSPACE/gradle/wrapper || true;
-                        cp \$JENKINS_HOME/gradlew \$WORKSPACE/gradlew || true;
-                        cp \$JENKINS_HOME/gradlew.bat \$WORKSPACE/gradlew.bat || true;
+                        cp \$JENKINS_HOME/userContent/gradlew \$WORKSPACE/gradlew || true;
+                        cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     ''')
 // UNIX only
                     gradle('clean test',

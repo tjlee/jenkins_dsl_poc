@@ -340,8 +340,8 @@ done
                 shell('''
                         mkdir -p "\$WORKSPACE/gradle/wrapper";
                         cp \$JENKINS_HOME/userContent/wrapper/* \$WORKSPACE/gradle/wrapper || true;
-                        cp \$JENKINS_HOME/gradlew \$WORKSPACE/gradlew || true;
-                        cp \$JENKINS_HOME/gradlew.bat \$WORKSPACE/gradlew.bat || true;
+                        cp \$JENKINS_HOME/userContent/gradlew \$WORKSPACE/gradlew || true;
+                        cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     ''')
 
                 gradle('clean build tarAll',
