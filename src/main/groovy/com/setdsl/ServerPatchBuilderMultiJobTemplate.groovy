@@ -39,7 +39,7 @@ class ServerPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION')
                             predefinedProp('BRANCH', '\$BRANCH')
-                            predefinedProp('CUSTOM_WORKSPACE', '/version_from/')
+                            predefinedProp('CUSTOM_WORKSPACE', '\$WORKSPACE/version_from/')
                             sameNode()
                         }
                     }
@@ -64,7 +64,7 @@ class ServerPatchBuilderMultiJobTemplate {
 
 
                 shell('''zip -r \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
-                shell('''mv \\$WORKSPACE/current/patches/\\$VERSION_FROM/_\\$VERSION_TO.zip \$WORKSPACE;''')
+                shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
 
                 // todo: build to version_from
                 // todo: build to version_to
