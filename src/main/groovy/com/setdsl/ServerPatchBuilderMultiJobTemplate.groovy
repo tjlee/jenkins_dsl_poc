@@ -50,7 +50,7 @@ class ServerPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION_TO')
                             predefinedProp('BRANCH', '\$BRANCH_TO')
-//                            predefinedProp('CUSTOM_WORKSPACE', '\$WORKSPACE/version_to/')
+                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_server_patch/workspace/version_to/')
                             sameNode()
                         }
                     }

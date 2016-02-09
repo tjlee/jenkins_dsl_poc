@@ -82,7 +82,7 @@ class ServerJobTemplate {
                 }
 
             }
-
+                // todo: x3
             if (this.isCustomWorkspace) {
                 customWorkspace('\$CUSTOM_WORKSPACE')
             }
