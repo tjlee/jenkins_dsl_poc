@@ -124,7 +124,7 @@ export LANG=ru_RU.UTF-8
 '''
 
     String deployRobotScriptChunkTwo =
-'''
+            '''
 check_process()
 {
          sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "ps -elf | grep -v grep | grep Loader && return 1 || return 0"
@@ -337,7 +337,12 @@ done
 
                 shell('cd ' + this.gitHubCheckoutDir + '/SetRetail10_Cash/buildGradle/; export LANG=ru_RU.UTF-8;')
 
-                shell('''mkdir -p "\$WORKSPACE/gradle/wrapper"; cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true; cp /opt/gradlew \$WORKSPACE/gradlew || true;''')
+                shell('''
+                        mkdir -p "\$WORKSPACE/gradle/wrapper";
+                        cp \$JENKINS_HOME/userContent/wrapper/* \$WORKSPACE/gradle/wrapper || true;
+                        cp \$JENKINS_HOME/gradlew \$WORKSPACE/gradlew || true;
+                        cp \$JENKINS_HOME/gradlew.bat \$WORKSPACE/gradlew.bat || true;
+                    ''')
 
                 gradle('clean build tarAll',
                         ' -PpresetCashParamsPath=\$JENKINS_HOME/userContent/cashes.xml -PproductVersion=\$VERSION -Pbranch=\$GIT_BRANCH -Pshaid=\$GIT_COMMIT',

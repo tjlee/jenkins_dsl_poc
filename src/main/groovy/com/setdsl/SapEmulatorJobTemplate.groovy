@@ -69,7 +69,12 @@ class SapEmulatorJobTemplate {
 
             steps {
                 shell('cd setretail10/SetRetail10_Utils/testStand/SapWSEmulator; export LANG=ru_RU.UTF-8;')
-                shell('''mkdir -p "\$WORKSPACE/gradle/wrapper"; cp /opt/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true; cp /opt/gradlew \$WORKSPACE/gradlew || true;''')
+                shell('''
+                        mkdir -p "\$WORKSPACE/gradle/wrapper";
+                        cp \$JENKINS_HOME/userContent/wrapper/* \$WORKSPACE/gradle/wrapper || true;
+                        cp \$JENKINS_HOME/gradlew \$WORKSPACE/gradlew || true;
+                        cp \$JENKINS_HOME/gradlew.bat \$WORKSPACE/gradlew.bat || true;
+                    ''')
                 gradle('clean build',
                         '-xtest',
                         true) {
