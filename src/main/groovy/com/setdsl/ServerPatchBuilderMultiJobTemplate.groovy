@@ -39,8 +39,8 @@ class ServerPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION')
                             predefinedProp('BRANCH', '\$BRANCH')
+                            predefinedProp('CUSTOM_WORKSPACE', "\$WORKSPACE/version_from/")
                             sameNode()
-                            customWorkspace("\$WORKSPACE/version_from/")
                         }
                     }
 
@@ -50,8 +50,8 @@ class ServerPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION_TO')
                             predefinedProp('BRANCH', '\$BRANCH_TO')
+                            predefinedProp('CUSTOM_WORKSPACE', "\$WORKSPACE/version_to/")
                             sameNode()
-                            customWorkspace("\$WORKSPACE/version_to/")
                         }
                     }
                 }

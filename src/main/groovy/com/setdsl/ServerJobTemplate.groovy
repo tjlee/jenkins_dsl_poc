@@ -44,6 +44,8 @@ class ServerJobTemplate {
 
     Boolean isToDeploy = false // is it here ? or maybe implement in another and make build flow &*&(**?
 
+    Boolean isCustomWorkspace = false
+    String customWorkspacePath = ''
 
     String artifacts = 'FLEX.war,*.branch,*.ear,*.sh,*.tgz,*.iso, *.exe'
 
@@ -74,6 +76,15 @@ class ServerJobTemplate {
                     booleanParam('FLEX_DEBUG', false, '')
                     booleanParam('FLEX_TEST_MODE', false, '')
                 }
+
+                if (this.isCustomWorkspace) {
+                    stringParam('CUSTOM_WORKSPACE', '', '')
+                }
+
+            }
+
+            if (this.isCustomWorkspace) {
+                customWorkspace('\$CUSTOM_WORKSPACE')
             }
 
             multiscm {
