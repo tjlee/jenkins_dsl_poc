@@ -60,7 +60,8 @@ new ServerJobTemplate(
         description: "Building makeDistr for further patch building",
         buildType: "distr",
         isToBuildFlex: true,
-        isToPublishUnitTests: false
+        isToPublishUnitTests: false,
+        isCustomWorkspace: true
 ).build(this)
 
 // build_ear_without_flex
@@ -76,7 +77,8 @@ new ServerJobTemplate(
         name: "build_distr_without_flex",
         description: "Building makeDistr without Flex for further patch building",
         buildType: "distr",
-        isToBuildFlex: false
+        isToBuildFlex: false,
+        isCustomWorkspace: true
 ).build(this)
 
 // build_pull_request_exe_flex
