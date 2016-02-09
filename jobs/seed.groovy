@@ -9,8 +9,8 @@ job('seed') {
 
         shell('''mkdir -p \$JENKINS_HOME/userContent/wrapper;
         cp \$WORKSPACE/gradle/wrapper/* \$JENKINS_HOME/userContent/wrapper|| true;
-        cp \$WORKSPACE/gradle/gradlew \$JENKINS_HOME/userContent/wrapper/gradlew || true;
-        cp \$WORKSPACE/gradle/gradlew.bat \$JENKINS_HOME/userContent/wrapper/gradlew.bat || true;''')
+        cp \$WORKSPACE/gradlew \$JENKINS_HOME/userContent/gradlew || true;
+        cp \$WORKSPACE/gradlew.bat \$JENKINS_HOME/userContent/gradlew.bat || true;''')
 
         gradle('clean test', '', true)
                 {
