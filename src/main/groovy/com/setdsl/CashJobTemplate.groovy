@@ -260,6 +260,9 @@ done
 
     String ips = ""
 
+    Boolean isCustomWorkspace = false
+    String customWorkspacePath = ''
+
     String artifacts = 'POS/**/*,Lenta/**/*,Belarus/**/*,cash.branch,*.iso,*.zip'
 
     List<String> emails = []
@@ -280,6 +283,10 @@ done
                 }
             }
 
+            // todo: x3
+            if (this.isCustomWorkspace) {
+                customWorkspace('\$CUSTOM_WORKSPACE')
+            }
 
             multiscm {
 
