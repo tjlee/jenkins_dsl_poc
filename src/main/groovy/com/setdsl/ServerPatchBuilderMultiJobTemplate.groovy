@@ -24,8 +24,9 @@ class ServerPatchBuilderMultiJobTemplate {
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
                 stringParam('BRANCH', 'master', '')
-                stringParam('BRANCH_TO', 'master', '')
                 stringParam('VERSION_TO', '10.2.0.0', '')
+                stringParam('BRANCH_TO', 'master', '')
+
             }
 
             // run two jobs in phase
