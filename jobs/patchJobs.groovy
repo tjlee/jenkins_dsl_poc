@@ -34,4 +34,4 @@ new CashPatchBuilderMultiJobTemplate(
         name: "build_cash_patch",
         description: "Building cash patch",
         isToRunTests: false
-)
+).build(this)
