@@ -30,7 +30,6 @@ class CashPatchBuilderMultiJobTemplate {
 
             }
 
-
             steps {
                 phase('Build distributions') {
                     phaseJob('build_pos_cash_tar') {
@@ -71,14 +70,7 @@ class CashPatchBuilderMultiJobTemplate {
 
 
                 shell('cp -rf \$WORKSPACE/builds/\$VERSION_TO/cash/patches \$WORKSPACE/git/to_git')
-
-
-//                shell('''mkdir -p \$WORKSPACE/current/builds/\$VERSION;mkdir -p \$WORKSPACE/current/builds/\$VERSION_TO;''')
-
-//                shell('''mkdir -p \$WORKSPACE/version_to/patches; cp -rf \$WORKSPACE/\$VERSION_TO/patches \$WORKSPACE/current/git/to_git;''')
-//
                 shell('''java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar  gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=C needTests=true workPath=\$WORKSPACE/ disableRebuild=true;''')
-//
                 shell('''zip -r \$WORKSPACE/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
 //                shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
 
@@ -86,25 +78,4 @@ class CashPatchBuilderMultiJobTemplate {
         }
     }
 }
-/*
-Build name #${BUILD_NUMBER}.(${ENV,var="VERSION_FROM"}-${ENV,var="VERSION_TO"})
 
-// todo: wtf?
-cd $WORKSPACE/current/
-mkdir git
-cd git
-mkdir to_git
-cd $WORKSPACE
-/bin/cp -f -r $WORKSPACE/version_to/patches $WORKSPACE/current/git/to_git
-
-
-cd $WORKSPACE/current/
-java -Dfile.encoding=UTF-8 -jar PatchBuilder.jar gitPathFrom=$GIT_PATH_FROM gitPathTo=$GIT_PATH_TO versionFrom=$VERSION_FROM versionTo=$VERSION_TO modules=$MODULES needTests=$NEED_TESTS workPath=$WORKSPACE/current/ disableRebuild=true
-
-Î_Î_Î_Î_Î_Î_Î_Î_Î_Î
-
-cd $WORKSPACE/current/patches/$VERSION_FROM\_$VERSION_TO
-zip -r $VERSION_FROM\_$VERSION_TO.zip .
-mv $VERSION_FROM\_$VERSION_TO.zip $WORKSPACE
-
- */

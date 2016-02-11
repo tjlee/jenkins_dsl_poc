@@ -14,7 +14,8 @@ new CashJobTemplate(
         name: 'build_pos_cash_tar',
         description: 'Builds pos cash tar',
         buildType: "tar",
-        clientType: "pos"
+        clientType: "pos",
+        isCustomWorkspace: true
 ).build(this)
 
 // build_pos_cash_iso

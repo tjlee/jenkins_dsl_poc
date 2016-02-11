@@ -29,9 +29,6 @@ class ServerPatchBuilderMultiJobTemplate {
 
             }
 
-            // run two jobs in phase
-            // then run patchbuilder.jar
-
             steps {
                 phase('Build distributions') {
                     phaseJob('build_distr_without_flex') {
@@ -58,50 +55,11 @@ class ServerPatchBuilderMultiJobTemplate {
                 }
 
                 shell('cp -rf \$WORKSPACE/builds/\$VERSION_TO/server/patches \$WORKSPACE/git/to_git')
-
-
-//                shell('''mkdir -p \$WORKSPACE/current; cp \$JENKINS_HOME/userContent/PatchBuilder.jar \$WORKSPACE/current;''')
-//
-//                shell('''mkdir -p \$WORKSPACE/current/builds/\$VERSION;mkdir -p \$WORKSPACE/current/builds/\$VERSION_TO;''')
-//                shell('''mkdir -p \$WORKSPACE/current/git/to_git; cp -rf \$WORKSPACE/\$VERSION_TO/patches \$WORKSPACE/current/git/to_git;''')
                 shell('''java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=S needTests=true workPath=\$WORKSPACE/ disableRebuild=true;''')
-//
-//
                 shell('''zip -r \$WORKSPACE/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
 //                shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
-
-                // todo: build to version_from
-                // todo: build to version_to
-
-                // todo:
-                // todo:
-                // todo:
-                // todo:
-                // todo:
 
             }
         }
     }
 }
-/*
-Build name #${BUILD_NUMBER}.(${ENV,var="VERSION_FROM"}-${ENV,var="VERSION_TO"})
-
-// todo: wtf?
-cd $WORKSPACE/current/
-mkdir git
-cd git
-mkdir to_git
-cd $WORKSPACE
-/bin/cp -f -r $WORKSPACE/version_to/patches $WORKSPACE/current/git/to_git
-
-
-cd $WORKSPACE/current/
-java -Dfile.encoding=UTF-8 -jar PatchBuilder.jar gitPathFrom=$GIT_PATH_FROM gitPathTo=$GIT_PATH_TO versionFrom=$VERSION_FROM versionTo=$VERSION_TO modules=$MODULES needTests=$NEED_TESTS workPath=$WORKSPACE/current/ disableRebuild=true
-
-Î_Î_Î_Î_Î_Î_Î_Î_Î_Î
-
-cd $WORKSPACE/current/patches/$VERSION_FROM\_$VERSION_TO
-zip -r $VERSION_FROM\_$VERSION_TO.zip .
-mv $VERSION_FROM\_$VERSION_TO.zip $WORKSPACE
-
- */
