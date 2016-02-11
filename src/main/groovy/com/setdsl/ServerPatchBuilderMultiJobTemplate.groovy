@@ -40,7 +40,7 @@ class ServerPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION')
                             predefinedProp('BRANCH', '\$BRANCH')
-                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_server_patch/workspace/version_from/server/')
+                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_server_patch/workspace/builds/\$VERSION/server/')
                             sameNode()
                         }
                     }
@@ -51,21 +51,24 @@ class ServerPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION_TO')
                             predefinedProp('BRANCH', '\$BRANCH_TO')
-                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_server_patch/workspace/version_to/server/')
+                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_server_patch/workspace/builds/\$VERSION_TO/server/')
                             sameNode()
                         }
                     }
                 }
 
-                shell('''mkdir -p \$WORKSPACE/current; cp \$JENKINS_HOME/userContent/PatchBuilder.jar \$WORKSPACE/current;''')
-
-                shell('''mkdir -p \$WORKSPACE/current/builds/\$VERSION;mkdir -p \$WORKSPACE/current/builds/\$VERSION_TO;''')
-                shell('''mkdir -p \$WORKSPACE/current/git/to_git; cp -rf \$WORKSPACE/\$VERSION_TO/patches \$WORKSPACE/current/git/to_git;''')
-                shell('''cd \$WORKSPACE/current;java -Dfile.encoding=UTF-8 -jar \$WORKSPACE/current/PatchBuilder.jar gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=S needTests=true workPath=\$WORKSPACE/current/ disableRebuild=true;''')
+                shell('cp -rf \$WORKSPACE/builds/\$VERSION_TO/server/patches \$WORKSPACE/git/to_git')
 
 
-                shell('''zip -r \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
-                shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
+//                shell('''mkdir -p \$WORKSPACE/current; cp \$JENKINS_HOME/userContent/PatchBuilder.jar \$WORKSPACE/current;''')
+//
+//                shell('''mkdir -p \$WORKSPACE/current/builds/\$VERSION;mkdir -p \$WORKSPACE/current/builds/\$VERSION_TO;''')
+//                shell('''mkdir -p \$WORKSPACE/current/git/to_git; cp -rf \$WORKSPACE/\$VERSION_TO/patches \$WORKSPACE/current/git/to_git;''')
+                shell('''java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=S needTests=true workPath=\$WORKSPACE/ disableRebuild=true;''')
+//
+//
+                shell('''zip -r \$WORKSPACE/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
+//                shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
 
                 // todo: build to version_from
                 // todo: build to version_to
