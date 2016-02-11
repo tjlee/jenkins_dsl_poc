@@ -55,24 +55,15 @@ class CashPatchBuilderMultiJobTemplate {
                         }
                     }
                 }
-//cp \$JENKINS_HOME/userContent/PatchBuilder.jar \$WORKSPACE/current;
-                shell('''mkdir -p \$WORKSPACE/current; ''')
 
                 shell('''mkdir -p \$WORKSPACE/current/builds/\$VERSION;mkdir -p \$WORKSPACE/current/builds/\$VERSION_TO;''')
-                shell('''mkdir -p \$WORKSPACE/current/git/to_git; cp -rf \$WORKSPACE/\$VERSION_TO/patches \$WORKSPACE/current/git/to_git;''')
+
+                shell('''mkdir -p \$WORKSPACE/version_to/patches; cp -rf \$WORKSPACE/\$VERSION_TO/patches \$WORKSPACE/current/git/to_git;''')
+
                 shell('''cd \$WORKSPACE/current;java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar  gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=C needTests=true workPath=\$WORKSPACE/current/ disableRebuild=true;''')
 
                 shell('''zip -r \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
                 shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
-
-                // todo: build to version_from
-                // todo: build to version_to
-
-                // todo:
-                // todo:
-                // todo:
-                // todo:
-                // todo:
 
             }
         }

@@ -40,7 +40,7 @@ class ServerPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION')
                             predefinedProp('BRANCH', '\$BRANCH')
-                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_server_patch/workspace/version_from/')
+                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_server_patch/workspace/version_from/server/')
                             sameNode()
                         }
                     }
@@ -51,7 +51,7 @@ class ServerPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION_TO')
                             predefinedProp('BRANCH', '\$BRANCH_TO')
-                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_server_patch/workspace/version_to/')
+                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_server_patch/workspace/version_to/server/')
                             sameNode()
                         }
                     }
