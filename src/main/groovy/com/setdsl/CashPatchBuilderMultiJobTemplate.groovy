@@ -39,7 +39,7 @@ class CashPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION')
                             predefinedProp('BRANCH', '\$BRANCH')
-                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_cash_patch/workspace/version_from/cash/')
+                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_cash_patch/workspace/\$VERSION/cash/')
                             sameNode()
                         }
                     }
@@ -50,20 +50,35 @@ class CashPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION_TO')
                             predefinedProp('BRANCH', '\$BRANCH_TO')
-                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_cash_patch/workspace/version_to/cash/')
+                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_cash_patch/workspace/\$VERSION_TO/cash/')
                             sameNode()
                         }
                     }
                 }
 
+                // ./
+
+                // ./builds/%version_from%/cash
+                // ./builds/%version_from%/server
+
+                // ./builds/%version_to%/cash
+                // ./builds/%version_to%/server
+
+                // ./git/from_git
+                // ./git/to_git
+
+                // ./patches
+
+
+
                 shell('''mkdir -p \$WORKSPACE/current/builds/\$VERSION;mkdir -p \$WORKSPACE/current/builds/\$VERSION_TO;''')
 
-                shell('''mkdir -p \$WORKSPACE/version_to/patches; cp -rf \$WORKSPACE/\$VERSION_TO/patches \$WORKSPACE/current/git/to_git;''')
-
-                shell('''cd \$WORKSPACE/current;java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar  gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=C needTests=true workPath=\$WORKSPACE/current/ disableRebuild=true;''')
-
-                shell('''zip -r \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
-                shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
+//                shell('''mkdir -p \$WORKSPACE/version_to/patches; cp -rf \$WORKSPACE/\$VERSION_TO/patches \$WORKSPACE/current/git/to_git;''')
+//
+//                shell('''cd \$WORKSPACE/current;java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar  gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=C needTests=true workPath=\$WORKSPACE/current/ disableRebuild=true;''')
+//
+//                shell('''zip -r \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
+//                shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
 
             }
         }
