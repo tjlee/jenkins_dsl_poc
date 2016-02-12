@@ -69,7 +69,12 @@ class CashPatchBuilderMultiJobTemplate {
                 // ./patches
 
 
-                shell('mkdir -p \$WORKSPACE/git/to_git; cp -rf \$WORKSPACE/builds/\$VERSION_TO/cash/setretail10/patches \$WORKSPACE/git/to_git')
+                shell('''mkdir -p \$WORKSPACE/git/to_git; cp -rf \$WORKSPACE/builds/\$VERSION_TO/cash/setretail10/patches \$WORKSPACE/git/to_git''')
+
+                // pos , lenta , belarus in each untar 	crystal-cash.tar // crystal-conf.tar
+                // todo: remove hardcode?
+                shell('tar -xvf \$WORKSPACE/builds/\$VERSION_TO/cash/POS/crystal-*.tar; rm -f \$WORKSPACE/builds/\$VERSION_TO/cash/POS/crystal-*.tar;')
+
                 shell('''java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar  gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=C needTests=true workPath=\$WORKSPACE/ disableRebuild=true;''')
                 shell('''zip -r \$WORKSPACE/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
 //                shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
