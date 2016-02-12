@@ -73,7 +73,8 @@ class CashPatchBuilderMultiJobTemplate {
 
                 // pos , lenta , belarus in each untar 	crystal-cash.tar // crystal-conf.tar
                 // todo: remove hardcode?
-                shell('tar -xvf \$WORKSPACE/builds/\$VERSION_TO/cash/POS/crystal-*.tar; rm -f \$WORKSPACE/builds/\$VERSION_TO/cash/POS/crystal-*.tar;')
+                shell('tar -xvf \$WORKSPACE/builds/\$VERSION_TO/cash/POS/crystal-cash.tar \$WORKSPACE/builds/\$VERSION_TO/cash/POS/;tar -xvf \$WORKSPACE/builds/\$VERSION_TO/cash/POS/crystal-conf.tar \$WORKSPACE/builds/\$VERSION_TO/cash/POS/;rm -f \$WORKSPACE/builds/\$VERSION_TO/cash/POS/crystal-*.tar;')
+                shell('tar -xvf \$WORKSPACE/builds/\$VERSION_TO/cash/POS/crystal-cash.tar \$WORKSPACE/builds/\$VERSION/cash/POS/;tar -xvf \$WORKSPACE/builds/\$VERSION/cash/POS/crystal-conf.tar \$WORKSPACE/builds/\$VERSION/cash/POS/;rm -f \$WORKSPACE/builds/\$VERSION/cash/POS/crystal-*.tar;')
 
                 shell('''java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar  gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=C needTests=true workPath=\$WORKSPACE/ disableRebuild=true;''')
                 shell('''zip -r \$WORKSPACE/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
