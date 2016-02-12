@@ -73,6 +73,9 @@ class CashPatchBuilderMultiJobTemplate {
 
                 // pos , lenta , belarus in each untar 	crystal-cash.tar // crystal-conf.tar
                 // todo: remove hardcode?
+                shell('rm -rf \$WORKSPACE/builds/\$VERSION_TO/cash/Belarus;rm -rf \$WORKSPACE/builds/\$VERSION_TO/cash/Lenta;')
+                shell('rm -rf \$WORKSPACE/builds/\$VERSION/cash/Belarus;rm -rf \$WORKSPACE/builds/\$VERSION/cash/Lenta;')
+
                 shell('tar -xvf \$WORKSPACE/builds/\$VERSION_TO/cash/POS/crystal-cash.tar -C \$WORKSPACE/builds/\$VERSION_TO/cash/POS/;' +
                         'tar -xvf \$WORKSPACE/builds/\$VERSION_TO/cash/POS/crystal-conf.tar -C \$WORKSPACE/builds/\$VERSION_TO/cash/POS/;' +
                         'rm -f \$WORKSPACE/builds/\$VERSION_TO/cash/POS/crystal-*.tar;')
