@@ -66,6 +66,15 @@ new ServerJobTemplate(
         isCustomWorkspace: true
 ).build(this)
 
+//build_sh_without_flex
+new ServerJobTemplate(
+        name: "build_sh_flex",
+        description: "Building sh with flex",
+        buildType: "sh",
+        isToBuildFlex: true,
+        isToPublishUnitTests: false
+).build(this)
+
 // build_ear_without_flex
 new ServerJobTemplate(
         name: "build_ear_without_flex",
