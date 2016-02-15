@@ -121,7 +121,7 @@ class ServerJobTemplate {
                     }
                 }
                 // if iso need to checkout linux repo
-                if (this.buildType == "iso") {
+                if (this.buildType == "iso" || this.buildType == "sh") {
                     git {
                         remote {
                             github(this.gitHubOwnerAndProjectLinuxSources)
