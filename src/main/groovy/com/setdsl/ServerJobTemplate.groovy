@@ -205,7 +205,7 @@ class ServerJobTemplate {
                     ''')
 
                     // building iso, tgz, ear, exe, distr
-                    if (this.buildType == "tgz" || this.buildType == "iso") {
+                    if (this.buildType == "tgz" || this.buildType == "iso" || this.buildType == "sh") {
 
                         // TODO:
                         // TODO: remove -xtest and change for -Ptest
@@ -286,9 +286,13 @@ class ServerJobTemplate {
                         shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build7.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
                                 (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz"')
 
+                    } else if(this.buildType == "sh"){
+                        // todo: in progress
+                        shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/"')
+                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build_set10.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
+                                (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz"')
+
                     }
-
-
                 }
             }
 

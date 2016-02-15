@@ -6,12 +6,14 @@ import com.setdsl.ServerJobTemplate
  * -- build_ear_flex
  * -- build_exe_flex
  * -- build_tgz_flex
+ * -- build_sh_flex
  * -- build_iso_flex
- * -- todo: build_distr_flex
+ * -- build_distr_flex
  * - without flex
  * -- build_ear_without_flex
- * -- todo: build_distr_without_flex
- *
+ * -- build_distr_without_flex
+ * -- build_sh_without_flex
+ * -- todo: remove me -- build_sh_without_flex
  * - pull requests
  * -- build_pull_request_exe_flex
  * -- build_pull_request_iso_flex
@@ -81,6 +83,16 @@ new ServerJobTemplate(
         isCustomWorkspace: true
 ).build(this)
 
+//build_sh_without_flex
+new ServerJobTemplate(
+        name: "build_sh_without_flex",
+        description: "Building sh without Flex",
+        buildType: "sh",
+        isToBuildFlex: false,
+        isToPublishUnitTests: false
+).build(this)
+
+
 // build_pull_request_exe_flex
 new ServerJobTemplate(
         name: "build_pull_request_exe_flex",
@@ -107,3 +119,6 @@ new ServerJobTemplate(
         isToBuildFlex: false,
         isPullRequest: true
 ).build(this)
+
+
+
