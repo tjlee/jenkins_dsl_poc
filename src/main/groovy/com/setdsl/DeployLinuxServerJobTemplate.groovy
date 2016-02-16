@@ -71,7 +71,7 @@ class DeployLinuxServerJobTemplate {
                         }
 
                         copyArtifacts('build_sh_flex') {
-                            includePatterns('**/*.sh, *.sh')
+                            includePatterns('**/*.sh, *.sh, set10install.sh, **/set10install.sh')
                             buildSelector {
                                 latestSuccessful(true)
                             }
@@ -85,7 +85,7 @@ class DeployLinuxServerJobTemplate {
                         }
 
                         copyArtifacts('build_sh_flex') {
-                            includePatterns('**/*.sh, *.sh')
+                            includePatterns('**/*.sh, *.sh, set10install.sh, **/set10install.sh')
                             buildSelector {
                                 latestSuccessful(true)
                             }
