@@ -49,6 +49,11 @@ class _RunTests {
                 stringParam('BRANCH', 'master', '')
                 stringParam('TEST_SOURCE_BRANCH', 'master', '')
 
+
+
+
+
+
 //                stringParam('CENTRUM_IP', '', '')
 //                stringParam('VSHOP_NUMBER', '', '')
 //                stringParam('RETAIL_IP', '', '')
@@ -143,6 +148,9 @@ java -jar \$WORKSPACE/autoqa/SAP_Emu/SapWSEmulator.jar;
 
                 shell(startRobotHub)
                 shell(startSapEmulator)
+
+
+                // here we need check box (to config and then to add sth)
 
                 if (this.isToConfig) { // even if to test :-D
                     environmentVariables {
