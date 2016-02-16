@@ -66,7 +66,7 @@ new ServerJobTemplate(
         isCustomWorkspace: true
 ).build(this)
 
-//build_sh_without_flex
+//build_sh_flex
 new ServerJobTemplate(
         name: "build_sh_flex",
         description: "Building sh with flex",

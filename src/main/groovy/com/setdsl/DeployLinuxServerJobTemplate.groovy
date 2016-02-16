@@ -30,13 +30,11 @@ class DeployLinuxServerJobTemplate {
 
             }
 
-            //build_tgz_flex
-
 
             steps {
                 phase('Build') {
                     // mb to choose which one to build
-                    phaseJob('build_iso_flex') {
+                    phaseJob('build_sh_flex') {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
@@ -72,8 +70,8 @@ class DeployLinuxServerJobTemplate {
                             predefinedProp('SHOP_NUMBER', '0')
                         }
 
-                        copyArtifacts('build_tgz_flex') {
-                            includePatterns('**/*.sh',)
+                        copyArtifacts('build_sh_flex') {
+                            includePatterns('**/*.sh')
                             buildSelector {
                                 latestSuccessful(true)
                             }
@@ -87,7 +85,7 @@ class DeployLinuxServerJobTemplate {
                         }
 
                         copyArtifacts('build_tgz_flex') {
-                            includePatterns('**/*.sh',)
+                            includePatterns('**/*.sh')
                             buildSelector {
                                 latestSuccessful(true)
                             }
