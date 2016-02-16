@@ -36,10 +36,10 @@ new CashJobTemplate(
 ).build(this)
 
 // build_pull_request_pos_cash_iso
-new CashJobTemplate(
-        name: 'build_pull_request_pos_cash_iso',
-        description: 'Builds pull request pos cash iso',
-        buildType: "iso",
-        clientType: "pos",
-        isPullRequest: true
-).build(this)
+//new CashJobTemplate(
+//        name: 'build_pull_request_pos_cash_iso',
+//        description: 'Builds pull request pos cash iso',
+//        buildType: "iso",
+//        clientType: "pos",
+//        isPullRequest: true
+//).build(this)
