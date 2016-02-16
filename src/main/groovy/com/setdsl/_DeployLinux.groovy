@@ -91,6 +91,13 @@ exit
             }
 
             steps {
+                copyArtifacts('build_sh_flex') {
+                    includePatterns('**/*.sh, *.sh, set10install.sh, **/set10install.sh')
+                    buildSelector {
+                        latestSuccessful(true)
+                    }
+                }
+
                 shell(deployLinuxScript)
             }
 

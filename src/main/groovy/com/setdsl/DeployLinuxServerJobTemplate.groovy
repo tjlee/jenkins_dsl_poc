@@ -70,12 +70,12 @@ class DeployLinuxServerJobTemplate {
                             predefinedProp('SHOP_NUMBER', '0')
                         }
 
-                        copyArtifacts('build_sh_flex') {
-                            includePatterns('**/*.sh, *.sh, set10install.sh, **/set10install.sh')
-                            buildSelector {
-                                latestSuccessful(true)
-                            }
-                        }
+//                        copyArtifacts('build_sh_flex') {
+//                            includePatterns('**/*.sh, *.sh, set10install.sh, **/set10install.sh')
+//                            buildSelector {
+//                                latestSuccessful(true)
+//                            }
+//                        }
                     }
 
                     phaseJob('deploy_linux') {
@@ -84,12 +84,12 @@ class DeployLinuxServerJobTemplate {
                             predefinedProp('SHOP_NUMBER', '\$RETAIL_SHOP_NUMBER')
                         }
 
-                        copyArtifacts('build_sh_flex') {
-                            includePatterns('**/*.sh, *.sh, set10install.sh, **/set10install.sh')
-                            buildSelector {
-                                latestSuccessful(true)
-                            }
-                        }
+//                        copyArtifacts('build_sh_flex') {
+//                            includePatterns('**/*.sh, *.sh, set10install.sh, **/set10install.sh')
+//                            buildSelector {
+//                                latestSuccessful(true)
+//                            }
+//                        }
                     }
                 }
 
