@@ -271,7 +271,8 @@ done
         dslFactory.job(name) {
             it.description this.description
             logRotator {
-                numToKeep 50
+                artifactDaysToKeep(14)
+                numToKeep 28
             }
 
 

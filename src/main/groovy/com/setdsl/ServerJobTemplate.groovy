@@ -16,7 +16,6 @@ class ServerJobTemplate {
     String name
     String description
 
-//    String gitHubCredentials = "31df12ac-5d1f-495d-99fe-ad351505d316"
     String gitHubCredentials = "4e269209-1b8f-4f0b-a849-c7376ed088e0"
     String gitHubOwnerAndProject = "crystalservice/setretail10"
     String gitHubCheckoutDir = "setretail10"
@@ -24,7 +23,7 @@ class ServerJobTemplate {
     String gitHubOwnerAndProjectLinuxSources = "crystalservice/setretail10linux"
     String gitHubCheckoutDirLinuxSources = "setretail10linux"
 
-    String buildType /* iso, tgz, exe, ear, distr*/
+    String buildType /* iso, tgz, exe, ear, distr, sh */
     String clientType /*default lenta belarus*//*for default leave empty*/
 
     Boolean isToBuildFlex = false
@@ -55,7 +54,8 @@ class ServerJobTemplate {
         dslFactory.job(name) {
             it.description this.description
             logRotator {
-                numToKeep 50
+                artifactDaysToKeep(14)
+                numToKeep 28
             }
 
             if (this.buildType == "exe") {

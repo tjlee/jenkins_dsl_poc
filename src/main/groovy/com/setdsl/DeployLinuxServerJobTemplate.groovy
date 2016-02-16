@@ -84,7 +84,7 @@ class DeployLinuxServerJobTemplate {
                             predefinedProp('SHOP_NUMBER', '\$RETAIL_SHOP_NUMBER')
                         }
 
-                        copyArtifacts('build_tgz_flex') {
+                        copyArtifacts('build_sh_flex') {
                             includePatterns('**/*.sh')
                             buildSelector {
                                 latestSuccessful(true)
