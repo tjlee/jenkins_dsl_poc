@@ -210,7 +210,7 @@ class ServerJobTemplate {
                         // TODO:
                         // TODO: remove -xtest and change for -Ptest
                         gradle('clean makeTar',
-                                '-PtempDir=/tmp -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -Plinux' +
+                                '-PtempDir=\$JENKINS_HOME/userContent/ -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -Plinux' +
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation')
@@ -228,7 +228,7 @@ class ServerJobTemplate {
                         // for patch build
 
                         gradle('clean makeDistr',
-                                '-PtempDir=/tmp -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -Ptest -PuseEmu -Plinux' +
+                                '-PtempDir=\$JENKINS_HOME/userContent/ -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -Ptest -PuseEmu -Plinux' +
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation')
@@ -243,7 +243,7 @@ class ServerJobTemplate {
 
                     } else if (this.buildType == "ear") {
                         gradle('clean ear test',
-                                '-PtempDir=/tmp -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -PwildFly="\$WILD_FLY"' +
+                                '-PtempDir=\$JENKINS_HOME/userContent -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -PwildFly="\$WILD_FLY"' +
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle')
