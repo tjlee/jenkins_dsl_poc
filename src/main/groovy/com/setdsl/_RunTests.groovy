@@ -126,7 +126,7 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
             steps {
 
                 copyArtifacts('deploy_pos_cash_n_robot') {
-                    includePatterns('**/*.zip',)
+                    includePatterns('setrobothub.zip',)
                     buildSelector {
                         latestSuccessful(true)
                     }
