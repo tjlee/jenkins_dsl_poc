@@ -156,7 +156,7 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     runner('Unstable')
                     steps {
                         environmentVariables {
-                            suiteList += 'suite_robot_config_server.xml,suite_robot_config_cash.xml'
+                            suiteList += ',suite_robot_config_server.xml,suite_robot_config_cash.xml'
 //                            env 'TEST_SUITE', suiteList
                         }
                     }
@@ -195,17 +195,17 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     runner('Unstable')
                     steps {
                         environmentVariables {
-                            suiteList += ',suite_transport.xml,suite_goods_processing.xml,'
+                            suiteList += ',suite_transport.xml,suite_goods_processing.xml'
 //                            env 'TEST_SUITE', suiteList
                         }
                     }
                 }
 
-                if (suiteList.startsWith(',')){
+                if (suiteList.startsWith(',')) {
                     suiteList = suiteList.substring(1)
                 }
-                if(suiteList.endsWith(',')){
-                    suiteList = suiteList.substring(0, suiteList.length())
+                if (suiteList.endsWith(',')) {
+                    suiteList = suiteList.substring(0, suiteList.length() - 1)
                 }
 
                 environmentVariables {
