@@ -50,9 +50,11 @@ class _RunTests {
                 stringParam('TEST_SOURCE_BRANCH', 'master', '')
 
 
-
-
-
+                booleanParam("IS_TO_CONFIG", false, '')
+                booleanParam("IS_TO_RUN_ROBOT", false, '')
+                booleanParam("IS_TO_RUN_CUCUMBER", false, '')
+                booleanParam("IS_TO_OPER_DAY", false, '')
+                booleanParam("IS_TO_RUN_FUNCTIONAL", false, '')
 
 //                stringParam('CENTRUM_IP', '', '')
 //                stringParam('VSHOP_NUMBER', '', '')
@@ -102,6 +104,7 @@ class _RunTests {
 
             steps {
                 // enables for linux stand
+                // hardcoded but need config file
                 environmentVariables {
                     env 'CENTRUM_IP', '172.20.0.160'
                     env 'VSHOP_NUMBER', '20160'
@@ -149,25 +152,47 @@ java -jar \$WORKSPACE/autoqa/SAP_Emu/SapWSEmulator.jar;
                 shell(startRobotHub)
                 shell(startSapEmulator)
 
-
                 // here we need check box (to config and then to add sth)
 
-                if (this.isToConfig) { // even if to test :-D
-                    environmentVariables {
-                        env 'TEST_LIST', 'CHECKLIST'
-                        env 'TEST_SUITE', 'suite_robot_config_server.xml,suite_robot_config_cash.xml'
-                    }
+//                if (this.isToConfig) { // even if to test :-D
 
-                    // todo: move to utility script
-                    shell('''
+
+                conditionalSteps {
+
+                    condition {
+            //IS_TO_CONFIG
+
+                        booleanCondition('\$IS_TO_CONFIG')
+                    }
+                    runner('Unstable')
+                    steps {
+                        environmentVariables {
+
+                            env 'TEST_LIST', 'CHECKLIST'
+                            env 'TEST_SUITE', 'suite_robot_config_server.xml,suite_robot_config_cash.xml'
+                        }
+
+                    }
+                }
+
+
+                // todo: move to conditional steps
+//                environmentVariables {
+//
+//                    env 'TEST_LIST', 'CHECKLIST'
+//                    env 'TEST_SUITE', 'suite_robot_config_server.xml,suite_robot_config_cash.xml'
+//                }
+
+                // todo: move to utility script
+                shell('''
                         mkdir -p "\$WORKSPACE/gradle/wrapper";
                         cp \$JENKINS_HOME/userContent/wrapper/* \$WORKSPACE/gradle/wrapper || true;
                         cp \$JENKINS_HOME/userContent/gradlew \$WORKSPACE/gradlew || true;
                         cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     ''')
 // UNIX only
-                    gradle('clean test',
-                            '''--continue
+                gradle('clean test',
+                        '''--continue
                             -Ptest_suite=\$TEST_SUITE
                             -Dtest_centrum_host=$CENTRUM_IP
                             -Dtest_retail_host=$RETAIL_IP
@@ -186,26 +211,14 @@ java -jar \$WORKSPACE/autoqa/SAP_Emu/SapWSEmulator.jar;
                             -Dtest_os_username=root
                             -Dtest_os_password=324012
                             ''',
-                            true) {
-                        it / wrapperScript('gradlew')
-                        it / rootBuildScriptDir('\$workspace/autoqa/SetTester/')
-                        it / fromRootBuildScriptDir(false)
-                        it / makeExecutable(true)
-                    }
-
-                    if (this.isToRunRobot) {
-//                        inject {
-                        environmentVariables {
-                            env 'TEST_SUITE', 'suite_robot.xml'
-                        }
-//                        }
-                    }
-
-                    // config os and take diff properties files
-
-
+                        true) {
+                    it / wrapperScript('gradlew')
+                    it / rootBuildScriptDir('\$workspace/autoqa/SetTester/')
+                    it / fromRootBuildScriptDir(false)
+                    it / makeExecutable(true)
                 }
 
+//                }
 
 
             }
@@ -218,6 +231,12 @@ java -jar \$WORKSPACE/autoqa/SAP_Emu/SapWSEmulator.jar;
 }
 
 /**
+ *
+ * suite_robot.xml,suite_all_tests.xml,suite_transport.xml,suite_goods_processing.xml
+ *
+ suite_robot_tests.xml
+ *
+ *
  * --continue
  -Ptest_suite=$TEST_SUITE
  -Dtest_centrum_host=172.20.0.140

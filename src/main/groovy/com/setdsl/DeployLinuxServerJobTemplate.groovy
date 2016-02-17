@@ -19,7 +19,7 @@ class DeployLinuxServerJobTemplate {
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
                 stringParam('BRANCH', 'master', '')
-
+                // ip:os:vbox_name
                 stringParam('VMS_1', '172.20.0.160:linux:standc_server1')
                 stringParam('VMS_2', '172.20.0.161:linux:standc_server2')
 
@@ -27,21 +27,16 @@ class DeployLinuxServerJobTemplate {
 
                 stringParam('RETAIL_IP', '172.20.0.161')
                 stringParam('RETAIL_SHOP_NUMBER', '20161')
-
             }
-
 
             steps {
                 phase('Build') {
-                    // mb to choose which one to build
                     phaseJob('build_sh_flex') {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
                             predefinedProp('FLEX_DEBUG', 'true')
                             predefinedProp('FLEX_TEST_MODE', 'true')
-
-
                         }
                     }
                 }
@@ -69,13 +64,6 @@ class DeployLinuxServerJobTemplate {
                             predefinedProp('IP', '\$CENTRUM_IP')
                             predefinedProp('SHOP_NUMBER', '0')
                         }
-
-//                        copyArtifacts('build_sh_flex') {
-//                            includePatterns('**/*.sh, *.sh, set10install.sh, **/set10install.sh')
-//                            buildSelector {
-//                                latestSuccessful(true)
-//                            }
-//                        }
                     }
 
                     phaseJob('deploy_linux') {
@@ -83,18 +71,9 @@ class DeployLinuxServerJobTemplate {
                             predefinedProp('IP', '\$RETAIL_IP')
                             predefinedProp('SHOP_NUMBER', '\$RETAIL_SHOP_NUMBER')
                         }
-
-//                        copyArtifacts('build_sh_flex') {
-//                            includePatterns('**/*.sh, *.sh, set10install.sh, **/set10install.sh')
-//                            buildSelector {
-//                                latestSuccessful(true)
-//                            }
-//                        }
                     }
                 }
-
             }
-
         }
     }
 }

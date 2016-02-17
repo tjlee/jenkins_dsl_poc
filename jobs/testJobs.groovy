@@ -4,16 +4,16 @@ import com.setdsl.RunTestsMultiJobTemplate
 
 new _RunTests(
         name: "rus_test_run_without_deployment",
-        description: 'Cashes are always deploying, servers are not',
-        isToConfig: true,
-        isToRunRobot: true
+        description: 'Cashes are always deploying, servers are not'
+//        isToConfig: true,
+//        isToRunRobot: true
 ).build(this)
 
 
 new RunTestsMultiJobTemplate(
         name: 'run_overall_build_deploy_on_linux',
-        description: 'Builds flex, sh, cashes, redeploys stand c and starts test run(all suites)',
-        isToRunTests: false
+        description: 'Builds flex, sh, cashes, redeploys stand c and starts test run(all suites)'
+//        isToRunTests: false
 
 ).build(this)
 
