@@ -124,6 +124,15 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
 
 
             steps {
+
+                copyArtifacts('deploy_pos_cash_n_robot') {
+                    includePatterns('**/*.zip',)
+                    buildSelector {
+                        latestSuccessful(true)
+                    }
+                }
+
+
                 // enables for linux stand
                 // hardcoded but need config file
                 environmentVariables {
@@ -140,12 +149,12 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     env 'CUCUMBER', ''
                 }
 
-//                shell(this.killAllScript)
-//                shell(this.killDBConnections)
-//                shell(this.pingAll)
-//                shell(this.startRobotHub)
+                shell(this.killAllScript)
+                shell(this.killDBConnections)
+                shell(this.pingAll)
+                shell(this.startRobotHub)
 //                shell(this.startSapEmulator)
-//                shell(this.copyWrapper)
+                shell(this.copyWrapper)
 
                 String suiteList = ''
 

@@ -22,12 +22,37 @@ class RunTestsMultiJobTemplate {
             }
 
             parameters {
-                stringParam('VERSION', '10.2.0.0', '')
-                stringParam('BRANCH', 'master', '')
+                stringParam('VERSION', '10.2.99.0', '')
+                stringParam('BRANCH', 'master', 'Server sources github branch or tag')
 
-                stringParam('SHOP_NUMBER', '', '')
+
+                // ip:os:vbox_name
+                stringParam('VMS_1', '172.20.0.160:linux:standc_server1')
+                stringParam('VMS_2', '172.20.0.161:linux:standc_server2')
+
+                stringParam('CENTRUM_IP', '172.20.0.160')
+
+                stringParam('RETAIL_IP', '172.20.0.161')
+                stringParam('RETAIL_SHOP_NUMBER', '20161')
+
+
+                /// cash
+
+//                stringParam('VERSION', '10.2.0.0', '')
+//                stringParam('BRANCH', 'master', '')
+                stringParam('IPS', '172.20.0.162;172.20.0.163', 'Divide ips by ; ')
+
+
+
+
+
                 stringParam('TEST_SOURCE_BRANCH', 'master', '')
 
+                booleanParam("IS_TO_CONFIG", true, '')
+                booleanParam("IS_TO_RUN_ROBOT", true, '')
+                booleanParam("IS_TO_RUN_CUCUMBER", false, '')
+                booleanParam("IS_TO_RUN_OPER_DAY", false, '')
+                booleanParam("IS_TO_RUN_FUNCTIONAL", false, '')
             }
 
             //build_tgz_flex
@@ -58,28 +83,28 @@ class RunTestsMultiJobTemplate {
                             *
                             * */
 
-                            predefinedProp('IPS', '')
-                            predefinedProp('SHOP_NUMBER', '20161')
+//                            predefinedProp('IPS', '')
+//                            predefinedProp('SHOP_NUMBER', '20161')
 
                         }
                     }
 
-                    phaseJob('emulators_build_sap') {
-                        currentJobParameters(false)
-                        parameters {
-                            currentBuild()
-                            /*
-                                stringParam('VERSION', '10.2.0.0', '')
-                stringParam('BRANCH', 'master', '')
-                */
-                        }
-                    }
+//                    phaseJob('emulators_build_sap') {
+//                        currentJobParameters(false)
+//                        parameters {
+//                            currentBuild()
+//                            /*
+//                                stringParam('VERSION', '10.2.0.0', '')
+//                stringParam('BRANCH', 'master', '')
+//                */
+//                        }
+//                    }
 
                     phaseJob('deploy_pos_cash_n_robot') {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
-                            predefinedProp('IPS', '172.20.0.162;172.20.0.163')
+//                            predefinedProp('IPS', '172.20.0.162;172.20.0.163')
 
                             /*
                              stringParam('VERSION', '10.2.0.0', '')
@@ -107,12 +132,7 @@ class RunTestsMultiJobTemplate {
                                 // centrum ip hardcoded mother fucker need at leas active choise
                             }
 
-                            copyArtifacts('deploy_pos_cash_n_robot') {
-                                includePatterns('**/*.zip',)
-                                buildSelector {
-                                    latestSuccessful(true)
-                                }
-                            }
+
                         }
                     }
                 }
