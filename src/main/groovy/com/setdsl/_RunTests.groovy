@@ -24,10 +24,9 @@ class _RunTests {
 
     String startRobotHub =
             '''mkdir -p \$WORKSPACE/autoqa/setrobothub;
-mv \$WORKSPACE/setrobothub.zip \$WORKSPACE/autoqa/setrobothub;
-mv \$WORKSPACE/setrobothub.zip \$WORKSPACE/autoqa/setrobothub;
+mv -f \$WORKSPACE/setrobothub.zip \$WORKSPACE/autoqa/setrobothub;
 unzip \$WORKSPACE/setrobothub.zip -d \$WORKSPACE/autoqa/setrobothub;
-mv \$WORKSPACE/autoqa/setrobothub/catalog-goods-robot.xml \$WORKSPACE/autoqa/SetTester/src/test/resources/import;
+mv -f \$WORKSPACE/autoqa/setrobothub/catalog-goods-robot.xml \$WORKSPACE/autoqa/SetTester/src/test/resources/import;
 cd \$WORKSPACE/autoqa/setrobothub;
 java -cp lib/*;* ru.crystals.setrobot.hub.SetRobotHub;
 '''
