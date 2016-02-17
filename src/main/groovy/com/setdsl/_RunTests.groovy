@@ -149,7 +149,7 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                 }
 
                 shell(this.killAllScript)
-                shell(this.killDBConnections)
+//                shell(this.killDBConnections)
                 shell(this.pingAll)
                 shell(this.startRobotHub)
 //                shell(this.startSapEmulator)
