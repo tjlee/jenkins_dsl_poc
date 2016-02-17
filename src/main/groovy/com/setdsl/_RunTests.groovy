@@ -38,7 +38,7 @@ mv \$WORKSPACE/autoqa/libs \$WORKSPACE/autoqa/SAP_Emu;
 java -jar \$WORKSPACE/autoqa/SAP_Emu/SapWSEmulator.jar;
 '''
 
-    String killAllScript = '''kill \\$(jps -lv | grep 'SapWSEmulator' | cut -d ' ' -f 1); kill \\$(jps -lv | grep 'SetRobotHub' | cut -d ' ' -f 1); '''
+    String killAllScript = '''kill \$(jps -lv | grep 'SapWSEmulator' | cut -d ' ' -f 1); kill \$(jps -lv | grep 'SetRobotHub' | cut -d ' ' -f 1); '''
 
 
     String killDBConnections = '''PGPASSWORD=postgres;
