@@ -132,7 +132,6 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     }
                 }
 
-
                 // enables for linux stand
                 // hardcoded but need config file
                 environmentVariables {
@@ -230,35 +229,61 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                 }
 
                 // UNIX only
-//                gradle('clean test\$CUCUMBER',
-//                        '''--continue
-//-Ptest_suite=\$TEST_SUITE
-//-Dtest_centrum_host=$CENTRUM_IP
-//-Dtest_retail_host=$RETAIL_IP
-//-Dtest_virtualshop_number=$VSHOP_NUMBER
-//-Dtest_shop_number=$SHOP_NUMBER
-//-Dtest_os_type=UNIX
-//-Dtest_virtual_cash_ip=$VCASH_NUMBER
-//-Dtest_virtual_cash_number=$VCASH_IP
-//-Dtest_cash_ip=$CASH_IP
-//-Dtest_cash_number=$CASH_NUMBER
-//-Dtest_robot_tests=\$TEST_LIST
-//-Dtest_smb_username=jboss
-//-Dtest_smb_password=jboss
-//-Dtest_smb_server_standalone=/jboss/standalone/
-//-Dtest_smb_server_fileimport=/jboss/
-//-Dtest_os_username=root
-//-Dtest_os_password=324012
-//                            ''',
-//                        true) {
-//                    it / wrapperScript('gradlew')
-//                    it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubTestSourceCheckoutDir + '/SetTester/')
-//                    it / fromRootBuildScriptDir(false)
-//                    it / makeExecutable(true)
-//                }
+                gradle('clean test\$CUCUMBER',
+                        '''--continue
+-Ptest_suite=\$TEST_SUITE
+-Dtest_centrum_host=$CENTRUM_IP
+-Dtest_retail_host=$RETAIL_IP
+-Dtest_virtualshop_number=$VSHOP_NUMBER
+-Dtest_shop_number=$SHOP_NUMBER
+-Dtest_os_type=UNIX
+-Dtest_virtual_cash_ip=$VCASH_NUMBER
+-Dtest_virtual_cash_number=$VCASH_IP
+-Dtest_cash_ip=$CASH_IP
+-Dtest_cash_number=$CASH_NUMBER
+-Dtest_robot_tests=\$TEST_LIST
+-Dtest_smb_username=jboss
+-Dtest_smb_password=jboss
+-Dtest_smb_server_standalone=/jboss/standalone/
+-Dtest_smb_server_fileimport=/jboss/
+-Dtest_os_username=root
+-Dtest_os_password=324012
+                            ''',
+                        true) {
+                    it / wrapperScript('gradlew')
+                    it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubTestSourceCheckoutDir + '/SetTester/')
+                    it / fromRootBuildScriptDir(false)
+                    it / makeExecutable(true)
+                }
 
+//                shell('echo \$TEST_SUITE')
 
-                shell('echo \$TEST_SUITE')
+            }
+
+            publishers {
+
+                archiveXUnit {
+                    jUnit {
+                        pattern('**/test-results/*.xml,**/cucumber/junit-report.xml')
+                    }
+
+                    failedThresholds {
+                        unstable(10)
+                        unstableNew(10)
+                        failure(10)
+                        failureNew(10)
+                    }
+
+                    skippedThresholds {
+                        unstable(5)
+                        unstableNew(5)
+                        failure(5)
+                        failureNew(5)
+                    }
+
+                    thresholdMode(ThresholdMode.NUMBER)
+                }
+
 
             }
         }
