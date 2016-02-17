@@ -241,7 +241,7 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
 //                }
 
 
-                shell('\$TEST_SUITE')
+                shell('echo \$TEST_SUITE')
 
             }
         }
