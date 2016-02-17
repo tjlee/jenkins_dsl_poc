@@ -45,10 +45,10 @@ java -jar \$WORKSPACE/autoqa/SAP_Emu/SapWSEmulator.jar;
 psql -U postgres -c "SELECT pg_terminate_backend(procpid)  FROM pg_stat_activity WHERE procpid <> pg_backend_pid();";
 psql -h 127.0.0.1 -p 5432 -U postgres -c "drop database sap";'''
 
-    String pingAll = '''ping -n 5 $CENTRUM_IP | grep \'TTL=\' 2>nul && echo \'Connection exists\' || exist 1;
-ping -n 5 $RETAIL_IP | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
-ping -n 5 $VCASH_NUMBER | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
-ping -n 5 $CASH_IP | grep 'TTL=' 2>nul && echo 'Connection exists' || exist 1;
+    String pingAll = '''ping -n 5 $CENTRUM_IP | grep \'TTL=\' 2>nul && echo \'Connection exists\' || exit 1;
+ping -n 5 $RETAIL_IP | grep 'TTL=' 2>nul && echo 'Connection exists' || exit 1;
+ping -n 5 $VCASH_NUMBER | grep 'TTL=' 2>nul && echo 'Connection exists' || exit 1;
+ping -n 5 $CASH_IP | grep 'TTL=' 2>nul && echo 'Connection exists' || exit 1;
 '''
 
     String copyWrapper = '''
@@ -150,7 +150,7 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
 
                 shell(this.killAllScript)
 //                shell(this.killDBConnections)
-                shell(this.pingAll)
+//                shell(this.pingAll)
                 shell(this.startRobotHub)
 //                shell(this.startSapEmulator)
                 shell(this.copyWrapper)
