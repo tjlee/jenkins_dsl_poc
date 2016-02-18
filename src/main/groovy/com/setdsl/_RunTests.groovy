@@ -29,7 +29,7 @@ mv -f \$WORKSPACE/setrobothub.zip \$WORKSPACE/autoqa/setrobothub;
 unzip \$WORKSPACE/autoqa/setrobothub/setrobothub.zip -d \$WORKSPACE/autoqa/setrobothub;
 cp -f \$WORKSPACE/autoqa/setrobothub/catalog-goods-robot.xml \$WORKSPACE/autoqa/SetTester/src/test/resources/import;
 cd \$WORKSPACE/autoqa/setrobothub;
-java -cp lib/*:* ru.crystals.setrobot.hub.SetRobotHub &;
+java -cp lib/*:* ru.crystals.setrobot.hub.SetRobotHub;
 '''
 
     String startSapEmulator =
@@ -148,12 +148,12 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     env 'CUCUMBER', ''
                 }
 
+                shell(this.copyWrapper)
                 shell(this.killAllScript)
 //                shell(this.killDBConnections)
 //                shell(this.pingAll)
-                shell(this.startRobotHub)
+//                shell(this.startRobotHub)
 //                shell(this.startSapEmulator)
-                shell(this.copyWrapper)
 
                 String suiteList = ''
 
