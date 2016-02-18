@@ -218,13 +218,13 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     runner('Unstable')
                     steps {
                         environmentVariables {
-                            env 'CUCUMBER', ' cucumber'
+                            env 'CUCUMBER', 'cucumber'
                         }
                     }
                 }
 
                 // UNIX only
-                gradle('clean test$CUCUMBER',
+                gradle('clean test $CUCUMBER',
                         '''--continue
 -Ptest_suite=$TEST_SUITE$TEST_SUITE1$TEST_SUITE2$TEST_SUITE3
 -Dtest_centrum_host=$CENTRUM_IP
