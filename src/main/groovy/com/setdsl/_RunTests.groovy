@@ -221,9 +221,9 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                 }
 
                 // UNIX only
-                gradle('clean test\$CUCUMBER',
+                gradle('clean test$CUCUMBER',
                         '''--continue
--Ptest_suite=\$TEST_SUITE\$TEST_SUITE1\$TEST_SUITE2\$TEST_SUITE3
+-Ptest_suite=$TEST_SUITE$TEST_SUITE1$TEST_SUITE2$TEST_SUITE3
 -Dtest_centrum_host=$CENTRUM_IP
 -Dtest_retail_host=$RETAIL_IP
 -Dtest_virtualshop_number=$VSHOP_NUMBER
@@ -233,7 +233,7 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
 -Dtest_virtual_cash_number=$VCASH_IP
 -Dtest_cash_ip=$CASH_IP
 -Dtest_cash_number=$CASH_NUMBER
--Dtest_robot_tests=\$TEST_LIST
+-Dtest_robot_tests=$TEST_LIST
 -Dtest_smb_username=jboss
 -Dtest_smb_password=jboss
 -Dtest_smb_server_standalone=/jboss/standalone/
