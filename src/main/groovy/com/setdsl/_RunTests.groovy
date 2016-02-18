@@ -12,8 +12,8 @@ class _RunTests {
     String gitHubTestSourceOwnerAndProject = "crystalservice/autoqa"
     String gitHubTestSourceCheckoutDir = "autoqa"
 
-    String gitHubOwnerAndProject = "crystalservice/setretail10"
-    String gitHubCheckoutDir = "setretail10"
+//    String gitHubOwnerAndProject = "crystalservice/setretail10"
+//    String gitHubCheckoutDir = "setretail10"
 
     String gitHubCredentials = "4e269209-1b8f-4f0b-a849-c7376ed088e0"
 

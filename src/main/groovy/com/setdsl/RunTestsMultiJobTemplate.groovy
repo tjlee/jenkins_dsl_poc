@@ -44,6 +44,23 @@ class RunTestsMultiJobTemplate {
 
 
 
+//                stringParam('CENTRUM_IP', '', '')
+//                stringParam('VSHOP_NUMBER', '', '')
+//                stringParam('RETAIL_IP', '', '')
+//                stringParam('SHOP_NUMBER', '', '')
+//                stringParam('CASH_IP', '', '')
+//                stringParam('CASH_NUMBER', '', '')
+//                stringParam('VCASH_IP', '', '')
+//                stringParam('VCASH_NUMBER', '', '')
+//
+//                env 'CENTRUM_IP', '172.20.0.160'
+//                env 'VSHOP_NUMBER', '20160'
+//                env 'RETAIL_IP', '172.20.0.161'
+//                env 'SHOP_NUMBER', '20161'
+//                env 'VCASH_NUMBER', '172.20.0.162'
+//                env 'VCASH_IP', '60'
+//                env 'CASH_IP', '172.20.0.163'
+//                env 'CASH_NUMBER', '61'
 
 
                 stringParam('TEST_SOURCE_BRANCH', 'master', '')

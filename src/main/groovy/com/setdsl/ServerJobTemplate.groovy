@@ -48,7 +48,7 @@ class ServerJobTemplate {
 
     String artifacts = 'FLEX.war,*.branch,*.ear,*.sh,*.tgz,*.iso, *.exe'
 
-    List<String> emails = []
+    List<String> emails = ['v.chernov@crystals.ru']
 
     Job build(DslFactory dslFactory) {
         dslFactory.job(name) {
