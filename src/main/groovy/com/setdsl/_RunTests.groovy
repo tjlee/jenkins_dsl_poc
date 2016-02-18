@@ -333,5 +333,3 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
  <suite-file path="suite_robot_config_cash.xml" />
  <suite-file path="suite_robot_tests.xml" />
  */
-
-//TEST_LIST=CHECKLIST
