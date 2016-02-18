@@ -28,9 +28,11 @@ mkdir -p \$WORKSPACE/autoqa/setrobothub;
 mv -f \$WORKSPACE/setrobothub.zip \$WORKSPACE/autoqa/setrobothub;
 unzip \$WORKSPACE/autoqa/setrobothub/setrobothub.zip -d \$WORKSPACE/autoqa/setrobothub;
 cp -f \$WORKSPACE/autoqa/setrobothub/catalog-goods-robot.xml \$WORKSPACE/autoqa/SetTester/src/test/resources/import;
+echo "java -cp \$WORKSPACE/autoqa/setrobothub/lib/SetRobot.jar:\$WORKSPACE/autoqa/setrobothub/lib/* ru.crystals.setrobot.hub.SetRobotHub;" > \$WORKSPACE/autoqa/setrobothub/robot.sh;
+chmod 555 \$WORKSPACE/autoqa/setrobothub/robot.sh;
 '''
 
-    String runRobotHub = '''/home/daemonize/daemonize -E $BUILD_ID=dontKillMe java -cp \$WORKSPACE/autoqa/setrobothub/lib/SetRobot.jar:\$WORKSPACE/autoqa/setrobothub/lib/* ru.crystals.setrobot.hub.SetRobotHub;'''
+    String runRobotHub = '''/home/daemonize/daemonize -E $BUILD_ID=dontKillMe \$WORKSPACE/autoqa/setrobothub/robot.sh;'''
 
     String startSapEmulator =
             '''mv \$WORKSPACE/setretail10/SetRetail10_Utils/testStand/SapWSEmulator/build/libs \$WORKSPACE/autoqa;
