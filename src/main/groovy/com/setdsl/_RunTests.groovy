@@ -29,7 +29,7 @@ mv -f \$WORKSPACE/setrobothub.zip \$WORKSPACE/autoqa/setrobothub;
 unzip \$WORKSPACE/autoqa/setrobothub/setrobothub.zip -d \$WORKSPACE/autoqa/setrobothub;
 cp -f \$WORKSPACE/autoqa/setrobothub/catalog-goods-robot.xml \$WORKSPACE/autoqa/SetTester/src/test/resources/import;
 cd \$WORKSPACE/autoqa/setrobothub;
-java -cp lib/*:* ru.crystals.setrobot.hub.SetRobotHub;
+java -cp lib/*:* ru.crystals.setrobot.hub.SetRobotHub &;
 '''
 
     String startSapEmulator =
