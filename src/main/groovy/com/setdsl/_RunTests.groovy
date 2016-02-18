@@ -30,7 +30,7 @@ unzip \$WORKSPACE/autoqa/setrobothub/setrobothub.zip -d \$WORKSPACE/autoqa/setro
 cp -f \$WORKSPACE/autoqa/setrobothub/catalog-goods-robot.xml \$WORKSPACE/autoqa/SetTester/src/test/resources/import;
 '''
 
-    String runRobotHub = '''cd \$WORKSPACE/autoqa/setrobothub/; /home/daemonize/daemonize -E $BUILD_ID=dontKillMe java -cp lib/*:* ru.crystals.setrobot.hub.SetRobotHub;'''
+    String runRobotHub = '''/home/daemonize/daemonize -E $BUILD_ID=dontKillMe java -cp \$WORKSPACE/autoqa/setrobothub/lib/SetRobot.jar:\$WORKSPACE/autoqa/setrobothub/lib/ ru.crystals.setrobot.hub.SetRobotHub;'''
 
     String startSapEmulator =
             '''mv \$WORKSPACE/setretail10/SetRetail10_Utils/testStand/SapWSEmulator/build/libs \$WORKSPACE/autoqa;
