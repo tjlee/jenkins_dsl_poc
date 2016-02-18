@@ -155,7 +155,6 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
 //                shell(this.startRobotHub)
 //                shell(this.startSapEmulator)
 
-                String suiteList = ''
 
                 conditionalSteps {
                     condition {
@@ -164,7 +163,7 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     runner('Unstable')
                     steps {
                         environmentVariables {
-                            suiteList += ',suite_robot_config_server.xml,suite_robot_config_cash.xml'
+                            env 'TEST_SUITE', ',suite_robot_config_server.xml,suite_robot_config_cash.xml'
                         }
                     }
                 }
@@ -176,7 +175,7 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     runner('Unstable')
                     steps {
                         environmentVariables {
-                            suiteList += ',suite_robot_tests.xml'
+                            env 'TEST_SUITE1', ',suite_robot_tests.xml'
                         }
                     }
                 }
@@ -188,7 +187,7 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     runner('Unstable')
                     steps {
                         environmentVariables {
-                            suiteList += ',suite_all_tests.xml'
+                            env 'TEST_SUITE2', ',suite_all_tests.xml'
                         }
                     }
                 }
@@ -200,7 +199,7 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     runner('Unstable')
                     steps {
                         environmentVariables {
-                            suiteList += ',suite_transport.xml,suite_goods_processing.xml'
+                            env 'TEST_SUITE3', ',suite_transport.xml,suite_goods_processing.xml'
                         }
                     }
                 }
@@ -217,21 +216,10 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     }
                 }
 
-                if (suiteList.startsWith(',')) {
-                    suiteList = suiteList.substring(1)
-                }
-                if (suiteList.endsWith(',')) {
-                    suiteList = suiteList.substring(0, suiteList.length() - 1)
-                }
-
-                environmentVariables {
-                    env 'TEST_SUITE', suiteList
-                }
-
                 // UNIX only
                 gradle('clean test\$CUCUMBER',
                         '''--continue
--Ptest_suite=\$TEST_SUITE
+-Ptest_suite=\$TEST_SUITE\$TEST_SUITE1\$TEST_SUITE2\$TEST_SUITE3
 -Dtest_centrum_host=$CENTRUM_IP
 -Dtest_retail_host=$RETAIL_IP
 -Dtest_virtualshop_number=$VSHOP_NUMBER
