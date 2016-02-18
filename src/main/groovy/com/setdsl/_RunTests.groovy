@@ -146,6 +146,10 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
 
                     env 'TEST_LIST', 'CHECKLIST'
                     env 'CUCUMBER', ''
+                    env 'TEST_SUITE', ''
+                    env 'TEST_SUITE1', ''
+                    env 'TEST_SUITE2', ''
+                    env 'TEST_SUITE3', ''
                 }
 
                 shell(this.copyWrapper)
