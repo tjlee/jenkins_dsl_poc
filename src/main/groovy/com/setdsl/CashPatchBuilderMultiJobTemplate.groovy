@@ -32,7 +32,7 @@ class CashPatchBuilderMultiJobTemplate {
 
             steps {
                 phase('Build distributions') {
-                    phaseJob('build_pos_cash_tar') {
+                    phaseJob('build_pos_cash_tar_custom_workspace') {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()
@@ -43,7 +43,7 @@ class CashPatchBuilderMultiJobTemplate {
                         }
                     }
 
-                    phaseJob('build_pos_cash_tar') {
+                    phaseJob('build_pos_cash_tar_custom_workspace') {
                         currentJobParameters(false)
                         parameters {
                             currentBuild()

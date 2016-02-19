@@ -258,6 +258,8 @@ done
     Boolean isToDeployCash = false
     Boolean isToDeployRobot = false
 
+    Boolean isToBuildByPush = false
+
     String ips = ""
 
     Boolean isCustomWorkspace = false
@@ -275,6 +277,12 @@ done
                 numToKeep 28
             }
 
+
+            if (this.isToBuildByPush) {
+                triggers {
+                    githubPush()
+                }
+            }
 
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
