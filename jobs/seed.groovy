@@ -4,7 +4,6 @@ job('seed') {
     }
     triggers {
         cron('@daily')
-        githubPush()
     }
     steps {
 

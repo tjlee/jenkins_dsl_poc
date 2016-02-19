@@ -46,6 +46,8 @@ class ServerJobTemplate {
     Boolean isCustomWorkspace = false
     String customWorkspacePath = ''
 
+    Boolean isToBuildByPush = false
+
     String artifacts = 'FLEX.war,*.branch,*.ear,*.sh,*.tgz,*.iso, *.exe'
 
     List<String> emails = ['v.chernov@crystals.ru']
@@ -62,6 +64,12 @@ class ServerJobTemplate {
                 label('build_agent1_j7w64||build_agent3_j7w64')
             } else {
                 label('master')
+            }
+
+            if (this.isToBuildByPush) {
+                triggers {
+                    githubPush()
+                }
             }
 
             parameters {
@@ -82,7 +90,7 @@ class ServerJobTemplate {
                 }
 
             }
-                // todo: x3
+            // todo: x3
             if (this.isCustomWorkspace) {
                 customWorkspace('\$CUSTOM_WORKSPACE')
             }
@@ -286,7 +294,7 @@ class ServerJobTemplate {
                         shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build7.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
                                 (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz"')
 
-                    } else if(this.buildType == "sh"){
+                    } else if (this.buildType == "sh") {
                         // todo: in progress
                         shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/"')
                         shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build_set10.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +

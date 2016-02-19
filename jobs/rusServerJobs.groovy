@@ -129,5 +129,11 @@ new ServerJobTemplate(
         isPullRequest: true
 ).build(this)
 
-
-
+// build_master_ear_without_flex_after_push_to_repo
+new ServerJobTemplate(
+        name: "build_master_ear_without_flex_after_push_to_repo",
+        description: "Builds master after each push to master repo",
+        buildType: "ear",
+        isToBuildFlex: false,
+        isToBuildByPush: true
+)
