@@ -12,9 +12,6 @@ class _RunTests {
     String gitHubTestSourceOwnerAndProject = "crystalservice/autoqa"
     String gitHubTestSourceCheckoutDir = "autoqa"
 
-//    String gitHubOwnerAndProject = "crystalservice/setretail10"
-//    String gitHubCheckoutDir = "setretail10"
-
     String gitHubCredentials = "4e269209-1b8f-4f0b-a849-c7376ed088e0"
 
 
@@ -69,8 +66,6 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
             }
 
             parameters {
-//                stringParam('VERSION', '10.2.0.0', '')
-//                stringParam('BRANCH', 'master', '')
                 stringParam('TEST_SOURCE_BRANCH', 'master', '')
 
                 booleanParam("IS_TO_CONFIG", false, '')
@@ -79,36 +74,21 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                 booleanParam("IS_TO_RUN_OPER_DAY", false, '')
                 booleanParam("IS_TO_RUN_FUNCTIONAL", false, '')
 
-//                stringParam('CENTRUM_IP', '', '')
-//                stringParam('VSHOP_NUMBER', '', '')
-//                stringParam('RETAIL_IP', '', '')
-//                stringParam('SHOP_NUMBER', '', '')
-//                stringParam('CASH_IP', '', '')
-//                stringParam('CASH_NUMBER', '', '')
-//                stringParam('VCASH_IP', '', '')
-//                stringParam('VCASH_NUMBER', '', '')
-//
-//                // map to properties file
-//
-//                stringParam('TEST_SUITE', '', '') // todo: make choice param
-//                stringParam('TEST_LIST', '', '')
+                stringParam('CENTRUM_IP', '172.20.0.160', '')
+                stringParam('VSHOP_NUMBER', '20160', 'Virtual shop number')
+                stringParam('RETAIL_IP', '172.20.0.161', '')
+                stringParam('SHOP_NUMBER', '20161', 'Retail shop number')
+                stringParam('CASH_IP', '172.20.0.163', 'Retail cash ip')
+                stringParam('CASH_NUMBER', '61', 'Retail cash number')
+                stringParam('VCASH_IP', '172.20.0.162', 'Virtual shop cash ip')
+                stringParam('VCASH_NUMBER', '60', 'Virtual shop cash number')
+
+                choiceParam('TEST_LIST', ["CHECKLIST", "CHECKLIST,-EXCLUDED_BELARUS", "CHECKLIST,-EXCLUDED_LENTA", "EXCLUDED_BELARUS", "EXCLUDED_LENTA"])
+
+//                stringParam('TEST_SUITE', '', '')
             }
 
             multiscm {
-
-//                git {
-//                    remote {
-//                        github(this.gitHubOwnerAndProject)
-//                        credentials(this.gitHubCredentials)
-//                        branch('\$BRANCH')
-//                        refspec('+refs/heads/*:refs/remotes/origin/*')
-//                    }
-//
-//                    cloneTimeout 20
-//                    relativeTargetDir(this.gitHubCheckoutDir)
-////                    wipeOutWorkspace true
-//                }
-
                 git {
                     remote {
                         github(this.gitHubTestSourceOwnerAndProject)
@@ -119,10 +99,8 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
 
                     cloneTimeout 20
                     relativeTargetDir(this.gitHubTestSourceCheckoutDir)
-//                    wipeOutWorkspace true
                 }
             }
-
 
 
             steps {
@@ -137,16 +115,16 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                 // enables for linux stand
                 // hardcoded but need config file
                 environmentVariables {
-                    env 'CENTRUM_IP', '172.20.0.160'
-                    env 'VSHOP_NUMBER', '20160'
-                    env 'RETAIL_IP', '172.20.0.161'
-                    env 'SHOP_NUMBER', '20161'
-                    env 'VCASH_NUMBER', '172.20.0.162'
-                    env 'VCASH_IP', '60'
-                    env 'CASH_IP', '172.20.0.163'
-                    env 'CASH_NUMBER', '61'
+//                    env 'CENTRUM_IP', '172.20.0.160'
+//                    env 'VSHOP_NUMBER', '20160'
+//                    env 'RETAIL_IP', '172.20.0.161'
+//                    env 'SHOP_NUMBER', '20161'
+//                    env 'VCASH_IP', '172.20.0.162'
+//                    env 'VCASH_NUMBER', '60'
+//                    env 'CASH_IP', '172.20.0.163'
+//                    env 'CASH_NUMBER', '61'
 
-                    env 'TEST_LIST', 'CHECKLIST'
+//                    env 'TEST_LIST', 'CHECKLIST'
                     env 'CUCUMBER', ''
                     env 'TEST_SUITE', ''
                     env 'TEST_SUITE1', ''
@@ -251,7 +229,7 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                     it / makeExecutable(true)
                 }
 
-//                shell('echo \$TEST_SUITE')
+                shell(this.killAllScript)
 
             }
 
