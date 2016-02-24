@@ -218,7 +218,7 @@ class ServerJobTemplate {
                         // TODO:
                         // TODO: remove -xtest and change for -Ptest
                         gradle('clean makeTar',
-                                '-PtempDir=\$JENKINS_HOME/userContent/ -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -Plinux' +
+                                '-PtempDir=\$JENKINS_HOME/userContent/ -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Ptest -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -Plinux' +
                                         (this.clientType ? ' -PclientId=' + this.clientType : ''),
                                 true) {
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation')
