@@ -29,7 +29,7 @@ echo "java -cp \$WORKSPACE/autoqa/setrobothub/lib/SetRobot.jar:\$WORKSPACE/autoq
 chmod 555 \$WORKSPACE/autoqa/setrobothub/robot.sh;
 '''
 
-    String runRobotHub = '''/home/daemonize/daemonize -E $BUILD_ID=dontKillMe \$WORKSPACE/autoqa/setrobothub/robot.sh;'''
+    String runRobotHub = '''daemonize -E $BUILD_ID=dontKillMe \$WORKSPACE/autoqa/setrobothub/robot.sh;'''
 
     String startSapEmulator =
             '''mv \$WORKSPACE/setretail10/SetRetail10_Utils/testStand/SapWSEmulator/build/libs \$WORKSPACE/autoqa;
