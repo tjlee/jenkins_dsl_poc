@@ -1,3 +1,4 @@
+import com.setdsl.POC_PROP_FILE
 import com.setdsl.RestoreVirtualPcStateJobTemplate
 import com.setdsl._RunTests
 import com.setdsl.RunTestsMultiJobTemplate
@@ -12,7 +13,7 @@ new _RunTests(
 
 new RunTestsMultiJobTemplate(
         name: 'run_overall_build_deploy_on_linux',
-        description: 'Builds flex, sh, cashes, redeploys stand c and starts test run(all suites)'
+        description: 'Stand C: builds flex, sh, cashes, redeploys stand c and starts test run(all suites)'
 //        isToRunTests: false
 
 ).build(this)
@@ -21,3 +22,9 @@ new RestoreVirtualPcStateJobTemplate(
         name: 'restore_virtual_pc_state',
         description: ''
 ).build(this)
+
+
+new POC_PROP_FILE(
+        name: "tmp",
+        description: "tmp"
+)
