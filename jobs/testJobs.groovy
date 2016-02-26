@@ -27,4 +27,4 @@ new RestoreVirtualPcStateJobTemplate(
 new POC_PROP_FILE(
         name: "tmp",
         description: "tmp"
-)
+).build(this)
