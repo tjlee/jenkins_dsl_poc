@@ -25,8 +25,8 @@ class RunTestsMultiJobTemplate {
                 stringParam('VERSION', '10.2.99.0', '')
                 stringParam('BRANCH', 'master', 'Server sources github branch or tag')
 
-                choiceParam("STAND", ["C"], '''A - Windows, 172.20.0.140 - Centrum, 172.20.0.141 - Retail, 172.20.0.142 - Centrum cash, 172.20.0.143 - Retail cash
-C - Linux, 172.20.0.160 - Centrum, 172.20.0.161 - Retail, 172.20.0.162 - Centrum cash, 172.20.0.163 - Retail cash''')
+                // A - Windows, 172.20.0.140 - Centrum, 172.20.0.141 - Retail, 172.20.0.142 - Centrum cash, 172.20.0.143 - Retail cash
+                choiceParam("STAND", ["C"], '''C - Linux, 172.20.0.160 - Centrum, 172.20.0.161 - Retail, 172.20.0.162 - Centrum cash, 172.20.0.163 - Retail cash''')
 
                 stringParam('TEST_SOURCE_BRANCH', 'master', '')
                 booleanParam("IS_TO_CONFIG", true, '')
