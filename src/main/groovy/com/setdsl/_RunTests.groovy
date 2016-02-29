@@ -115,15 +115,6 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                 // enables for linux stand
                 // hardcoded but need config file
                 environmentVariables {
-//                    env 'CENTRUM_IP', '172.20.0.160'
-//                    env 'VSHOP_NUMBER', '20160'
-//                    env 'RETAIL_IP', '172.20.0.161'
-//                    env 'SHOP_NUMBER', '20161'
-//                    env 'VCASH_IP', '172.20.0.162'
-//                    env 'VCASH_NUMBER', '60'
-//                    env 'CASH_IP', '172.20.0.163'
-//                    env 'CASH_NUMBER', '61'
-
 //                    env 'TEST_LIST', 'CHECKLIST'
                     env 'CUCUMBER', ''
                     env 'TEST_SUITE', ''

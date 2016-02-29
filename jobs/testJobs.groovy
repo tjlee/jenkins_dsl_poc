@@ -22,9 +22,9 @@ new RestoreVirtualPcStateJobTemplate(
         name: 'restore_virtual_pc_state',
         description: ''
 ).build(this)
-
-
-new POC_PROP_FILE(
-        name: "tmp",
-        description: "tmp"
-).build(this)
+//
+//
+//new POC_PROP_FILE(
+//        name: "tmp",
+//        description: "tmp"
+//).build(this)
