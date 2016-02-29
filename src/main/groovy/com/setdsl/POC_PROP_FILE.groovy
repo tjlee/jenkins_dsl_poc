@@ -19,7 +19,7 @@ class POC_PROP_FILE {
 
             environmentVariables {
                 // todo: later on copy to job
-               propertiesFile '\$JENKINS_HOME/jobs/seed/workspace/resources/stand_c.properties'
+               propertiesFile '\$JENKINS_HOME/jobs/seed/workspace/src/main/resources/stand_c.properties'
             }
 
             steps {
