@@ -30,7 +30,7 @@ class ServerPatchBuilderMultiJobTemplate {
             }
 
             steps {
-                phase('Build distributions') {
+                phase('Build distributions without flex') {
                     phaseJob('build_distr_without_flex') {
                         currentJobParameters(false)
                         parameters {
@@ -41,7 +41,9 @@ class ServerPatchBuilderMultiJobTemplate {
                             sameNode()
                         }
                     }
+                }
 
+                phase('Build distributions with flex'){
                     phaseJob('build_distr_flex') {
                         currentJobParameters(false)
                         parameters {
