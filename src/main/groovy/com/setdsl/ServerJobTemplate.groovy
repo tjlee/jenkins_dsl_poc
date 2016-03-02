@@ -332,7 +332,10 @@ class ServerJobTemplate {
                 }
 
                 if (this.emails) {
-                    mailer this.emails.join(' ')
+//                    mailer this.emails.join(' ')
+                    extendedEmail('\$DEFAULT_RECIPIENTS', '\$DEFAULT_SUBJECT', '\$DEFAULT_CONTENT') {
+                        trigger(triggerName: 'FirstFailure', sendToDevelopers: true, sendToRequester: true, includeCulprits: true, sendToRecipientList: false)
+                    }
                 }
 
                 archiveArtifacts {

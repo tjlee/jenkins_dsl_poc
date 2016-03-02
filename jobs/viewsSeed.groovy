@@ -1,9 +1,12 @@
-Map<String, String> views = ['FLEX'         : 'build_flex.*',
-                             'DEV'          : '(build_e.*)|(build_i.*)|(build_t.*)|(build_pos.*)',
-                             'LENTA'        : '(build_lenta_.*)',
+Map<String, String> views = ['FLEX'  : 'build_flex.*',
+                             'SERVER': '(build_e.*)|(build_i.*)|(build_t.*)|(build_sh.*)|(build_pull_request_e.*)|(build_pull_request_i.*)|(build_pull_request_sh.*)',
+                             'POS'   : '(build_pull_request.*_cash.*)|(build_pos.*)',
+                             /*'LENTA'        : '(build_lenta_.*)',
                              'BELARUS'      : '(build_belarus_.*)',
-                             'PULL_REQUESTS': '(build_pull.*)',
-                             'SEED'         : '(.*seed)',
+                             'PULL_REQUESTS': '(build_pull.*)',*/
+                             'PATCH' : '.*_patch',
+                             'TEST'  : '(run_.*)|(rus_.*)',
+                             'SEED'  : '(.*seed)',
                              'DEPLOY': '(deploy.*)']
 
 

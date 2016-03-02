@@ -19,12 +19,12 @@ new CashJobTemplate(
 ).build(this)
 
 // build_pos_cash_tar
-new CashJobTemplate(
-        name: 'build_pos_cash_tar_custom',
-        description: 'Builds pos cash tar',
-        buildType: "tar",
-        clientType: "pos"
-).build(this)
+//new CashJobTemplate(
+//        name: 'build_pos_cash_tar_custom',
+//        description: 'Builds pos cash tar',
+//        buildType: "tar",
+//        clientType: "pos"
+//).build(this)
 
 
 // build_pos_cash_iso
