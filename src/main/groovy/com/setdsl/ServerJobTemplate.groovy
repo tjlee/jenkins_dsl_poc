@@ -314,6 +314,9 @@ class ServerJobTemplate {
 
                 if (this.isToPublishJaCoCo) {
                     jacocoCodeCoverage {
+                        execPattern('**/**.exec')
+                        classPattern('**/classes')
+                        sourcePattern('**/src/main/java')
                         exclusionPattern('**/*ContextFactory$1*, **/*ContextFactory*,*/Aladdin/**,**/hasp/**,*/org/**, **/vo/**,**/xmlview/**,**/xmlstubs/**,**/jestery/**,**/supermag/**,**/xml/**,**/enums/**,**/visualization/**,**/exceptions/**,**/exception/**,**/stubs/**,**/newstub/**,**/test/**')
                     }
                 }

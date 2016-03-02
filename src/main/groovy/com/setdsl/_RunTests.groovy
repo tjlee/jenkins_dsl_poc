@@ -68,8 +68,8 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
             parameters {
                 stringParam('TEST_SOURCE_BRANCH', 'master', '')
 
-                booleanParam("IS_TO_CONFIG", false, '')
-                booleanParam("IS_TO_RUN_ROBOT", false, '')
+                booleanParam("IS_TO_CONFIG", true, '')
+                booleanParam("IS_TO_RUN_ROBOT", true, '')
                 booleanParam("IS_TO_RUN_CUCUMBER", false, '')
                 booleanParam("IS_TO_RUN_OPER_DAY", false, '')
                 booleanParam("IS_TO_RUN_FUNCTIONAL", false, '')
