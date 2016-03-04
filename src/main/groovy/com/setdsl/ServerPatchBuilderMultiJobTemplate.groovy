@@ -58,7 +58,8 @@ class ServerPatchBuilderMultiJobTemplate {
 
                 shell('cp -rf \$WORKSPACE/builds/\$VERSION_TO/server/patches \$WORKSPACE/git/to_git')
                 shell('''java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=S needTests=true workPath=\$WORKSPACE/ disableRebuild=true;''')
-                shell('''zip -r \$WORKSPACE/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
+                shell('''cd \$WORKSPACE/patches/\$VERSION_FROM\\_\$VERSION_TO && zip -r pos\\_\$VERSION_FROM_\$VERSION_TO.zip pos\\_\$VERSION_FROM\\_\$VERSION_TO;''')
+//                shell('''zip -r \$WORKSPACE/patches/\$VERSION_FROM/_\$VERSION_TO.zip .;''')
 //                shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
 
             }
