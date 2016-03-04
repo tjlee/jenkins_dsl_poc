@@ -85,7 +85,7 @@ class CashPatchBuilderMultiJobTemplate {
                         'rm -f \$WORKSPACE/builds/\$VERSION/cash/POS/crystal-*.tar;')
 
                 shell('''java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar  gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=C needTests=true workPath=\$WORKSPACE/ disableRebuild=true;''')
-                shell('''cd \$WORKSPACE/patches/\$VERSION_FROM\\_\$VERSION_TO && zip -r pos\\_\$VERSION_FROM_\$VERSION_TO.zip pos\\_\$VERSION_FROM\\_\$VERSION_TO;''')
+                shell('''cd "\$WORKSPACE/patches/\$VERSION_FROM\\_\$VERSION_TO" && zip -r "pos\\_\$VERSION_FROM_\$VERSION_TO.zip" "pos\\_\$VERSION_FROM\\_\$VERSION_TO/";''')
 //                shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
 
             }
