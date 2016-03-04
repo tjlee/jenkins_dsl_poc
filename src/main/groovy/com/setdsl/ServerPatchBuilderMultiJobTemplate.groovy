@@ -8,6 +8,8 @@ class ServerPatchBuilderMultiJobTemplate {
     String name
     String description
     Boolean isToRunTests = false
+    String artifacts = '*.zip'
+
 
     Job build(DslFactory dslFactory) {
         dslFactory.multiJob(name) {
@@ -60,6 +62,13 @@ class ServerPatchBuilderMultiJobTemplate {
                 shell('''java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=S needTests=true workPath=\$WORKSPACE/ disableRebuild=true;''')
                 shell('''cd "\$WORKSPACE/patches/\$VERSION"_"\$VERSION_TO" && zip -r "retail_\$VERSION"_"\$VERSION_TO.zip" "retail"_"\$VERSION"_"\$VERSION_TO/";''')
 
+            }
+
+            publishers {
+                archiveArtifacts {
+                    pattern(this.artifacts)
+                    onlyIfSuccessful()
+                }
             }
         }
     }

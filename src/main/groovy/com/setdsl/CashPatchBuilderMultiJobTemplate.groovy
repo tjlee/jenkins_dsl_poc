@@ -8,6 +8,7 @@ class CashPatchBuilderMultiJobTemplate {
     String name
     String description
     Boolean isToRunTests = false
+    String artifacts = '*.zip'
 
 
     Job build(DslFactory dslFactory) {
@@ -88,6 +89,13 @@ class CashPatchBuilderMultiJobTemplate {
                 shell('''cd "\$WORKSPACE/patches/\$VERSION"_"\$VERSION_TO" && zip -r "pos_\$VERSION"_"\$VERSION_TO.zip" "pos"_"\$VERSION"_"\$VERSION_TO/";''')
 //                shell('''mv \$WORKSPACE/current/patches/\$VERSION_FROM/_\$VERSION_TO.zip \$WORKSPACE;''')
 
+            }
+
+            publishers {
+                archiveArtifacts {
+                    pattern(this.artifacts)
+                    onlyIfSuccessful()
+                }
             }
         }
     }
