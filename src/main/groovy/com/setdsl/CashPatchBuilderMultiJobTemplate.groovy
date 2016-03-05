@@ -87,7 +87,7 @@ class CashPatchBuilderMultiJobTemplate {
 
                 shell('''java -Dfile.encoding=UTF-8 -jar \$JENKINS_HOME/userContent/PatchBuilder.jar  gitPathFrom=\$BRANCH gitPathTo=\$BRANCH_TO versionFrom=\$VERSION versionTo=\$VERSION_TO modules=C needTests=true workPath=\$WORKSPACE/ disableRebuild=true;''')
                 shell('''cd "\$WORKSPACE/patches/\$VERSION"_"\$VERSION_TO" && zip -r "pos_\$VERSION"_"\$VERSION_TO.zip" "pos"_"\$VERSION"_"\$VERSION_TO/";''')
-            shell('''mv  "\$WORKSPACE/patches/pos_\$VERSION"_"\$VERSION_TO.zip" \$WORKSPACE;''')
+            shell('''mv  "\$WORKSPACE/patches/\$VERSION"_"\$VERSION_TO/pos_\$VERSION"_"\$VERSION_TO.zip" \$WORKSPACE;''')
 
             }
 
