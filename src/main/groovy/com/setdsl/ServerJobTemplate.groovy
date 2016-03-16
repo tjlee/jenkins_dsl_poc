@@ -61,7 +61,7 @@ class ServerJobTemplate {
             }
 
             if (this.buildType == "exe") {
-                label('build_agent1_j7w64||build_agent3_j7w64')
+                label('windows_test')
             } else {
                 label('master')
             }
