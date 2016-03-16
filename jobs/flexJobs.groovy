@@ -26,7 +26,8 @@ new ServerJobTemplate(
         gitHubCheckoutDir: "setretail10",
         gitHubOwnerAndProject: "crystalservice/setretail10",
         antBuildTestFile: "setretail10/SetRetail10_Server_GUI/build_tests.xml",
-        isToBuildFlex: true
+        isToBuildFlex: true,
+        isToPublishUnitTests: false
 ).build(this)
 
 // build_flex_pull_request
