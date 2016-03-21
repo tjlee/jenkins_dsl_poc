@@ -64,6 +64,8 @@ class ServerJobTemplate {
                 label('windows_test')
             } else {
                 label('master')
+                this.antAirSdkDir = "/c/airsdk"
+                this.antFlexSdkDir = "/c/flexsdk"
             }
 
             if (this.isToBuildByPush) {
