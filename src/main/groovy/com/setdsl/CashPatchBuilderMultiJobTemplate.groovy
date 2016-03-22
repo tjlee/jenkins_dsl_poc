@@ -23,6 +23,8 @@ class CashPatchBuilderMultiJobTemplate {
                 numToKeep 20
             }
 
+            label('master')
+
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
                 stringParam('BRANCH', 'master', '')

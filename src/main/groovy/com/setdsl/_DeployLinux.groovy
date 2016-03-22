@@ -85,6 +85,8 @@ exit
                 numToKeep 20
             }
 
+            label('master')
+
             parameters {
                 stringParam('IP', '', '')
                 stringParam('SHOP_NUMBER', '', '')

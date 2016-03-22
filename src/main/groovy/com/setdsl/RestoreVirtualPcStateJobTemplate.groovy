@@ -182,6 +182,7 @@ exit
                 numToKeep 20
             }
 
+            label('master')
             parameters {
                 choiceParam('VMS', ['172.20.0.160:linux:standc_server1',
                                     '172.20.0.161:linux:standc_server2',

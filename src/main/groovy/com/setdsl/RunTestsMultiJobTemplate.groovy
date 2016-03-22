@@ -21,6 +21,7 @@ class RunTestsMultiJobTemplate {
                 numToKeep 20
             }
 
+            label('master')
             parameters {
                 stringParam('VERSION', '10.2.99.0', '')
                 stringParam('BRANCH', 'master', 'Server sources github branch or tag')

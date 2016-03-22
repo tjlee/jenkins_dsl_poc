@@ -65,6 +65,8 @@ cp \$JENKINS_HOME/userContent/gradlew.bat \$WORKSPACE/gradlew.bat || true;
                 numToKeep 28
             }
 
+            label('master')
+
             parameters {
                 stringParam('TEST_SOURCE_BRANCH', 'master', '')
 
