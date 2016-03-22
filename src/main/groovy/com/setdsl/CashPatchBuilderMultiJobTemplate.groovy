@@ -41,7 +41,7 @@ class CashPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION')
                             predefinedProp('BRANCH', '\$BRANCH')
-                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_cash_patch/workspace/builds/\$VERSION/cash/')
+                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/workspace/build_cash_patch/builds/\$VERSION/cash/')
                             sameNode()
                         }
                     }
@@ -52,7 +52,7 @@ class CashPatchBuilderMultiJobTemplate {
                             currentBuild()
                             predefinedProp('VERSION', '\$VERSION_TO')
                             predefinedProp('BRANCH', '\$BRANCH_TO')
-                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/jobs/build_cash_patch/workspace/builds/\$VERSION_TO/cash/')
+                            predefinedProp('CUSTOM_WORKSPACE', '/var/lib/jenkins/workspace/build_cash_patch/builds/\$VERSION_TO/cash/')
                             sameNode()
                         }
                     }
@@ -70,7 +70,7 @@ class CashPatchBuilderMultiJobTemplate {
                 // ./git/to_git
 
                 // ./patches
-
+                // /var/lib/jenkins/workspace/delete_me
 
                 shell('''mkdir -p \$WORKSPACE/git/to_git; cp -rf \$WORKSPACE/builds/\$VERSION_TO/cash/setretail10/patches \$WORKSPACE/git/to_git''')
 
