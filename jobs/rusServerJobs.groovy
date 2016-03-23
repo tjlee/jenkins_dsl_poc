@@ -36,6 +36,13 @@ new ServerJobTemplate(
         isToBuildFlex: true
 ).build(this)
 
+new ServerJobTemplate(
+        name: "build_exe_without_flex",
+        description: "Building exe server without flex",
+        buildType: "exe",
+        isToBuildFlex: false
+).build(this)
+
 // build_tgz_flex
 new ServerJobTemplate(
         name: "build_tgz_flex",
