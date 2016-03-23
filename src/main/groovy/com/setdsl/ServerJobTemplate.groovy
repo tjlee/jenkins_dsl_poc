@@ -264,6 +264,11 @@ class ServerJobTemplate {
                         }
 
                     } else if (this.buildType == "exe") {
+                        shell('''
+                        mkdir -p "\$WORKSPACE/gradle/wrapper";
+                        cp /c/gradle-wrapper/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true;
+                        cp /c/gradle-wrapper/gradlew.bat \$WORKSPACE/gradlew.bat || true;
+                    ''')
 
                         gradle('makeWinInstaller',
                                 '-PtempDir=/c/Temp -PmoduleVersion=\$VERSION -PdistrDir=\$WORKSPACE -Pbranch=\$BRANCH -Pshaid=\$GIT_COMMIT -PuseEmu -Ptest -PwildFly=\$WILD_FLY' +
