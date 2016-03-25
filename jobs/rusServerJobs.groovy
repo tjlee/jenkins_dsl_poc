@@ -1,3 +1,5 @@
+import com.setdsl.ServerExeJobTemplate
+import com.setdsl.ServerExeJobTemplateWrapper
 import com.setdsl.ServerJobTemplate
 
 /**
@@ -28,20 +30,34 @@ new ServerJobTemplate(
         isToBuildFlex: true
 ).build(this)
 
-// build_exe_flex
-new ServerJobTemplate(
-        name: "build_exe_flex",
-        description: "Building exe server with flex",
-        buildType: "exe",
-        isToBuildFlex: true
+
+new ServerExeJobTemplateWrapper(
+        name: "build_exe_with_flex",
+        description: "Builds exe with flex",
+
 ).build(this)
 
-new ServerJobTemplate(
+
+new ServerExeJobTemplate(
         name: "build_exe_without_flex",
-        description: "Building exe server without flex",
-        buildType: "exe",
-        isToBuildFlex: false
+        description: "Building exe server without flex"
 ).build(this)
+
+
+// build_exe_flex
+//new ServerJobTemplate(
+//        name: "build_exe_flex",
+//        description: "Building exe server with flex",
+//        buildType: "exe",
+//        isToBuildFlex: true
+//).build(this)
+
+//new ServerJobTemplate(
+//        name: "build_exe_without_flex",
+//        description: "Building exe server without flex",
+//        buildType: "exe",
+//        isToBuildFlex: false
+//).build(this)
 
 // build_tgz_flex
 new ServerJobTemplate(
@@ -110,13 +126,13 @@ new ServerJobTemplate(
 
 
 // build_pull_request_exe_flex
-new ServerJobTemplate(
-        name: "build_pull_request_exe_flex",
-        description: "Building pull request exe server with flex",
-        buildType: "exe",
-        isToBuildFlex: true,
-        isPullRequest: true
-).build(this)
+//new ServerJobTemplate(
+//        name: "build_pull_request_exe_flex",
+//        description: "Building pull request exe server with flex",
+//        buildType: "exe",
+//        isToBuildFlex: true,
+//        isPullRequest: true
+//).build(this)
 
 // build_pull_request_iso_flex
 new ServerJobTemplate(
