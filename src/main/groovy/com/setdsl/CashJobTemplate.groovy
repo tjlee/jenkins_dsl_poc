@@ -97,9 +97,9 @@ rm -rf $WORKSPACE/crystal-cash/;
 rm -rf $WORKSPACE/crystal-conf/;
 mkdir -p $WORKSPACE/crystal-cash/;
 mkdir -p $WORKSPACE/crystal-conf/;
-cd $WORKSPACE/$CASH_TYPE
-tar xvf crystal-cash.tar -C $WORKSPACE/crystal-cash/
-tar xvf crystal-conf.tar -C $WORKSPACE/crystal-conf/
+#cd $WORKSPACE/$CASH_TYPE
+#tar xvf crystal-cash.tar -C $WORKSPACE/crystal-cash/
+#tar xvf crystal-conf.tar -C $WORKSPACE/crystal-conf/
 # deploy cashes, listed in $IPS
 ARR=$(echo $IPS | tr ";" " ")
 
@@ -110,8 +110,13 @@ for IP in $ARR; do
  sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "rm -fr storage/crystal-cash/*"
  sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "rm -fr storage/crystal-conf/*"
  #copy cash
- sshpass -p "324012" scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $WORKSPACE/crystal-cash/* tc@$IP:storage/crystal-cash
- sshpass -p "324012" scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $WORKSPACE/crystal-conf/* tc@$IP:storage/crystal-conf
+ sshpass -p "324012" scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $WORKSPACE/$CASH_TYPE/crystal-cash.tar tc@$IP:storage/
+ sshpass -p "324012" scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $WORKSPACE/$CASH_TYPE/crystal-conf.tar tc@$IP:storage/
+ #unpack cash
+ sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "cd storage/; mkdir storage/crystal-cash; tar xvf crystal-cash.tar -C crystal-cash/"
+ sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "cd storage/; mkdir storage/crystal-conf; tar xvf crystal-conf.tar -C crystal-conf/"
+ #sshpass -p "324012" scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $WORKSPACE/crystal-cash/* tc@$IP:storage/crystal-cash
+ #sshpass -p "324012" scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $WORKSPACE/crystal-conf/* tc@$IP:storage/crystal-conf
  sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "rm -fr storage/drop*"
  sshpass -p "324012" scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $JENKINS_HOME/userContent/drop* tc@$IP:storage
  #drop db
