@@ -115,8 +115,6 @@ for IP in $ARR; do
  #unpack cash
  sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "cd storage/; mkdir -p storage/crystal-cash; tar xvf crystal-cash.tar -C crystal-cash/"
  sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "cd storage/; mkdir -p storage/crystal-conf; tar xvf crystal-conf.tar -C crystal-conf/"
- #sshpass -p "324012" scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $WORKSPACE/crystal-cash/* tc@$IP:storage/crystal-cash
- #sshpass -p "324012" scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $WORKSPACE/crystal-conf/* tc@$IP:storage/crystal-conf
  sshpass -p "324012" ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@$IP "rm -fr storage/drop*"
  sshpass -p "324012" scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $JENKINS_HOME/userContent/drop* tc@$IP:storage
  #drop db
@@ -417,23 +415,8 @@ done
                             shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-$VERSION-belarus.iso -d=$WORKSPACE -s=$WORKSPACE/Belarus/crystal-cash.tar -c=$WORKSPACE/Belarus/crystal-conf.tar -z=yes -v=java7')
                         }
                     }
-
-//                    if (this.clientType == 'pos') {
-//
-//                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-\$VERSION-pos.iso -d=\$WORKSPACE -s=\$WORKSPACE/POS/crystal-cash.tar -c=\$WORKSPACE/POS/crystal-conf.tar -z=yes -v=java7')
-//
-//                    } else if (this.clientType == 'lenta') {
-//
-//                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-$VERSION-lenta.iso -d=$WORKSPACE -s=$WORKSPACE/Lenta/crystal-cash.tar -c=$WORKSPACE/Lenta/crystal-conf.tar -z=yes -v=java7 -l=$WORKSPACE/Lenta/cash-configs.tar.gz')
-//
-//                    } else if (this.clientType == 'belarus') {
-//
-//                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-$VERSION-belarus.iso -d=$WORKSPACE -s=$WORKSPACE/Belarus/crystal-cash.tar -c=$WORKSPACE/Belarus/crystal-conf.tar -z=yes -v=java7')
-//
-//                    }
                 }
 
-                // todo: remove shit shit and put scripts into files, remove hard code
                 if (this.isToDeployCash || this.isToDeployRobot) {
 
                     environmentVariables {
@@ -479,20 +462,6 @@ done
                         }
                     }
 
-//
-//                    environmentVariables {
-//                        if (this.clientType == 'pos') {
-//                            env 'CASH_TYPE', 'POS'
-//                            env 'ROBOT_TYPE', 'pos'
-//                        } else if (this.clientType == 'lenta') {
-//                            env 'CASH_TYPE', 'Lenta'
-//                            env 'ROBOT_TYPE', 'Lenta'
-//                        } else if (this.clientType == 'belarus') {
-//                            env 'CASH_TYPE', 'Belarus'
-//                            env 'ROBOT_TYPE', 'posBelarus'
-//                        }
-//                    }
-//                    }f
 
                     if (this.isToDeployCash) {
                         shell(rebootScript)

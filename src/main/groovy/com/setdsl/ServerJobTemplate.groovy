@@ -64,14 +64,14 @@ class ServerJobTemplate {
                 numToKeep 28
             }
 
-            if (this.buildType == "exe") {
-                label('windows_test')
-                this.antAirSdkDir = "c:/airsdk"
-                this.antFlexSdkDir = "c:/flexsdk"
-            } else {
-                label('master')
+//            if (this.buildType == "exe") {
+//                label('windows_test')
+//                this.antAirSdkDir = "c:/airsdk"
+//                this.antFlexSdkDir = "c:/flexsdk"
+//            } else {
+            label('master')
 
-            }
+//            }
 
             if (this.isToBuildByPush) {
                 triggers {
@@ -82,6 +82,8 @@ class ServerJobTemplate {
             parameters {
                 stringParam('VERSION', '10.2.0.0', '')
                 stringParam('BRANCH', 'master', '')
+
+                choiceParam('CLIENT_TYPE', ["default", "lenta", "belarus"], 'Client type to build')
 
                 if (this.buildType) {
                     booleanParam('WILD_FLY', false, '')
@@ -97,7 +99,7 @@ class ServerJobTemplate {
                 }
 
             }
-            // todo: x3
+
             if (this.isCustomWorkspace) {
                 customWorkspace('\$CUSTOM_WORKSPACE')
             }
@@ -210,6 +212,49 @@ class ServerJobTemplate {
                 }
 
 
+
+                conditionalSteps {
+                    condition {
+                        stringsMatch('\$CLIENT_TYPE', 'default', true)
+                    }
+                    runner('Unstable')
+                    steps {
+                        environmentVariables {
+                            env 'CLIENT_ID', ''
+                        }
+                    }
+                }
+
+
+                conditionalSteps {
+                    condition {
+                        stringsMatch('\$CLIENT_TYPE', 'lenta', true)
+                    }
+                    runner('Unstable')
+                    steps {
+                        environmentVariables {
+                            env 'CLIENT_ID', ' -PclientId=lenta'
+                        }
+                    }
+                }
+
+
+                conditionalSteps {
+                    condition {
+                        stringsMatch('\$CLIENT_TYPE', 'belarus', true)
+                    }
+                    runner('Unstable')
+                    steps {
+                        environmentVariables {
+                            env 'CLIENT_ID', ' -PclientId=belarus'
+                        }
+                    }
+                }
+
+
+
+
+
                 if (this.buildType) {
                     // copy gradle wrapper
                     shell('''
@@ -224,9 +269,12 @@ class ServerJobTemplate {
 
                         // TODO:
                         // TODO: remove -xtest and change for -Ptest
+//                        gradle('clean makeTar',
+//                                '-PtempDir=\$JENKINS_HOME/userContent/ -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Ptest -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -Plinux' +
+//                                        (this.clientType ? ' -PclientId=' + this.clientType : ''),
+//                                true) {
                         gradle('clean makeTar',
-                                '-PtempDir=\$JENKINS_HOME/userContent/ -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Ptest -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -Plinux' +
-                                        (this.clientType ? ' -PclientId=' + this.clientType : ''),
+                                '-PtempDir=\$JENKINS_HOME/userContent/ -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Ptest -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -Plinux' + '\$CLIENT_ID',
                                 true) {
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation')
                             it / wrapperScript('gradlew')
@@ -236,16 +284,25 @@ class ServerJobTemplate {
                         }
 
                         // copy to workspace
-                        shell('mv -f "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation/build/Set\$VERSION' +
-                                (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz" "\$WORKSPACE/"')
+//                        shell('mv -f "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation/build/Set\$VERSION' +
+//                                (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz" "\$WORKSPACE/"')
+
+                                                shell('mv -f "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation/build/Set\$VERSION' +
+                                                        '\$CLIENT_ID' + '.tgz" "\$WORKSPACE/"')
+
 
                     } else if (this.buildType == "distr") {
                         // for patch build
 
+//                        gradle('clean makeDistr',
+//                                '-PtempDir=\$JENKINS_HOME/userContent/ -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -Ptest -PuseEmu -Plinux' +
+//                                        (this.clientType ? ' -PclientId=' + this.clientType : ''),
+//                                true) {
                         gradle('clean makeDistr',
                                 '-PtempDir=\$JENKINS_HOME/userContent/ -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -Ptest -PuseEmu -Plinux' +
-                                        (this.clientType ? ' -PclientId=' + this.clientType : ''),
+                                        '\$CLIENT_ID',
                                 true) {
+
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation')
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
@@ -257,44 +314,50 @@ class ServerJobTemplate {
 
 
                     } else if (this.buildType == "ear") {
+//                        gradle('clean ear test',
+//                                '-PtempDir=\$JENKINS_HOME/userContent -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -PwildFly="\$WILD_FLY"' +
+//                                        (this.clientType ? ' -PclientId=' + this.clientType : ''),
+//                                true) {
                         gradle('clean ear test',
                                 '-PtempDir=\$JENKINS_HOME/userContent -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -PwildFly="\$WILD_FLY"' +
-                                        (this.clientType ? ' -PclientId=' + this.clientType : ''),
+                                        '\$CLIENT_ID',
                                 true) {
+
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle')
                             it / wrapperScript('gradlew')
                             it / makeExecutable(true)
                             it / fromRootBuildScriptDir(false)
                         }
 
-                    } else if (this.buildType == "exe") {
-                        shell('''
-                        mkdir -p "\$WORKSPACE/gradle/wrapper";
-                        cp /c/gradle-wrapper/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true;
-                        cp /c/gradle-wrapper/gradlew.bat \$WORKSPACE/gradlew.bat || true;
-                    ''')
-
-                        gradle('makeWinInstaller',
-                                '-PtempDir=/c/Temp -PmoduleVersion=\$VERSION -PdistrDir=\$WORKSPACE -Pbranch=\$BRANCH -Pshaid=\$GIT_COMMIT -PuseEmu -Ptest -PwildFly=\$WILD_FLY' +
-                                        (this.clientType ? ' -PclientId=' + this.clientType : ''),
-                                true) {
-                            it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation')
-                            it / wrapperScript('gradlew')
-                            it / makeExecutable(true)
-                            it / fromRootBuildScriptDir(false)
-                        }
-
-                        // copying with bash.exe on windows
-                        shell('''
-                    cd "\$WORKSPACE";
-                    for file in *.exe
-                    do
-                    if [[ "$file" == *"setup.exe"* ]]
-                    then
-                    mv -fv "$file" Set"\$VERSION"''' + (this.clientType ? '_' + this.clientType : '') + '''_setup.exe
-                    fi
-                    done''')
                     }
+//                    else if (this.buildType == "exe") {
+//                        shell('''
+//                        mkdir -p "\$WORKSPACE/gradle/wrapper";
+//                        cp /c/gradle-wrapper/gradle/wrapper/* \$WORKSPACE/gradle/wrapper || true;
+//                        cp /c/gradle-wrapper/gradlew.bat \$WORKSPACE/gradlew.bat || true;
+//                    ''')
+//
+//                        gradle('makeWinInstaller',
+//                                '-PtempDir=/c/Temp -PmoduleVersion=\$VERSION -PdistrDir=\$WORKSPACE -Pbranch=\$BRANCH -Pshaid=\$GIT_COMMIT -PuseEmu -Ptest -PwildFly=\$WILD_FLY' +
+//                                        (this.clientType ? ' -PclientId=' + this.clientType : ''),
+//                                true) {
+//                            it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation')
+//                            it / wrapperScript('gradlew')
+//                            it / makeExecutable(true)
+//                            it / fromRootBuildScriptDir(false)
+//                        }
+//
+//                        // copying with bash.exe on windows
+//                        shell('''
+//                    cd "\$WORKSPACE";
+//                    for file in *.exe
+//                    do
+//                    if [[ "$file" == *"setup.exe"* ]]
+//                    then
+//                    mv -fv "$file" Set"\$VERSION"''' + (this.clientType ? '_' + this.clientType : '') + '''_setup.exe
+//                    fi
+//                    done''')
+//                    }
 
                     shell('mv -f "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle/build/libs/Set10.ear" "\$WORKSPACE"')
                     shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle"; rm ./*.war -f;')
@@ -304,13 +367,19 @@ class ServerJobTemplate {
 
                         shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/"')
                         shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build7.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
-                                (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz"')
+                                '\$CLIENT_ID' + '.tgz"')
+
+//                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build7.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
+//                                (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz"')
 
                     } else if (this.buildType == "sh") {
                         // todo: in progress
                         shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/"')
                         shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build_set10.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
-                                (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz"')
+                                '\$CLIENT_ID' + '.tgz"')
+
+//                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build_set10.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
+//                                (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz"')
 
                     }
                 }
