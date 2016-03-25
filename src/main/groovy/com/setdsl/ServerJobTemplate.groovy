@@ -288,7 +288,7 @@ class ServerJobTemplate {
 //                                (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz" "\$WORKSPACE/"')
 
                                                 shell('mv -f "\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation/build/Set\$VERSION' +
-                                                        '\$CLIENT_ID' + '.tgz" "\$WORKSPACE/"')
+                                                        '$CLIENT_ID' + '.tgz" "\$WORKSPACE/"')
 
 
                     } else if (this.buildType == "distr") {
@@ -300,7 +300,7 @@ class ServerJobTemplate {
 //                                true) {
                         gradle('clean makeDistr',
                                 '-PtempDir=\$JENKINS_HOME/userContent/ -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -Ptest -PuseEmu -Plinux' +
-                                        '\$CLIENT_ID',
+                                        '$CLIENT_ID',
                                 true) {
 
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/Installation')
@@ -320,7 +320,7 @@ class ServerJobTemplate {
 //                                true) {
                         gradle('clean ear test',
                                 '-PtempDir=\$JENKINS_HOME/userContent -PmoduleVersion="\$VERSION" -PdistrDir="\$WORKSPACE" -Pbranch="\$GIT_BRANCH" -Pshaid="\$GIT_COMMIT" -PuseEmu -PwildFly="\$WILD_FLY"' +
-                                        '\$CLIENT_ID',
+                                        '$CLIENT_ID',
                                 true) {
 
                             it / rootBuildScriptDir('\$WORKSPACE/' + this.gitHubCheckoutDir + '/SetRetail10_Server/buildGradle')
@@ -367,7 +367,7 @@ class ServerJobTemplate {
 
                         shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/"')
                         shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build7.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
-                                '\$CLIENT_ID' + '.tgz"')
+                                '$CLIENT_ID' + '.tgz"')
 
 //                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build7.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
 //                                (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz"')
@@ -376,7 +376,7 @@ class ServerJobTemplate {
                         // todo: in progress
                         shell('cd "\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/"')
                         shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build_set10.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
-                                '\$CLIENT_ID' + '.tgz"')
+                                '$CLIENT_ID' + '.tgz"')
 
 //                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/server/build_set10.sh -d="\$WORKSPACE" -s="\$WORKSPACE/Set\$VERSION' +
 //                                (this.clientType ? '-\$CLIENT_TYPE' : '') + '.tgz"')
