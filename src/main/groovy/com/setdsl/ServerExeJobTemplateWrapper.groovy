@@ -62,7 +62,7 @@ class ServerExeJobTemplateWrapper {
                         currentJobParameters(true)
                         parameters {
                             currentBuild()
-                            nodeLabel('master')
+                            nodeLabel('master', 'master')
                         }
                     }
                 }
@@ -73,7 +73,7 @@ class ServerExeJobTemplateWrapper {
                         currentJobParameters(true)
                         parameters {
                             currentBuild()
-                            nodeLabel('windows_test')
+                            nodeLabel('windows_test','windows_test')
                         }
                     }
                 }
