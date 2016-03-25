@@ -293,9 +293,8 @@ done
                     stringParam('IPS', '', 'Divide ips by ; ')
                 }
 
-                if (this.buildType == "iso") {
-                    choiceParam('CLIENT_TYPE', ["pos", "lenta", "belarus"])
-                }
+                choiceParam('CLIENT_TYPE', ["pos", "lenta", "belarus"])
+
             }
 
             if (this.isCustomWorkspace) {
