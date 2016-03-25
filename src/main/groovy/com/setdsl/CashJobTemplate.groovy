@@ -293,7 +293,7 @@ done
                     stringParam('IPS', '', 'Divide ips by ; ')
                 }
 
-                choiceParam('CLIENT_TYPE', ["pos", "lenta", "belarus"])
+                choiceParam('CLIENT_TYPE', ["pos", "lenta", "belarus"], 'Client type to build iso or deploy robot')
 
             }
 
