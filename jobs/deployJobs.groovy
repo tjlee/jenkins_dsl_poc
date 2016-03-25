@@ -11,7 +11,7 @@ new CashJobTemplate(
         name: 'deploy_pos_cash_n_robot',
         description: 'Builds and deploys pos cash with robot',
         buildType: "tar",
-        clientType: "pos",
+//        clientType: "pos",
         isToDeployCash: true,
         isToDeployRobot: true
 ).build(this)
@@ -21,7 +21,7 @@ new CashJobTemplate(
         name: 'deploy_pull_request_pos_cash_n_robot',
         description: 'Builds and deploys pos cash with robot',
         buildType: "tar",
-        clientType: "pos",
+//        clientType: "pos",
         isToDeployCash: true,
         isToDeployRobot: true,
         isPullRequest: true
@@ -32,7 +32,7 @@ new CashJobTemplate(
         name: 'deploy_pos_cash',
         description: 'Builds and deploys pos cash',
         buildType: "tar",
-        clientType: "pos",
+//        clientType: "pos",
         isToDeployCash: true
 ).build(this)
 

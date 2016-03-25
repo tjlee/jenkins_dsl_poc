@@ -26,6 +26,10 @@ class ServerJobTemplate {
     String buildType /* iso, tgz, exe, ear, distr, sh */
     String clientType /*default lenta belarus*//*for default leave empty*/
 
+    /// so need to make mapping default / lenta / belarus
+    /// if default => leave empty kinda shit :)
+
+
     Boolean isToBuildFlex = false
     Boolean isPullRequest = false
 

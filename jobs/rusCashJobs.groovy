@@ -14,7 +14,7 @@ new CashJobTemplate(
         name: 'build_pos_cash_tar_custom_workspace',
         description: 'Builds pos cash tar',
         buildType: "tar",
-        clientType: "pos",
+//        clientType: "pos",
         isCustomWorkspace: true
 ).build(this)
 
@@ -31,8 +31,9 @@ new CashJobTemplate(
 new CashJobTemplate(
         name: 'build_pos_cash_iso',
         description: 'Builds pos cash iso',
-        buildType: "iso",
-        clientType: "pos"
+        buildType: "iso"
+//        ,
+//        clientType: "pos"
 ).build(this)
 
 // build_pull_request_pos_cash_tar
@@ -40,7 +41,7 @@ new CashJobTemplate(
         name: 'build_pull_request_pos_cash_tar',
         description: 'Builds pull request pos cash tar',
         buildType: "tar",
-        clientType: "pos",
+//        clientType: "pos",
         isPullRequest: true
 ).build(this)
 
@@ -58,6 +59,6 @@ new CashJobTemplate(
         name: 'build_master_tar_after_push_to_repo',
         description: 'Builds pos cash tar after push to repository',
         buildType: "tar",
-        clientType: "pos",
+//        clientType: "pos",
         isToBuildByPush: true
 ).build(this)

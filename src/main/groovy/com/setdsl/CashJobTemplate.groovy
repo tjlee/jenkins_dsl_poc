@@ -250,7 +250,7 @@ done
     String gitHubCheckoutDirLinuxSources = "setretail10linux"
 
     String buildType /* tar or iso*/
-    String clientType /*default lenta belarus*/ /*POS, Lenta, Belarus*/
+//    String clientType /*default lenta belarus*/ /*POS, Lenta, Belarus*/
 
     Boolean isPullRequest = false
     Boolean isToPublishUnitTests = true
@@ -292,9 +292,10 @@ done
                 if (this.isToDeployCash) {
                     stringParam('IPS', '', 'Divide ips by ; ')
                 }
+
+                choiceParam('CLIENT_TYPE', ["pos", "lenta", "belarus"])
             }
 
-            // todo: x3
             if (this.isCustomWorkspace) {
                 customWorkspace('\$CUSTOM_WORKSPACE')
             }
@@ -380,19 +381,50 @@ done
 
                     shell('cd \$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/;')
 
-                    if (this.clientType == 'pos') {
 
-                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-\$VERSION-pos.iso -d=\$WORKSPACE -s=\$WORKSPACE/POS/crystal-cash.tar -c=\$WORKSPACE/POS/crystal-conf.tar -z=yes -v=java7')
-
-                    } else if (this.clientType == 'lenta') {
-
-                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-$VERSION-lenta.iso -d=$WORKSPACE -s=$WORKSPACE/Lenta/crystal-cash.tar -c=$WORKSPACE/Lenta/crystal-conf.tar -z=yes -v=java7 -l=$WORKSPACE/Lenta/cash-configs.tar.gz')
-
-                    } else if (this.clientType == 'belarus') {
-
-                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-$VERSION-belarus.iso -d=$WORKSPACE -s=$WORKSPACE/Belarus/crystal-cash.tar -c=$WORKSPACE/Belarus/crystal-conf.tar -z=yes -v=java7')
-
+                    conditionalSteps {
+                        condition {
+                            stringsMatch('\$CLIENT_TYPE', 'pos', true)
+                        }
+                        runner('Unstable')
+                        steps {
+                            shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-\$VERSION-pos.iso -d=\$WORKSPACE -s=\$WORKSPACE/POS/crystal-cash.tar -c=\$WORKSPACE/POS/crystal-conf.tar -z=yes -v=java7')
+                        }
                     }
+
+                    conditionalSteps {
+                        condition {
+                            stringsMatch('\$CLIENT_TYPE', 'lenta', true)
+                        }
+                        runner('Unstable')
+                        steps {
+                            shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-$VERSION-lenta.iso -d=$WORKSPACE -s=$WORKSPACE/Lenta/crystal-cash.tar -c=$WORKSPACE/Lenta/crystal-conf.tar -z=yes -v=java7 -l=$WORKSPACE/Lenta/cash-configs.tar.gz')
+                        }
+                    }
+
+                    conditionalSteps {
+                        condition {
+                            stringsMatch('\$CLIENT_TYPE', 'belarus', true)
+                        }
+                        runner('Unstable')
+                        steps {
+                            shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-$VERSION-belarus.iso -d=$WORKSPACE -s=$WORKSPACE/Belarus/crystal-cash.tar -c=$WORKSPACE/Belarus/crystal-conf.tar -z=yes -v=java7')
+                        }
+                    }
+
+//                    if (this.clientType == 'pos') {
+//
+//                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-\$VERSION-pos.iso -d=\$WORKSPACE -s=\$WORKSPACE/POS/crystal-cash.tar -c=\$WORKSPACE/POS/crystal-conf.tar -z=yes -v=java7')
+//
+//                    } else if (this.clientType == 'lenta') {
+//
+//                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-$VERSION-lenta.iso -d=$WORKSPACE -s=$WORKSPACE/Lenta/crystal-cash.tar -c=$WORKSPACE/Lenta/crystal-conf.tar -z=yes -v=java7 -l=$WORKSPACE/Lenta/cash-configs.tar.gz')
+//
+//                    } else if (this.clientType == 'belarus') {
+//
+//                        shell('\$WORKSPACE/' + this.gitHubCheckoutDirLinuxSources + '/cash-tinycore3/build.sh -i=set-retail-$VERSION-belarus.iso -d=$WORKSPACE -s=$WORKSPACE/Belarus/crystal-cash.tar -c=$WORKSPACE/Belarus/crystal-conf.tar -z=yes -v=java7')
+//
+//                    }
                 }
 
                 // todo: remove shit shit and put scripts into files, remove hard code
@@ -400,18 +432,60 @@ done
 
                     environmentVariables {
                         env 'IPS', '\$IPS'
-//                        env 'GIPS',
-                        if (this.clientType == 'pos') {
-                            env 'CASH_TYPE', 'POS'
-                            env 'ROBOT_TYPE', 'pos'
-                        } else if (this.clientType == 'lenta') {
-                            env 'CASH_TYPE', 'Lenta'
-                            env 'ROBOT_TYPE', 'Lenta'
-                        } else if (this.clientType == 'belarus') {
-                            env 'CASH_TYPE', 'Belarus'
-                            env 'ROBOT_TYPE', 'posBelarus'
+                    }
+
+                    conditionalSteps {
+                        condition {
+                            stringsMatch('\$CLIENT_TYPE', 'pos', true)
+                        }
+                        runner('Unstable')
+                        steps {
+                            environmentVariables {
+                                env 'CASH_TYPE', 'POS'
+                                env 'ROBOT_TYPE', 'pos'
+                            }
                         }
                     }
+
+                    conditionalSteps {
+                        condition {
+                            stringsMatch('\$CLIENT_TYPE', 'lenta', true)
+                        }
+                        runner('Unstable')
+                        steps {
+                            environmentVariables {
+                                env 'CASH_TYPE', 'Lenta'
+                                env 'ROBOT_TYPE', 'Lenta'
+                            }
+                        }
+                    }
+
+                    conditionalSteps {
+                        condition {
+                            stringsMatch('\$CLIENT_TYPE', 'belarus', true)
+                        }
+                        runner('Unstable')
+                        steps {
+                            environmentVariables {
+                                env 'CASH_TYPE', 'Belarus'
+                                env 'ROBOT_TYPE', 'posBelarus'
+                            }
+                        }
+                    }
+
+//
+//                    environmentVariables {
+//                        if (this.clientType == 'pos') {
+//                            env 'CASH_TYPE', 'POS'
+//                            env 'ROBOT_TYPE', 'pos'
+//                        } else if (this.clientType == 'lenta') {
+//                            env 'CASH_TYPE', 'Lenta'
+//                            env 'ROBOT_TYPE', 'Lenta'
+//                        } else if (this.clientType == 'belarus') {
+//                            env 'CASH_TYPE', 'Belarus'
+//                            env 'ROBOT_TYPE', 'posBelarus'
+//                        }
+//                    }
 //                    }f
 
                     if (this.isToDeployCash) {
